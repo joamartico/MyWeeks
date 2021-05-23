@@ -1,3 +1,25 @@
+a,
+a:hover,
+a:focus,
+a:active,
+*,
+:root {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* .ion-searchbar {
+  position: absolute !important;
+  bottom: 0 !important;
+} */
+
+.ion-select,
+.ion-item,
+.select-md,
+.select {
+  background-color: #0099e0 !important;
+  border: none !important;
+}
+
 :root {
   --safe-area-top: env(safe-area-inset-top);
   --safe-area-bottom: env(safe-area-inset-bottom, 0);
@@ -6,14 +28,17 @@
 }
 body {
   overflow: hidden;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  display: flex;
+  width: 100%;
+  background: blue;
 }
 
-#__next {
+/* #__next {
   height: 100vh;
   width: 100vw;
-}
+  overflow-y: hidden;
+} */
 
 /**
  * Styles for the Icon UI component.
@@ -22,9 +47,6 @@ body {
  */
 .ui-icon {
   display: inline-block;
-
-  width: 1em;
-  height: 1em;
 
   contain: strict;
 

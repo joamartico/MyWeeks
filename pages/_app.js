@@ -1,6 +1,5 @@
 import Head from 'next/head';
 
-import 'tailwindcss/tailwind.css';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/padding.css';
 import '@ionic/react/css/float-elements.css';
