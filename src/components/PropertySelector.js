@@ -18,17 +18,8 @@ const PropertySelector = () => {
     <>
       {(showSearchBar == false || isPlatform('mobile') == false) && (
         <IonButtons slot="start">
-          <IonItem
-            lines="none"
-            // style={{ height: '40px' }}
-          >
+          <IonItem lines="none">
             <IonSelect
-              //   style={{ position: 'fixed'}}
-              style={
-                {
-                  // height: '40px'
-                }
-              }
               value={property}
               onIonChange={e => setProperty(e.detail.value)}
               interface="popover"
@@ -37,7 +28,7 @@ const PropertySelector = () => {
               <IonSelectOption value="Atomic Mass">Atomic Mass</IonSelectOption>
               <IonSelectOption value="Density">Density</IonSelectOption>
               <IonSelectOption value="Electronegativity">Electronegativity</IonSelectOption>
-              <IonSelectOption value="Electron Afinity">Electron Afinity</IonSelectOption>
+              <IonSelectOption value="Electron Affinity">Electron Affinity</IonSelectOption>
               <IonSelectOption value="Radio">Radio</IonSelectOption>
               <IonSelectOption value="Boil Temperature">Boil Temperature</IonSelectOption>
               <IonSelectOption value="Melt Temperature">Melt Temperature</IonSelectOption>

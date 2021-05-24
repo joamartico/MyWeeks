@@ -10,29 +10,60 @@ const Element = ({
   category,
   electronegativity,
   density,
-  electron_afinity,
+  electron_affinity,
   boil_temperature,
   melt_temperature,
+  radio,
 }) => {
-  const { property } = useContext(Context);
+  const { property, searchText } = useContext(Context);
+
+  const isElementSearched = _property => {
+    if (searchText != '' && searchText != undefined && symbol && name) {
+      if (
+        symbol.toLowerCase().includes(searchText.toLowerCase()) ||
+        name.toLowerCase().includes(searchText.toLowerCase())
+      ) {
+        if (_property === 'Atomic Mass') return 'ff';
+        else return '1';
+      } else {
+        if (_property === 'Atomic Mass') return '30';
+        else return '0.4';
+      }
+    } else {
+      if (_property === 'Atomic Mass') return '50';
+      else return '1';
+    }
+  };
 
   return (
-    <ElementWrapper category={category}>
+    <ElementWrapper
+      category={category}
+      property={property}
+      electronegativity={electronegativity}
+      electron_affinity={electron_affinity}
+      density={density}
+      boil_temperature={boil_temperature}
+      melt_temperature={melt_temperature}
+      opacity={isElementSearched(property)}
+    >
       <Row>
         <AtomicNumber>{atomic_number}</AtomicNumber>
-        {/*  SI ES PANTALLA MUY CHICA :*/}
-        <Symbol>{symbol}</Symbol>
+        {console.log(window.screen.height)}
+        {window.screen.height < 670 && <Symbol>{symbol}</Symbol>}
       </Row>
 
       <Column>
         {/* SI ES PANTALLA GRANDE:  */}
-
-        {/* <Symbol>{symbol}</Symbol> */}
+        {window.screen.height > 671 && <Symbol>{symbol}</Symbol>}
 
         <Name>{name}</Name>
 
         <PropertyValue>
           {property == 'Atomic Mass' && atomic_mass}
+          {property == 'Density' && density}
+          {property == 'Electron Affinity' && electron_affinity}
+          {property == 'Boil Temperature' && boil_temperature}
+          {property == 'Melt Temperature' && melt_temperature}
           {property == 'Electronegativity' && electronegativity}
         </PropertyValue>
       </Column>
@@ -45,14 +76,26 @@ const ElementWrapper = styled.div`
   width: 100%;
   margin-bottom: 10%;
   background: ${props => {
-    if (props.category == 'alkali metal') return '#ff000050';
-    if (props.category == 'alkaline earth metal') return '#ff500050';
-    if (props.category == 'transition metal') return '#ffff0050';
-    if (props.category == 'post-transition metal') return '#00ff0050';
-    if (props.category == 'metalloid') return '#00ffff50';
-    if (props.category == 'nonmetal') return '#0000ff50';
-    if (props.category == 'noble gas') return '#ff00ff50';
-    else return '#ddddddaa';
+    if (props.property == 'Atomic Mass') {
+      if (props.category == 'alkali metal') return `#ff0000${props.opacity}`;
+      if (props.category == 'alkaline earth metal') return `#ff7700${props.opacity}`;
+      if (props.category == 'transition metal') return `#ffff00${props.opacity}`;
+      if (props.category == 'post-transition metal') return `#00ff00${props.opacity}`;
+      if (props.category == 'metalloid') return `#00ffff${props.opacity}`;
+      if (props.category == 'nonmetal') return `#0000ff${props.opacity}`;
+      if (props.category == 'noble gas') return `#ff00ff${props.opacity}`;
+      else return '#ddddddaa';
+    }
+    if (props.property == 'Electronegativity')
+      return `rgb(255, ${(1 - props.electronegativity / 4) * 320}, 0 ,${props.opacity})`;
+    if (props.property == 'Density')
+      return `rgb(255, ${(1 - props.density / 23) * 255}, 0, ${props.opacity})`;
+    if (props.property == 'Electron Affinity')
+      return `rgb(255, ${(1 - props.electron_affinity / 330) * 255}, 0, ${props.opacity})`;
+    if (props.property == 'Boil Temperature')
+      return `rgb(255, ${(1 - props.boil_temperature / 6500) * 255}, 0, ${props.opacity})`;
+    if (props.property == 'Melt Temperature')
+      return `rgb(255, ${(1 - props.melt_temperature / 3300) * 255}, 0, ${props.opacity})`;
   }};
   border-radius: 10px;
   display: flex;
@@ -66,9 +109,11 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-  justify-content: center;
   align-items: center;
   text-align: center;
+  justify-content: space-evenly;
+  padding-top: 10px;
+  padding-bottom: 10px;
   /* margin-top: -15px; */
 `;
 const Row = styled.div`
@@ -83,7 +128,7 @@ const Row = styled.div`
 `;
 
 const AtomicNumber = styled.p`
-  font-size: 15px;
+  font-size: 1.8vh;
   font-weight: bold;
   /* height: 25px; */
   margin-right: auto;
@@ -91,7 +136,7 @@ const AtomicNumber = styled.p`
 
 const Symbol = styled.p`
   /* font-size: 16px; */
-  font-size: 110%;
+  font-size: 2vh;
   font-weight: bold;
   margin: 0;
   display: flex;

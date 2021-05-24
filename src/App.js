@@ -4,7 +4,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Route } from 'react-router-dom';
 import Context from './Context';
 
-import PeriodicTable from './pages/PeriodicTable.js';
+import PeriodicTable from './pages/Index.js';
 
 const App = () => {
   return (
