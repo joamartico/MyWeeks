@@ -33,6 +33,12 @@ body {
   width: 100%;
 }
 
+.my-custom-class {
+  padding-top: 50px;
+  --width: 80vw;
+  --border-radius: 15px !important;
+}
+
 /* #__next {
   height: 100vh;
   width: 100vw;

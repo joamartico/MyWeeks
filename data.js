@@ -6,7 +6,7 @@ export const elements = [
     boil: 20.271,
     category: 'nonmetal',
     color: null,
-    density: 0.08988,
+    density: 0.0898,
     discovered_by: 'Henry Cavendish',
     melt: 13.99,
     molar_heat: 28.836,
@@ -33,7 +33,7 @@ export const elements = [
     name: 'Helium',
     appearance:
       'colorless gas, exhibiting a red-orange glow when placed in a high-voltage electric field',
-    atomic_mass: 4.0026022,
+    atomic_mass: 4.0026,
     boil: 4.222,
     category: 'noble gas',
     color: null,
@@ -93,7 +93,7 @@ export const elements = [
   {
     name: 'Beryllium',
     appearance: 'white-gray metallic',
-    atomic_mass: 9.01218315,
+    atomic_mass: 9.0121,
     boil: 2742,
     category: 'alkaline earth metal',
     color: null,
@@ -274,7 +274,7 @@ export const elements = [
     name: 'Neon',
     appearance:
       'colorless gas exhibiting an orange-red glow when placed in a high voltage electric field',
-    atomic_mass: 20.17976,
+    atomic_mass: 20.1797,
     boil: 27.104,
     category: 'noble gas',
     color: null,
@@ -400,7 +400,7 @@ export const elements = [
   {
     name: 'Aluminium',
     appearance: 'silvery gray metallic',
-    atomic_mass: 26.98153857,
+    atomic_mass: 26.9815,
     boil: 2743,
     category: 'post-transition metal',
     color: null,
@@ -1608,7 +1608,7 @@ export const elements = [
   {
     name: 'Yttrium',
     appearance: 'silvery white',
-    atomic_mass: 88.905842,
+    atomic_mass: 88.9058,
     boil: 3203,
     category: 'transition metal',
     color: null,
@@ -1681,7 +1681,7 @@ export const elements = [
   {
     name: 'Niobium',
     appearance: 'gray metallic, bluish when oxidized',
-    atomic_mass: 92.906372,
+    atomic_mass: 92.9063,
     boil: 5017,
     category: 'transition metal',
     color: null,
@@ -1832,7 +1832,7 @@ export const elements = [
   {
     name: 'Rhodium',
     appearance: 'silvery white metallic',
-    atomic_mass: 102.905502,
+    atomic_mass: 102.9055,
     boil: 3968,
     category: 'transition metal',
     color: null,
@@ -1892,7 +1892,7 @@ export const elements = [
   {
     name: 'Silver',
     appearance: 'lustrous white metal',
-    atomic_mass: 107.86822,
+    atomic_mass: 107.8682,
     boil: 2435,
     category: 'transition metal',
     color: null,
@@ -2072,7 +2072,7 @@ export const elements = [
   {
     name: 'Iodine',
     appearance: 'lustrous metallic gray, violet as a gas',
-    atomic_mass: 126.904473,
+    atomic_mass: 126.9044,
     boil: 457.4,
     category: 'nonmetal',
     color: null,

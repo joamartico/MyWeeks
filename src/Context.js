@@ -7,6 +7,7 @@ const ContextComponent = props => {
   const [property, setProperty] = useState('Atomic Mass');
   const [searchText, setSearchText] = useState(undefined);
   const [showSearchBar, setShowSearchBar] = useState(!isPlatform('mobile')); // mobile => false, compu => true
+  const [elementModal, setElementModal] = useState(null);
 
   return (
     <Context.Provider
@@ -17,6 +18,8 @@ const ContextComponent = props => {
         setProperty,
         searchText,
         setSearchText,
+        elementModal,
+        setElementModal,
       }}
     >
       {props.children}

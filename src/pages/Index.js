@@ -6,6 +6,7 @@ import { IonPage, IonHeader, IonToolbar, IonButtons, IonContent } from '@ionic/r
 import PropertySelector from '../components/PropertySelector';
 import SearchBarOrIcon from '../components/SearchBarOrIcon';
 import PeriodicTable from '../components/PeriodicTable';
+import ElementModal from '../components/ElementModal';
 
 const Index = () => {
   return (
@@ -21,6 +22,8 @@ const Index = () => {
         <ScrollX>
           <PeriodicTable />
         </ScrollX>
+
+        <ElementModal />
       </IonContent>
     </IonPage>
   );
