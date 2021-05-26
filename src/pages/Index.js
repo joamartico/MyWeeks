@@ -11,8 +11,8 @@ import ElementModal from '../components/ElementModal';
 const Index = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
+      <IonHeader style={{ background: 'red !important' }}>
+        <IonToolbar style={{ background: 'red !important' }}>
           <SearchBarOrIcon />
           <PropertySelector />
         </IonToolbar>

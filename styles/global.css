@@ -33,6 +33,10 @@ ion-searchbar .ion-color.sc-ion-searchbar-ios-h {
   --clear-button-color: #128d15 !important;
 }
 
+ion-toolbar {
+  height: 50px;
+}
+
 .ion-select,
 .ion-item,
 .select-md,
