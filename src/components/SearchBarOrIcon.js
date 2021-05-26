@@ -12,7 +12,7 @@ const SearchBarOrIcon = () => {
         <IonSearchbar
           onIonChange={e => setSearchText(e.detail.value)}
           showCancelButton={isPlatform('mobile') ? 'always' : 'never'}
-          showClearButton="never"
+          // clearIcon="close-circle"
           mode="ios"
           onIonCancel={() => setShowSearchBar(false)}
           style={{

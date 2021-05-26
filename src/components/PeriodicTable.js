@@ -17,15 +17,17 @@ const PeriodicTable = () => {
               .map(element => (
                 <Element
                   name={element.name}
-                  atomic_mass={element.atomic_mass?.toFixed(4)}
+                  atomic_mass={element.atomic_mass}
                   atomic_number={element.number}
                   symbol={element.symbol}
                   category={element.category}
-                  density={element.density?.toFixed(2)}
-                  electronegativity={element.electronegativity_pauling?.toFixed(2)}
-                  electron_affinity={element.electron_affinity?.toFixed(2)}
-                  boil_temperature={element.boil?.toFixed(0)}
-                  melt_temperature={element.melt?.toFixed(0)}
+                  density={element.density}
+                  electronegativity={element.electronegativity_pauling}
+                  electron_affinity={element.electron_affinity}
+                  boil_temperature={element.boil}
+                  melt_temperature={element.melt}
+                  electron_configuration_semantic={element.electron_configuration_semantic}
+                  description={element.summary}
                 />
               ))}
           </Group>

@@ -5,12 +5,33 @@ a:active,
 *,
 :root {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  /* --clear-button-color: #ff0000 !important; */
 }
 
-/* .ion-searchbar {
-  position: absolute !important;
-  bottom: 0 !important;
-} */
+ion-searchbar .searchbar-clear-button.sc-ion-searchbar-ios {
+  /* --clear-button-color: #128d15 !important; */
+  background-color: #ededed;
+  /* color: #128d15 !important; */
+  margin-right: 20px;
+}
+
+ion-searchbar .ion-color.sc-ion-searchbar-ios-h {
+  background-color: #128d15 !important;
+  color: #128d15 !important;
+  --clear-button-color: #128d15 !important;
+}
+
+.ion-color.sc-ion-searchbar-ios-h {
+  background-color: #128d15 !important;
+  color: #128d15 !important;
+  --clear-button-color: #128d15 !important;
+}
+
+.clear-icon {
+  background-color: #128d15 !important;
+  color: #128d15 !important;
+  --clear-button-color: #128d15 !important;
+}
 
 .ion-select,
 .ion-item,
@@ -31,12 +52,6 @@ body {
   height: 100%;
   display: flex;
   width: 100%;
-}
-
-.my-custom-class {
-  padding-top: 50px;
-  --width: 80vw;
-  --border-radius: 15px !important;
 }
 
 /* #__next {

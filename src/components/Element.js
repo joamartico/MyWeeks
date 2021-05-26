@@ -24,8 +24,8 @@ const Element = props => {
   const isElementSearched = _property => {
     if (searchText != '' && searchText != undefined && symbol && name) {
       if (
-        symbol.toLowerCase().includes(searchText.toLowerCase()) ||
-        name.toLowerCase().includes(searchText.toLowerCase())
+        symbol.toLowerCase().startsWith(searchText.toLowerCase()) ||
+        name.toLowerCase().startsWith(searchText.toLowerCase())
       ) {
         if (_property === 'Atomic Mass') return 'ff';
         else return '1';
@@ -43,8 +43,6 @@ const Element = props => {
 
   return (
     <>
-      {/* <ElementModal /> */}
-
       <ElementWrapper
         category={category}
         property={property}
@@ -71,12 +69,12 @@ const Element = props => {
           <Name>{name}</Name>
 
           <PropertyValue>
-            {property == 'Atomic Mass' && atomic_mass}
-            {property == 'Density' && density}
-            {property == 'Electron Affinity' && electron_affinity}
-            {property == 'Boil Temperature' && boil_temperature}
-            {property == 'Melt Temperature' && melt_temperature}
-            {property == 'Electronegativity' && electronegativity}
+            {property == 'Atomic Mass' && atomic_mass?.toFixed(4)}
+            {property == 'Density' && density?.toFixed(2)}
+            {property == 'Electron Affinity' && electron_affinity?.toFixed(2)}
+            {property == 'Boil Temperature' && boil_temperature?.toFixed(2)}
+            {property == 'Melt Temperature' && melt_temperature?.toFixed(2)}
+            {property == 'Electronegativity' && electronegativity?.toFixed(2)}
           </PropertyValue>
         </Column>
       </ElementWrapper>
@@ -101,12 +99,16 @@ const ElementWrapper = styled.div`
         if (props.category == 'nonmetal') return `#6666ff${props.opacity}`;
         if (props.category == 'noble gas') return `#ff00ff${props.opacity}`;
         else return '#ddddddaa';
-
         break;
 
+      // y si en vez de hacer 5 cases hago 1 solo en el que uso:
+      // rojo => 255
+      // verde = 255 * (1 - currentPropertiesVal / maxPropertiesVal)
+      // azul => 0
+      // siendo currentPropertiesVal y maxPropertiesVal parametros desde PeriodicTable
       case 'Electronegativity':
         if (props.electronegativity == null) return '#ddddddaa';
-        else return `rgb(255, ${(1 - props.electronegativity / 4) * 320}, 0 ,${props.opacity})`;
+        else return `rgb(255, ${(1 - props.electronegativity / 4) * 330}, 0 ,${props.opacity})`;
         break;
 
       case 'Density':
