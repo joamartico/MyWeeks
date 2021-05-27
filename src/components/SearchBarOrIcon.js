@@ -13,20 +13,13 @@ const SearchBarOrIcon = () => {
           onIonChange={e => setSearchText(e.detail.value)}
           showCancelButton={isPlatform('mobile') ? 'always' : 'never'}
           // clearIcon="close-circle"
+          showClearButton="always"
           mode="ios"
           onIonCancel={() => setShowSearchBar(false)}
           style={{
             maxWidth: 600,
             marginLeft: 'auto',
-            marginBottom: '-15px',
-
-            // alignSelf: 'center',
-            // width: '100%',
-            // position: 'absolute',
-            // zIndex: 999999999999999,
-            // left: 0,
-            // right: 0,
-            // top: 0,
+            marginBottom: '-10px',
           }}
         />
       ) : (

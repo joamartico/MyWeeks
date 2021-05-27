@@ -9,28 +9,29 @@ a:active,
 }
 
 ion-searchbar .searchbar-clear-button.sc-ion-searchbar-ios {
-  /* --clear-button-color: #128d15 !important; */
   background-color: #ededed;
-  /* color: #128d15 !important; */
   margin-right: 20px;
 }
 
-ion-searchbar .ion-color.sc-ion-searchbar-ios-h {
-  background-color: #128d15 !important;
-  color: #128d15 !important;
-  --clear-button-color: #128d15 !important;
+ion-select-option {
+  --background: red !important;
+  background: red !important;
+  width: 10px !important;
 }
 
-.ion-color.sc-ion-searchbar-ios-h {
-  background-color: #128d15 !important;
-  color: #128d15 !important;
-  --clear-button-color: #128d15 !important;
+ion-select-option .select-icon {
+  --background: red !important;
+  background: red !important;
+  width: 10px !important;
 }
 
-.clear-icon {
-  background-color: #128d15 !important;
-  color: #128d15 !important;
-  --clear-button-color: #128d15 !important;
+.select-icon-inner {
+  --background: red !important;
+  background: red !important;
+}
+ion-select-option .select-icon-inner {
+  --background: red !important;
+  background: red !important;
 }
 
 ion-toolbar {

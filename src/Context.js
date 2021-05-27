@@ -4,7 +4,8 @@ import { isPlatform } from '@ionic/react';
 export const Context = createContext();
 
 const ContextComponent = props => {
-  const [property, setProperty] = useState('Atomic Mass');
+  const [property, setProperty] = useState(['Atomic Mass']);
+  const [propertiesMaxVal, setPropertiesMaxVal] = useState(300);
   const [searchText, setSearchText] = useState(undefined);
   const [showSearchBar, setShowSearchBar] = useState(!isPlatform('mobile')); // mobile => false, compu => true
   const [elementModal, setElementModal] = useState(null);
@@ -16,6 +17,8 @@ const ContextComponent = props => {
         setShowSearchBar,
         property,
         setProperty,
+        propertiesMaxVal,
+        setPropertiesMaxVal,
         searchText,
         setSearchText,
         elementModal,

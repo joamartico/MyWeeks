@@ -41,7 +41,7 @@ const TableWrapper = styled.div`
   height: 100%;
   max-height: 100% !important;
   width: 100%;
-  min-width: 1500px;
+  min-width: 1400px;
   max-width: 100%;
   /* padding: 20px; */
   overflow: hidden;

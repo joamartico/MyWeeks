@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from '../Context';
 
 import {
@@ -11,19 +11,58 @@ import {
 } from '@ionic/react';
 
 const PropertySelector = () => {
-  const { property, setProperty, showSearchBar } = useContext(Context);
-  //   const [present] = useIonPicker();
+  const { property, setProperty, showSearchBar, setPropertiesMaxVal } = useContext(Context);
+  var maxVals = [];
+
+  useEffect(() => {
+    property.map(property => {
+      switch (property) {
+        case 'Atomic Mass':
+          maxVals = [...maxVals, 300];
+          break;
+
+        case 'Density':
+          maxVals = [...maxVals, 23];
+
+          break;
+
+        case 'Electronegativity':
+          maxVals = [...maxVals, 4];
+          break;
+
+        case 'Electron Affinity':
+          maxVals = [...maxVals, 350];
+          break;
+
+        case 'Boil Temperature':
+          maxVals = [...maxVals, 5200];
+          break;
+
+        case 'Melt Temperature':
+          maxVals = [...maxVals, 3800];
+          break;
+      }
+    });
+    setPropertiesMaxVal(maxVals);
+  }, [property]);
 
   return (
     <>
-      {(showSearchBar == false || isPlatform('mobile') == false) && (
+      {/* {(showSearchBar == false || isPlatform('mobile') == false) && ( */}
+      {isPlatform('mobile') && showSearchBar == true ? (
+        ''
+      ) : (
         <IonButtons slot="start">
-          <IonItem lines="none">
+          <IonItem lines="none" style={{ maxWidth: 350 }}>
             <IonSelect
+              mode="ios"
+              interfaceOptions={{
+                header: 'Properties',
+              }}
               value={property}
               onIonChange={e => setProperty(e.detail.value)}
               interface="popover"
-              // multiple={true}
+              multiple={true}
             >
               <IonSelectOption value="Atomic Mass">Atomic Mass</IonSelectOption>
               <IonSelectOption value="Density">Density</IonSelectOption>
