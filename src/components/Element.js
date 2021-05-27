@@ -18,42 +18,41 @@ const Element = props => {
     radio,
   } = props;
 
-  const { property, searchText, setElementModal, propertiesMaxVal } = useContext(Context);
+  const { properties, searchText, setElementModal, propertiesMaxVals } = useContext(Context);
   const [mouseOver, setMouseOver] = useState(false);
 
   const getGreen = () => {
-    var greenPercentage = 1;
+    var greenPercentage = 0;
     var totalPercentages = 0;
 
-    property.map((property, i) => {
-      switch (property) {
+    properties.map((properties, i) => {
+      switch (properties) {
         case 'Atomic Mass':
-          totalPercentages = totalPercentages + atomic_mass / propertiesMaxVal[i];
-          // greenPercentage = greenPercentage * (atomic_mass / propertiesMaxVal[i]);
+          totalPercentages = totalPercentages + atomic_mass / propertiesMaxVals[i];
           break;
 
         case 'Density':
-          totalPercentages = totalPercentages + density / propertiesMaxVal[i];
+          totalPercentages = totalPercentages + density / propertiesMaxVals[i];
           break;
 
         case 'Electronegativity':
-          totalPercentages = totalPercentages + electronegativity / propertiesMaxVal[i];
+          totalPercentages = totalPercentages + electronegativity / propertiesMaxVals[i];
           break;
 
         case 'Electron Affinity':
-          totalPercentages = totalPercentages + electron_affinity / propertiesMaxVal[i];
+          totalPercentages = totalPercentages + electron_affinity / propertiesMaxVals[i];
           break;
 
         case 'Boil Temperature':
-          totalPercentages = totalPercentages + boil_temperature / propertiesMaxVal[i];
+          totalPercentages = totalPercentages + boil_temperature / propertiesMaxVals[i];
           break;
 
         case 'Melt Temperature':
-          totalPercentages = totalPercentages + melt_temperature / propertiesMaxVal[i];
+          totalPercentages = totalPercentages + melt_temperature / propertiesMaxVals[i];
           break;
       }
     });
-    greenPercentage = totalPercentages / property.length;
+    greenPercentage = totalPercentages / properties.length;
     return (1 - greenPercentage) * 255;
   };
 
@@ -63,14 +62,14 @@ const Element = props => {
         symbol.toLowerCase().startsWith(searchText.toLowerCase()) ||
         name.toLowerCase().startsWith(searchText.toLowerCase())
       ) {
-        if (property == 'Atomic Mass') return 'ff';
+        if (properties == 'Atomic Mass') return 'ff';
         else return '1';
       } else {
-        if (property == 'Atomic Mass') return '30';
+        if (properties == 'Atomic Mass') return '30';
         else return '0.4';
       }
     } else {
-      if (property == 'Atomic Mass') {
+      if (properties == 'Atomic Mass') {
         if (mouseOver) return 'ff';
         else return '50';
       } else return '1';
@@ -81,9 +80,9 @@ const Element = props => {
     <>
       <ElementWrapper
         category={category}
-        propertiesMaxVal={propertiesMaxVal}
+        propertiesMaxVals={propertiesMaxVals}
         green={getGreen()}
-        property={property}
+        properties={properties}
         electronegativity={electronegativity}
         electron_affinity={electron_affinity}
         density={density}
@@ -107,12 +106,12 @@ const Element = props => {
           <Name>{name}</Name>
 
           <PropertyValue>
-            {property == 'Atomic Mass' && atomic_mass?.toFixed(4)}
-            {property == 'Density' && density?.toFixed(2)}
-            {property == 'Electron Affinity' && electron_affinity?.toFixed(2)}
-            {property == 'Boil Temperature' && boil_temperature?.toFixed(2)}
-            {property == 'Melt Temperature' && melt_temperature?.toFixed(2)}
-            {property == 'Electronegativity' && electronegativity?.toFixed(2)}
+            {properties == 'Atomic Mass' && atomic_mass?.toFixed(4)}
+            {properties == 'Density' && density?.toFixed(2)}
+            {properties == 'Electron Affinity' && electron_affinity?.toFixed(2)}
+            {properties == 'Boil Temperature' && boil_temperature?.toFixed(2)}
+            {properties == 'Melt Temperature' && melt_temperature?.toFixed(2)}
+            {properties == 'Electronegativity' && electronegativity?.toFixed(2)}
           </PropertyValue>
         </Column>
       </ElementWrapper>
@@ -129,7 +128,7 @@ const ElementWrapper = styled.div`
   transition: 0.3s ease-in;
   cursor: pointer;
   background: ${props => {
-    if (props.property == 'Atomic Mass') {
+    if (props.properties == 'Atomic Mass') {
       if (props.category == 'alkali metal') return `#ff0000${props.opacity}`;
       if (props.category == 'alkaline earth metal') return `#ff7700${props.opacity}`;
       if (props.category == 'transition metal') return `#ffff00${props.opacity}`;
@@ -139,44 +138,13 @@ const ElementWrapper = styled.div`
       if (props.category == 'noble gas') return `#ff00ff${props.opacity}`;
       else return '#ddddddaa';
     } else {
-      return `rgb(255, ${props.green}, 0 , ${props.opacity})`;
+      if (!props.category) return '#ddddddaa';
+      else return `rgb(255, ${props.green}, 0 , ${props.opacity})`;
     }
-
-    // console.log(
-    //   `rgb(255, ${(1 - propertiesElementVal() / props.propertiesMaxVal) * 250}, 0 , ${
-    //     props.opacity
-    //   })`)
-    // };
-    // case 'Electronegativity':
-    //   if (props.electronegativity == null) return '#ddddddaa';
-    //   else return `rgb(255, ${(1 - props.electronegativity / 4) * 330}, 0 ,${props.opacity})`;
-    //   break;
-
-    // case 'Density':
-    //   if (props.density == null) return '#ddddddaa';
-    //   else return `rgb(255, ${(1 - props.density / 23) * 255}, 0, ${props.opacity})`;
-    //   break;
-
-    // case 'Electron Affinity':
-    //   if (props.electron_affinity == null) return '#ddddddaa';
-    //   else return `rgb(255, ${(1 - props.electron_affinity / 330) * 255}, 0, ${props.opacity})`;
-    //   break;
-
-    // case 'Boil Temperature':
-    //   if (props.boil_temperature == null) return '#ddddddaa';
-    //   else return `rgb(255, ${(1 - props.boil_temperature / 6500) * 255}, 0, ${props.opacity})`;
-    //   break;
-
-    // case 'Melt Temperature':
-    //   if (props.melt_temperature == null) return '#ddddddaa';
-    //   else return `rgb(255, ${(1 - props.melt_temperature / 3300) * 255}, 0, ${props.opacity})`;
-    //   break;
   }};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start; */
-  /* justify-content: space-around; */
 `;
 
 const Column = styled.div`

@@ -11,12 +11,12 @@ import {
 } from '@ionic/react';
 
 const PropertySelector = () => {
-  const { property, setProperty, showSearchBar, setPropertiesMaxVal } = useContext(Context);
+  const { properties, setProperties, showSearchBar, setPropertiesMaxVals } = useContext(Context);
   var maxVals = [];
 
   useEffect(() => {
-    property.map(property => {
-      switch (property) {
+    properties.map(properties => {
+      switch (properties) {
         case 'Atomic Mass':
           maxVals = [...maxVals, 300];
           break;
@@ -43,8 +43,8 @@ const PropertySelector = () => {
           break;
       }
     });
-    setPropertiesMaxVal(maxVals);
-  }, [property]);
+    setPropertiesMaxVals(maxVals);
+  }, [properties]);
 
   return (
     <>
@@ -59,8 +59,8 @@ const PropertySelector = () => {
               interfaceOptions={{
                 header: 'Properties',
               }}
-              value={property}
-              onIonChange={e => setProperty(e.detail.value)}
+              value={properties}
+              onIonChange={e => setProperties(e.detail.value)}
               interface="popover"
               multiple={true}
             >
@@ -87,13 +87,13 @@ const PropertySelector = () => {
     //         {
     //           text: 'Confirm',
     //           handler: selected => {
-    //             setProperty(selected.property.value);
+    //             setProperties(selected.properties.value);
     //           },
     //         },
     //       ],
     //       columns: [
     //         {
-    //           name: 'property',
+    //           name: 'properties',
     //           options: [
     //             { text: 'Atomic Mass', value: 'Atomic Mass' },
     //             { text: 'Density', value: 'Density' },
@@ -106,7 +106,7 @@ const PropertySelector = () => {
     //     })
     //   }
     // >
-    //   {property}
+    //   {properties}
     // </IonButton>
   );
 };
