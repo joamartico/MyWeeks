@@ -157,7 +157,6 @@ const Column = styled.div`
   justify-content: space-evenly;
   padding-top: 10px;
   padding-bottom: 10px;
-  /* margin-top: -15px; */
 `;
 const Row = styled.div`
   width: 70%;

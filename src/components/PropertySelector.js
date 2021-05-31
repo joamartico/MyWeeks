@@ -1,14 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../Context';
 
-import {
-  IonButtons,
-  useIonPicker,
-  IonItem,
-  IonSelectOption,
-  IonSelect,
-  isPlatform,
-} from '@ionic/react';
+import { IonButtons, IonItem, IonSelectOption, IonSelect, isPlatform } from '@ionic/react';
 
 const PropertySelector = () => {
   const { properties, setProperties, showSearchBar, setPropertiesMaxVals } = useContext(Context);
@@ -27,7 +20,7 @@ const PropertySelector = () => {
           break;
 
         case 'Electronegativity':
-          maxVals = [...maxVals, 4];
+          maxVals = [...maxVals, 4.8];
           break;
 
         case 'Electron Affinity':
@@ -48,7 +41,6 @@ const PropertySelector = () => {
 
   return (
     <>
-      {/* {(showSearchBar == false || isPlatform('mobile') == false) && ( */}
       {isPlatform('mobile') && showSearchBar == true ? (
         ''
       ) : (

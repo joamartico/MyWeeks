@@ -239,7 +239,6 @@ const InfoTitle = styled.p`
   font-size: 2.5vh;
   font-weight: bold;
   margin: 0;
-  background-color: #fff;
 `;
 
 const DescriptionText = styled.div`
