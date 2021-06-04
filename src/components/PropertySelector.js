@@ -39,6 +39,16 @@ const PropertySelector = () => {
     setPropertiesMaxVals(maxVals);
   }, [properties]);
 
+  const addOrDelete = (property) => {
+    if(properties.includes(property)){
+      const index = properties.indexOf(property)
+      // properties.splice(index, 1);
+      properties[index] = ""
+    } else {
+      setProperties([...properties, property])
+    }
+  }
+
   return (
     <>
       {isPlatform('mobile') && showSearchBar == true ? (
@@ -50,11 +60,13 @@ const PropertySelector = () => {
               mode="ios"
               interfaceOptions={{
                 header: 'Properties',
+                backdropDismiss: false
               }}
               value={properties}
               onIonChange={e => setProperties(e.detail.value)}
               interface="popover"
               multiple={true}
+              
             >
               <IonSelectOption value="Atomic Mass">Atomic Mass</IonSelectOption>
               <IonSelectOption value="Density">Density</IonSelectOption>

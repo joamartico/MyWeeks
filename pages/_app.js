@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="keywords" content="periodic table, chemistry, elements" />
 
         {/*  PWA  */}
+        {/* <preference name="KeyboardDisplayRequiresUserAction" value="false" /> */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no"
@@ -35,10 +36,11 @@ function MyApp({ Component, pageProps }) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#ffffff"></meta>
 
         {/* ICONS */}
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-icon-180.png" />
+        <link rel="icon" href="/favicon-196.png" />
+        <link rel="apple-touch-icon" href="/apple-icon-180.png"  />
         <link
           rel="apple-touch-startup-image"
           href="/apple-splash-2048-2732.jpg"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Context } from '../Context';
 import ElementModal from './ElementModal';
@@ -18,7 +18,9 @@ const Element = props => {
     radio,
   } = props;
 
-  const { properties, searchText, setElementModal, propertiesMaxVals } = useContext(Context);
+  const { properties, searchText, setSearchText, setElementModal, propertiesMaxVals } = useContext(
+    Context
+  );
   const [mouseOver, setMouseOver] = useState(false);
 
   const getGreen = () => {

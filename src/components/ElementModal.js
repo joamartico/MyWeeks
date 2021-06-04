@@ -172,11 +172,12 @@ const Padding = styled.div`
 const TitleRow = styled.div`
   display: flex;
   flex-direction: row;
-
+  
   height: 25%;
   width: ${window.screen.width < 1000 ? '100%' : '48%'};
   justify-content: left;
-  /* background-color: #ffff0050; */
+  background-color: #ffff0050;
+  z-index: 999999;
   border-radius: 10px;
   margin-left: 5%;
   flex-wrap: wrap;

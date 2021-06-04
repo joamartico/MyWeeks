@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Element from '../components/Element';
 
 import { elements } from '../../data';
@@ -6,6 +6,19 @@ import { Context } from '../Context';
 import styled from 'styled-components';
 
 const PeriodicTable = () => {
+  const { searchText, setSearchText } = useContext(Context);
+  var lastSearchedText = searchText != undefined && searchText != '' && searchText;
+
+  useEffect(() => {
+    document.addEventListener('click', () => {
+      if (searchText == '') {
+        console.log(lastSearchedText);
+      } else {
+        setSearchText('');
+      }
+    });
+  }, [searchText]);
+
   return (
     <TableWrapper>
       <Table>

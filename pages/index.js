@@ -7,3 +7,4 @@ const App = dynamic(() => import('../src/App'), {
 export default function Index() {
   return <App />;
 }
+
