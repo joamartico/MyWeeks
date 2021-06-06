@@ -114,7 +114,7 @@ export const elements = [
             "2"
         ],
         electron_affinity: -48,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [
             "2372.3",
             "5250.5"
@@ -987,7 +987,7 @@ export const elements = [
             "8"
         ],
         electron_affinity: -116,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [
             "2080.7",
             "3952.3",
@@ -2045,7 +2045,7 @@ export const elements = [
             "8"
         ],
         electron_affinity: -96,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [
             "1520.6",
             "2665.8",
@@ -17207,7 +17207,7 @@ export const elements = [
     //     appearance: null,
     //     category: "actinide",
     //     color: null,
-    //     density: "ul",
+    //     density: null,
     //     "discovered_by: "Lawrence Berkeley National Laboratory",
     //     molar_heat: null,
     //     "named_by: null,
@@ -17374,7 +17374,7 @@ export const elements = [
     //     appearance: null,
     //     category: "actinide",
     //     color: null,
-    //     density: "ul",
+    //     density: null,
     //     "discovered_by: "Lawrence Berkeley National Laboratory",
     //     molar_heat: null,
     //     "named_by: null,
@@ -17542,7 +17542,7 @@ export const elements = [
     //     appearance: null,
     //     category: "actinide",
     //     color: null,
-    //     density: "ul",
+    //     density: null,
     //     "discovered_by: "Joint Institute for Nuclear Research",
     //     molar_heat: null,
     //     "named_by: null,
@@ -17721,7 +17721,7 @@ export const elements = [
     //     appearance: null,
     //     category: "actinide",
     //     color: null,
-    //     density: "ul",
+    //     density: null,
     //     "discovered_by: "Lawrence Berkeley National Laboratory",
     //     molar_heat: null,
     //     "named_by: null,
@@ -17908,8 +17908,8 @@ export const elements = [
             "10",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [
             "580"
         ],
@@ -18036,8 +18036,8 @@ export const elements = [
             "11",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 268,
         round_level: "4F3/2",
@@ -18163,8 +18163,8 @@ export const elements = [
             "12",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 269,
         round_level: "0",
@@ -18291,8 +18291,8 @@ export const elements = [
             "13",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 270,
         round_level: "5/2",
@@ -18420,8 +18420,8 @@ export const elements = [
             "14",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 270,
         round_level: "4",
@@ -18524,7 +18524,8 @@ export const elements = [
             null,
             194917
         ],
-        van_der_waals_radius: ""
+        van_der_waals_radius: "",
+        radius: null,
     },
     {
         name: "Meitnerium",
@@ -18550,8 +18551,8 @@ export const elements = [
             "15",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 278,
         round_level: null,
@@ -18677,8 +18678,8 @@ export const elements = [
             "16",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 281,
         round_level: null,
@@ -18805,7 +18806,7 @@ export const elements = [
             "2"
         ],
         electron_affinity: 151,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 282,
         round_level: null,
@@ -18836,8 +18837,8 @@ export const elements = [
             "18",
             "2"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 285,
         round_level: null,
@@ -18869,7 +18870,7 @@ export const elements = [
             "3"
         ],
         electron_affinity: 66.6,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 286,
         round_level: null,
@@ -18900,8 +18901,8 @@ export const elements = [
             "18",
             "4"
         ],
-        electron_affinity: "ul",
-        electronegativity_pauling: "ul",
+        electron_affinity: null,
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 289,
         round_level: null,
@@ -18933,7 +18934,7 @@ export const elements = [
             "5"
         ],
         electron_affinity: 35.3,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 290,
         round_level: null,
@@ -18965,7 +18966,7 @@ export const elements = [
             "6"
         ],
         electron_affinity: 74.9,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 293,
         round_level: null,
@@ -18997,7 +18998,7 @@ export const elements = [
             "7"
         ],
         electron_affinity: 165.9,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 294,
         round_level: null,
@@ -19029,7 +19030,7 @@ export const elements = [
             "8"
         ],
         electron_affinity: 5.40318,
-        electronegativity_pauling: "ul",
+        electronegativity_pauling: null,
         ionization_energies: [],
         mass: 2949,
         round_level: null,

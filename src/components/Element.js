@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Context } from '../Context';
-import ElementModal from './ElementModal';
+
 
 const Element = props => {
   const {
@@ -116,10 +116,10 @@ const Element = props => {
             {properties == 'Atomic Mass' && atomic_mass?.toFixed(4)}
             {properties == 'Density' && density?.toFixed(2)}
             {properties == 'Radius' && radius}
-            {properties == 'Electron Affinity' && electron_affinity?.toFixed(2)}
+            {properties == 'Electron Affinity' && electron_affinity}
             {properties == 'Boil Temperature' && boil_temperature}
             {properties == 'Melt Temperature' && melt_temperature?.toFixed(2)}
-            {properties == 'Electronegativity' && electronegativity?.toFixed(2)}
+            {properties == 'Electronegativity' && electronegativity}
           </PropertyValue>
         </Column>
       </ElementWrapper>
