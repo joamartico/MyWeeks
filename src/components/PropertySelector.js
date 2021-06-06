@@ -16,7 +16,10 @@ const PropertySelector = () => {
 
         case 'Density':
           maxVals = [...maxVals, 23];
+          break;
 
+        case 'Radius':
+          maxVals = [...maxVals, 3.8];
           break;
 
         case 'Electronegativity':
@@ -72,7 +75,7 @@ const PropertySelector = () => {
               <IonSelectOption value="Density">Density</IonSelectOption>
               <IonSelectOption value="Electronegativity">Electronegativity</IonSelectOption>
               <IonSelectOption value="Electron Affinity">Electron Affinity</IonSelectOption>
-              <IonSelectOption value="Radio">Radio</IonSelectOption>
+              <IonSelectOption value="Radius">Radius</IonSelectOption>
               <IonSelectOption value="Boil Temperature">Boil Temperature</IonSelectOption>
               <IonSelectOption value="Melt Temperature">Melt Temperature</IonSelectOption>
             </IonSelect>

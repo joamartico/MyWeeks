@@ -1,15 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 import Element from '../components/Element';
 
-import { elements } from '../../data';
+
 import { Context } from '../Context';
 import styled from 'styled-components';
+import { elements } from "../../data";
+
+
+
+
+
 
 const PeriodicTable = () => {
+
+  
   const { searchText, setSearchText } = useContext(Context);
   var lastSearchedText = searchText != undefined && searchText != '' && searchText;
 
   useEffect(() => {
+    
+
     document.addEventListener('click', () => {
       if (searchText == '') {
         console.log(lastSearchedText);
@@ -25,24 +35,31 @@ const PeriodicTable = () => {
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(i => (
           <Group>
             <GroupNumber>{i}</GroupNumber>
-            {elements
+            {elements 
               .filter(element => element.xpos == i)
               .map(element => (
                 <Element
                   name={element.name}
-                  atomic_mass={element.atomic_mass}
+                  radius={element.radius}
+                  atomic_mass={element.mass}
                   atomic_number={element.number}
                   symbol={element.symbol}
                   category={element.category}
                   density={element.density}
                   electronegativity={element.electronegativity_pauling}
                   electron_affinity={element.electron_affinity}
-                  boil_temperature={element.boil}
-                  melt_temperature={element.melt}
-                  electron_configuration_semantic={element.electron_configuration_semantic}
+                  boil_temperature={element.boiling_point}
+                  melt_temperature={element.melting_point}
+                  electron_configuration_semantic={element.electron_configuration}
                   description={element.summary}
+                  oxidation_states={element.common_oxidation_states}
                 />
               ))}
+
+
+         
+
+              
           </Group>
         ))}
       </Table>

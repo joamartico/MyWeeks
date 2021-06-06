@@ -15,7 +15,7 @@ const Element = props => {
     electron_affinity,
     boil_temperature,
     melt_temperature,
-    radio,
+    radius,
   } = props;
 
   const { properties, searchText, setSearchText, setElementModal, propertiesMaxVals } = useContext(
@@ -24,7 +24,7 @@ const Element = props => {
   const [mouseOver, setMouseOver] = useState(false);
 
   const getGreen = () => {
-    var greenPercentage = 0;
+    var redPercentage = 0;
     var totalPercentages = 0;
 
     properties.map((properties, i) => {
@@ -35,6 +35,10 @@ const Element = props => {
 
         case 'Density':
           totalPercentages = totalPercentages + density / propertiesMaxVals[i];
+          break;
+
+        case 'Radius':
+          totalPercentages = (totalPercentages + radius / propertiesMaxVals[i]) ;
           break;
 
         case 'Electronegativity':
@@ -54,8 +58,8 @@ const Element = props => {
           break;
       }
     });
-    greenPercentage = totalPercentages / properties.length;
-    return (1 - greenPercentage) * 255;
+    redPercentage = totalPercentages / properties.length;
+    return (1 - redPercentage) * 255;
   };
 
   const isElementSearched = () => {
@@ -90,6 +94,7 @@ const Element = props => {
         density={density}
         boil_temperature={boil_temperature}
         melt_temperature={melt_temperature}
+        radius={radius}
         opacity={isElementSearched()}
         onClick={() => setElementModal(props)}
         onMouseOver={() => setMouseOver(true)}
@@ -110,8 +115,9 @@ const Element = props => {
           <PropertyValue>
             {properties == 'Atomic Mass' && atomic_mass?.toFixed(4)}
             {properties == 'Density' && density?.toFixed(2)}
+            {properties == 'Radius' && radius}
             {properties == 'Electron Affinity' && electron_affinity?.toFixed(2)}
-            {properties == 'Boil Temperature' && boil_temperature?.toFixed(2)}
+            {properties == 'Boil Temperature' && boil_temperature}
             {properties == 'Melt Temperature' && melt_temperature?.toFixed(2)}
             {properties == 'Electronegativity' && electronegativity?.toFixed(2)}
           </PropertyValue>
