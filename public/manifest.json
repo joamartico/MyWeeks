@@ -3,11 +3,11 @@
     "background_color": "#ffffff",
     "display": "standalone",
     "start_url": ".",
-    "name": "PeriodicTable",
-    "short_name": "PeriodicTable",
+    "name": "Boilerplate",
+    "short_name": "Boilerplate",
     "icons": [
         {
-          "src": "a.png",
+          "src": "rounded.png",
           "sizes": "512x512",
           "type": "image/png"
         }

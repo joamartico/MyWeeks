@@ -18,16 +18,15 @@ function MyApp({ Component, pageProps }) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
         {/* SEO  */}
-        <title>Smart Periodic Table</title>
+        <title>MyWeeks</title>
         <meta
           name="google-site-verification"
           // content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU"
         />
-        <meta name="description" content="Discover the best Periodic table on the Internet." />
-        <meta name="keywords" content="periodic table, chemistry, elements" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
 
         {/*  PWA  */}
-        {/* <preference name="KeyboardDisplayRequiresUserAction" value="false" /> */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no"
