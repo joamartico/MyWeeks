@@ -1,4 +1,4 @@
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar } from '@ionic/react';
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
@@ -107,17 +107,20 @@ const Week = () => {
   }
 
   return (
+    <>
     <IonPage>
+      
+      
       <IonContent className="scroll" fullscreen>
         <WeekHeader
           onClickNext={() => onChangeDate('+')}
           onClickPrevious={() => onChangeDate('-')}
           date={date}
           time="weeks"
-          //   insetTop={insets.top}
         />
       </IonContent>
     </IonPage>
+    </>
   );
 };
 

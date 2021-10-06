@@ -6,6 +6,7 @@ import { bookmark, calendar, calendarOutline, map, mapOutline, person } from 'io
 import { Redirect, Route } from 'react-router-dom';
 import Feed from "./Feed";
 import Week from "./Week";
+import Profile from "./Profile";
 
 
 
@@ -17,12 +18,12 @@ const Tabs = () => {
     <IonPage>
 
       <IonContent>
-        <IonTabs className="ion-tabs">
+        <IonTabs >
 
           <IonRouterOutlet>
             <Route exact path="/tabs/week" component={Week} />
             <Route exact path="/tabs/plan" component={Feed} />
-            <Route exact path="/tabs/profile" component={Feed} />
+            <Route exact path="/tabs/profile" component={Profile} />
             <Route exact path="/tabs" render={() => <Redirect to="/tabs/week" />}  />
           </IonRouterOutlet>
 

@@ -9,13 +9,14 @@ import {
   Title,
   Card,
   FullCard,
+  Padding,
 } from '../../constants/styledComponents';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import { IonContent, IonPage, useIonRouter } from '@ionic/react';
 
 const SignIn = () => {
-    const router = useIonRouter();
+  const router = useIonRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -48,16 +49,16 @@ const SignIn = () => {
     // signInSuccessUrl: "/bottomtabs/weeks",
     callbacks: {
       signInSuccess: () => router.push('/tabs/week', 'forward', 'push'),
-      signInSuccess: () => console.log("sasasas"),
+      signInSuccess: () => console.log('sasasas'),
     },
   };
 
   return (
     <IonPage>
-      <IonContent >
-        <FullCard>
+      <IonContent className="scroll ion-padding" fullscreen>
+        <FullCard >
           <Title style={{ fontSize: '5vh', marginTop: '2vh' }}>Login</Title>
-          <div >
+          <div>
             <InputText
               placeholder="Email"
               value={email}
@@ -86,7 +87,7 @@ const SignIn = () => {
             </StyledButton>
 
             <StyledButton
-                onClick={() => router.push('/signup', 'forward', 'push')}
+              onClick={() => router.push('/signup', 'forward', 'push')}
               style={{
                 marginTop: 10,
                 borderWidth: 1,

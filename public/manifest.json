@@ -3,8 +3,8 @@
     "background_color": "#ffffff",
     "display": "standalone",
     "start_url": ".",
-    "name": "Boilerplate",
-    "short_name": "Boilerplate",
+    "name": "MyWeeks",
+    "short_name": "MyWeeks",
     "icons": [
         {
           "src": "rounded.png",

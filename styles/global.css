@@ -17,15 +17,16 @@ html {
 
 }
 
-ion-list {
-  /* height: 100%; */
-  width: 100vw;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 100px) !important;
-}
 
 ion-content {
   --background: #66CFD5 !important;
+  position: fixed;
+  padding-left: 1px !important;
+  padding-right: 1px !important;
   
+  /* display: flex !important; */
+  /* justify-content: center !important;
+  align-items: center !important; */
 }
 
 
@@ -76,13 +77,14 @@ ion-toolbar {
 }
 
 ion-tab-bar {
+
   position: fixed !important;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100vw;
-  background: #fff0 !important;
-  --background: #fff9 !important;
+  --background: #fff0 !important; /*APLICA A LA BARRA DE ARRIBA CON ITEMS*/
+  background: #fff9 !important;/*APLICA A TODA LA BARRA */
   backdrop-filter: blur(15px);
   border-top: solid 1px #bab9bacc;
   z-index: 999999999999;

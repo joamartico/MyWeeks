@@ -29,17 +29,12 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, insetT
   const toDayMonth = months[toDayMonthNumber - 1];
 
   return (
-    <Header
-      style={{
-        //  height: 70 + insetTop,
-        paddingTop: insetTop,
-      }}
-    >
+    <Header>
       {children && <Wrapper>{children}</Wrapper>}
 
       <Wrapper>
         <div onClick={onClickPrevious}>
-          <IonIcon name="chevron-back" style={{ fontSize: 40, color: COLORS.bg }} />
+          <IonIcon name="chevron-back" style={{ fontSize: 35, color: COLORS.bg }} />
         </div>
 
         <Title>
@@ -54,7 +49,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, insetT
         </Title>
 
         <div onClick={onClickNext}>
-          <IonIcon name="chevron-forward" style={{ fontSize: 40, color: COLORS.bg }} />
+          <IonIcon name="chevron-forward" style={{ fontSize: 35, color: COLORS.bg }} />
         </div>
       </Wrapper>
     </Header>
@@ -64,12 +59,12 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, insetT
 export default WeekHeader;
 
 const Header = styled.div`
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  border-bottom-color: #6666;
-  border-bottom-width: 1px;
+  height: 73px;
+  border-bottom: 1px solid #6666;
   flex-direction: row;
   /* background-color: #fff; */
   background: #fffc;
@@ -82,14 +77,14 @@ const Header = styled.div`
 `;
 
 const Wrapper = styled.div`
+  margin: 0 auto;
+  height: 70px;
   width: 100%;
   max-width: 700px;
-  height: 100%;
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  padding-bottom: 17px;
-  padding-top: 17px;
 `;
 
 // const styles = StyleSheet.create({
