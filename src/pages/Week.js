@@ -62,6 +62,7 @@ const Week = () => {
             })
         );
       });
+
     setActualRoute(router.routeInfo.pathname);
   }, [date, actualRoute]);
 

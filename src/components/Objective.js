@@ -58,7 +58,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
   const inputRef = useRef(null);
 
   return (
-    <IonItemSliding style={{ height: 35 }}>
+    <IonItemSliding style={{ minHeight: "100%", marginBottom: 8 }}>
       <ObjectiveBody key={id}>
         {/* <BouncyCheckbox
 				text=""
@@ -144,16 +144,13 @@ const ObjectiveBody = styled(IonItem)`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  /* margin-top: 8px; */
-  margin-bottom: 5px;
   --padding-start: 0px !important;
   --padding-bottom: 0px !important;
   padding-bottom: 0px !important;
-  --min-height: 1px !important; // sirve, pero por que?
-  height: 30px !important;
+  --min-height: 100% !important; // sirve, pero que hace?
 `;
 
 const SlideOptions = styled(IonItemOptions)`
-  height: 28px !important;
-  margin: 1px;
-`;
+  height: calc(100% - 2px) !important;
+  margin: 1px !important;
+  `;

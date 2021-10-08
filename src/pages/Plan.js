@@ -219,7 +219,7 @@ const Plan = () => {
               timeRef.set({ notes: e.detail.value });
             }}
             autoGrow
-            rows={18}
+            rows={20}
             placeholder="Write your achievements, mistakes, learnings and thoughts of the week"
           />
         </Card>
