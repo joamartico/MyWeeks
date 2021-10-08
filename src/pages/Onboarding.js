@@ -66,7 +66,7 @@ const Onboarding = () => {
             )}
             <StyledButton
               style={{ marginTop: '10px', marginBottom: '10px' }}
-              onClick={() => router.push('/signin', 'forward', 'replace')}
+              onClick={() => router.push('/signin', 'forward', 'push')}
             >
               <ButtonTitle>Get Started!</ButtonTitle>
             </StyledButton>
