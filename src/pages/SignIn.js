@@ -90,9 +90,9 @@ const SignIn = () => {
                 onClick={() => router.push('/signup', 'forward', 'push')}
                 style={{
                   marginTop: 10,
-                  borderWidth: 1,
-                  background: 'white',
+                  
                 }}
+                outlined
               >
                 <ButtonTitle style={{ color: COLORS.primary }}>Create an account</ButtonTitle>
               </StyledButton>

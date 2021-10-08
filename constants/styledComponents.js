@@ -102,8 +102,12 @@ export const StyledButton = styled.div`
   height: 55px;
   border-radius: 10px;
   border: 1px solid ${COLORS.primary};
-  background-color: ${COLORS.primary};
   cursor: pointer;
+  background: ${COLORS.primary};
+  background: ${({outlined}) => outlined? "#0000" : COLORS.primary };
+  &:active{
+    background: ${({outlined}) => outlined? "#0005" : COLORS.primary+"99" };
+  }
 `;
 
 export const ButtonTitle = styled.p`
@@ -138,7 +142,8 @@ export const InputText = styled(IonInput)`
   font-size: 18px;
   margin-top: 10px;
   width: 100%;
-  /* height: 40px !important; */
+  height: 40px !important;
   border-bottom: 1px solid ${COLORS.primary} !important;
   --padding-start: 0px !important;
+  margin-bottom: 40px;
 `;
