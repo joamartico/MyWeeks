@@ -1,4 +1,5 @@
 import { IonIcon } from '@ionic/react';
+import { addCircle } from "ionicons/icons";
 import React from 'react';
 
 import styled from 'styled-components';
@@ -7,7 +8,7 @@ const AddButton = ({ onClick }) => {
   return (
     <IonIcon
       onClick={onClick}
-      name="add-circle"
+      icon={addCircle}
       style={{
         fontSize: 36,
         color: '#c5c4c6cc',

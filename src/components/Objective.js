@@ -18,6 +18,7 @@ import {
   IonSelectOption,
   useIonActionSheet,
 } from '@ionic/react';
+import { notifications, repeat, trash } from "ionicons/icons";
 
 const Objective = ({ isDone, id, n, text, date, time }) => {
   const { objectives, setObjectives } = useContext(Context);
@@ -90,7 +91,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
 
       <SlideOptions side="end">
         <IonItemOption color="danger" onClick={() => console.log('share clicked')}>
-          <IonIcon name="trash" size={2} style={{ paddingLeft: 5, paddingRight: 5 }} />
+          <IonIcon icon={trash} size={2} style={{ paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>
 
         <IonItemOption>
@@ -106,7 +107,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
             <IonSelectOption value="month">Every Month</IonSelectOption>
             <IonSelectOption value="year">Every Year</IonSelectOption>
           </IonSelect>
-          <IonIcon name="repeat" style={{ paddingLeft: 5, paddingRight: 5 }} />
+          <IonIcon icon={repeat} style={{ paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>
 
         <IonItemOption color="warning">
@@ -121,7 +122,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
             <IonSelectOption value="silenced">Silenced</IonSelectOption>
           </IonSelect>
           <IonIcon
-            name="notifications"
+            icon={notifications}
             style={{ paddingLeft: 5, paddingRight: 5, color: 'white' }}
           />
         </IonItemOption>
