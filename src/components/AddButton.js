@@ -5,34 +5,19 @@ import styled from 'styled-components';
 
 const AddButton = ({ onClick }) => {
   return (
-    <Wrapper>
-      <IonIcon onClick={onClick} name="ios-add-circle" size={36} color="#c5c4c6cc" />
-    </Wrapper>
+    <IonIcon
+      onClick={onClick}
+      name="add-circle"
+      style={{
+        fontSize: 36,
+        color: '#c5c4c6cc',
+        display: 'flex',
+        margin: 'auto',
+        marginTop: 16,
+        marginBottom: 16,
+      }}
+    />
   );
 };
-
-export const Wrapper = styled.div`
-  /* background-color: #c5c4c6; */
-  height: 35;
-  width: 35;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  align-self: center;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-`;
-
-//  const AddButton = styled.div`
-// 	background-color: #37d673;
-// 	height: 35;
-// 	width: 35;
-// 	margin-top: 15px;
-// 	margin-bottom: 20px;
-// 	align-self: center;
-// 	border-radius: 10;
-// 	justify-content: center;
-// 	align-items: center;
-// `;
 
 export default AddButton;

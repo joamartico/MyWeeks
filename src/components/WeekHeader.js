@@ -19,7 +19,7 @@ const months = [
   'December',
 ];
 
-const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, insetTop }) => {
+const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSegment }) => {
   const fromDayNumber = date.day;
   const fromDayMonthNumber = date.month;
   const fromDayMonth = months[fromDayMonthNumber - 1];
@@ -29,7 +29,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, insetT
   const toDayMonth = months[toDayMonthNumber - 1];
 
   return (
-    <Header>
+    <Header withSegment={withSegment}>
       {children && <Wrapper>{children}</Wrapper>}
 
       <Wrapper>
@@ -63,7 +63,7 @@ const Header = styled.div`
   left: 0;
   right: 0;
   top: 0;
-  height: 73px;
+  height: ${({withSegment}) => withSegment ? "146px" : "73px"};
   border-bottom: 1px solid #6666;
   flex-direction: row;
   /* background-color: #fff; */

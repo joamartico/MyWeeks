@@ -25,7 +25,7 @@ const SignIn = () => {
       .signInWithEmailAndPassword(email, password)
       .then(user => {
         console.log(user);
-        router.push('/tabs/week', 'forward', 'push');
+        router.push('/tabs/week', 'none', 'replace');
       })
       .catch(err => {
         function getMessage(err) {
@@ -48,76 +48,76 @@ const SignIn = () => {
     ],
     // signInSuccessUrl: "/bottomtabs/weeks",
     callbacks: {
-      signInSuccess: () => router.push('/tabs/week', 'forward', 'push'),
-      signInSuccess: () => console.log('sasasas'),
+      signInSuccess: () => router.push('/tabs/week', 'none', 'replace'),
     },
   };
 
   return (
     <IonPage>
       <IonContent className="scroll ion-padding" fullscreen>
-        <FullCard >
-          <Title style={{ fontSize: '5vh', marginTop: '2vh' }}>Login</Title>
-          <div>
-            <InputText
-              placeholder="Email"
-              value={email}
-              onIonChange={e => setEmail(e.detail.value)}
-            />
-            <InputText
-              placeholder="Password"
-              value={password}
-              onIonChange={e => setPassword(e.detail.value)}
-              type="password"
-            />
-
-            <p
-              style={{
-                color: 'gray',
-                marginTop: 20,
-                textAlign: 'center',
-                textDecorationLine: 'underline',
-              }}
-            >
-              Forgot your password?
-            </p>
-
-            <StyledButton onClick={() => onSignIn()} style={{ marginTop: 20 }}>
-              <ButtonTitle>Sign In</ButtonTitle>
-            </StyledButton>
-
-            <StyledButton
-              onClick={() => router.push('/signup', 'forward', 'push')}
-              style={{
-                marginTop: 10,
-                borderWidth: 1,
-                background: 'white',
-              }}
-            >
-              <ButtonTitle style={{ color: COLORS.primary }}>Create an account</ButtonTitle>
-            </StyledButton>
-          </div>
-
-          <div>
-            <p
-              style={{
-                color: 'gray',
-                marginTop: '6%',
-                marginBottom: '15',
-                fontSize: 20,
-                textAlign: 'center',
-              }}
-            >
-              Or connect with
-            </p>
-            <Row>
-              <StyledFirebaseAuth
-                uiConfig={uiConfig}
-                firebaseAuth={authentication}
-                style={{ width: '100%' }}
+        <FullCard>
+          <Padding>
+            <Title style={{ fontSize: '5vh', paddingTop: '3vh' }}>Login</Title>
+            <div>
+              <InputText
+                placeholder="Email"
+                value={email}
+                onIonChange={e => setEmail(e.detail.value)}
+              />
+              <InputText
+                placeholder="Password"
+                value={password}
+                onIonChange={e => setPassword(e.detail.value)}
+                type="password"
               />
 
-              {/* <SocialButton style={{ borderColor: "#eb060a" }}>
+              <p
+                style={{
+                  color: 'gray',
+                  marginTop: 20,
+                  textAlign: 'center',
+                  textDecorationLine: 'underline',
+                }}
+              >
+                Forgot your password?
+              </p>
+
+              <StyledButton onClick={() => onSignIn()} style={{ marginTop: 20 }}>
+                <ButtonTitle>Sign In</ButtonTitle>
+              </StyledButton>
+
+              <StyledButton
+                onClick={() => router.push('/signup', 'forward', 'push')}
+                style={{
+                  marginTop: 10,
+                  borderWidth: 1,
+                  background: 'white',
+                }}
+              >
+                <ButtonTitle style={{ color: COLORS.primary }}>Create an account</ButtonTitle>
+              </StyledButton>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  color: 'gray',
+                  marginTop: '6%',
+                  marginBottom: '15',
+                  fontSize: 20,
+                  textAlign: 'center',
+                }}
+              >
+                Or connect with
+              </p>
+              <Row>
+                <StyledFirebaseAuth
+                  uiConfig={uiConfig}
+                  firebaseAuth={authentication}
+                  style={{ width: '100%' }}
+                />
+
+                {/* <SocialButton style={{ borderColor: "#eb060a" }}>
 								<ButtonTitle style={{ color: "#eb060a" }}>
 									Google
 								</ButtonTitle>
@@ -128,8 +128,9 @@ const SignIn = () => {
 									Facebook
 								</ButtonTitle>
 							</SocialButton> */}
-            </Row>
-          </div>
+              </Row>
+            </div>
+          </Padding>
         </FullCard>
       </IonContent>
     </IonPage>

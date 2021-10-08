@@ -1,11 +1,11 @@
-import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList, } from '@ionic/react';
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../constants/theme';
 import WeekHeader from '../components/WeekHeader';
 
-import { InputNotes, Subtitle, Card, ScrollBody } from '../../constants/styledComponents';
+import { InputNotes, Subtitle, Card, ScrollBody, Body } from '../../constants/styledComponents';
 
 import { Temporal } from 'proposal-temporal';
 import { authentication, db } from '../../firebase';
@@ -24,7 +24,7 @@ function getWeekDate() {
 }
 
 const Week = () => {
-    const router = useIonRouter()
+  const router = useIonRouter();
   // const insets = useSafeAreaInsets();
   const { objectives, setObjectives, actualRoute, setActualRoute } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
@@ -108,20 +108,87 @@ const Week = () => {
 
   return (
     <>
-    <IonPage>
-      
-      
-      <IonContent className="scroll" fullscreen>
-        <WeekHeader
-          onClickNext={() => onChangeDate('+')}
-          onClickPrevious={() => onChangeDate('-')}
-          date={date}
-          time="weeks"
-        />
-      </IonContent>
-    </IonPage>
+      <IonPage>
+        <Body pt="70px" intoTabs>
+          <WeekHeader
+            onClickNext={() => onChangeDate('+')}
+            onClickPrevious={() => onChangeDate('-')}
+            date={date}
+            time="weeks"
+          />
+          <Card>
+            <Subtitle>Objectives</Subtitle>
+
+            <IonList>
+              {objectives
+                ?.filter(objective => objective.type === 'week')
+                .sort((a, b) => {
+                  return a.n - b.n;
+                })
+                .map(objective => (
+                  <Objective
+                    key={objective.id}
+                    n={objective.n}
+                    text={objective.text}
+                    id={objective.id}
+                    isDone={objective.done}
+                    date={date}
+                    time="weeks"
+                  />
+                ))}
+            </IonList>
+            <AddButton onClick={() => onAddObjective('week')} />
+
+            <Subtitle>Notes</Subtitle>
+
+            <InputNotes
+              value={notes}
+              onIonChange={e => {
+                setNotes(e.detail.value);
+                weekRef.set({ notes: e.detail.value });
+              }}
+              multiline={true}
+              rows={20}
+              placeholder="Write your achievements, mistakes, learnings and thoughts of the week"
+            />
+          </Card>
+
+          {days.map((day, index) => (
+            <Card key={index}>
+              <Subtitle>
+                {`${day} ${dayDate(index)}`}
+                {dayDate(index) == `${nowDate.day}/${nowDate.month}` && (
+                  <TodayText>Today 🎉</TodayText>
+                )}
+              </Subtitle>
+
+              {objectives
+                ?.filter(objective => objective.type === day)
+                .map(objective => (
+                  <Objective
+                    key={objective.id}
+                    n={objective.n}
+                    text={objective.text}
+                    id={objective.id}
+                    isDone={objective.done}
+                    date={date}
+                    time="weeks"
+                  />
+                ))}
+
+              <AddButton onClick={() => onAddObjective(day)} />
+            </Card>
+          ))}
+        </Body>
+      </IonPage>
     </>
   );
 };
 
 export default Week;
+
+const TodayText = styled.span`
+  margin-left: auto;
+  font-weight: bold;
+  font-style: 12px !important;
+`;

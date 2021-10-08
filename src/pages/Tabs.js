@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { IonPage, IonContent, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
-import { bookmark, calendar, calendarOutline, map, mapOutline, person } from 'ionicons/icons';
+import { calendar, calendarOutline, map, mapOutline, person } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router-dom';
-import Feed from "./Feed";
 import Week from "./Week";
 import Profile from "./Profile";
+import Plan from "./Plan";
 
 
 
@@ -22,7 +22,7 @@ const Tabs = () => {
 
           <IonRouterOutlet>
             <Route exact path="/tabs/week" component={Week} />
-            <Route exact path="/tabs/plan" component={Feed} />
+            <Route exact path="/tabs/plan" component={Plan} />
             <Route exact path="/tabs/profile" component={Profile} />
             <Route exact path="/tabs" render={() => <Redirect to="/tabs/week" />}  />
           </IonRouterOutlet>

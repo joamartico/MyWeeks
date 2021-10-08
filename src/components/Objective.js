@@ -1,13 +1,28 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect, useState } from 'react';
 // import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { InputObjective } from '../../constants/styledComponents';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 import styled from 'styled-components';
 import { COLORS } from '../../constants/theme';
+import {
+  IonCheckbox,
+  IonDatetime,
+  IonIcon,
+  IonItem,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
+  IonLabel,
+  IonSelect,
+  IonSelectOption,
+  useIonActionSheet,
+} from '@ionic/react';
 
 const Objective = ({ isDone, id, n, text, date, time }) => {
   const { objectives, setObjectives } = useContext(Context);
+  const [presentRepeatSheet, dismissRepeatSheet] = useIonActionSheet();
+  const [selectedTime, setSelectedTime] = useState();
 
   function getDocName() {
     if (time == 'weeks') return date.toString();
@@ -41,47 +56,103 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
 
   const inputRef = useRef(null);
 
-  // useEffect(() => {
-  // 	inputRef.current.focus()
-  // 	inputRef.current.autofocus = true
-  // 	console.log(inputRef);
-  // }, [])
-
   return (
-    <ObjectiveBody>
-      {/* <BouncyCheckbox
+    <IonItemSliding style={{ height: 35 }}>
+      <ObjectiveBody key={id}>
+        {/* <BouncyCheckbox
 				text=""
 				onClick={() => onChangeCheckBox(isDone, id, n)}
 				isChecked={isDone}
 				borderColor={COLORS.secondary}
 				fillColor={COLORS.secondary}
 				style={{
-					marginRight: -10,
+          marginRight: -10,
 					marginLeft: 0,
 				}}
 			/> */}
-      {/* <ScrollView horizontal={true} style={{width:"90vw", height: 25}} showsHorizontalScrollIndicator={false}>
 
-			<InputObjective
-				placeholder="Type here..."
-				value={text}
-				onChangeText={(text) => onChangeObjective(text, id, n)}
-				// autoFocus={true} // POR QUE NO FUNCIONA
-				// ref={inputRef}
-				focus={true}
-			/>
-			</ScrollView> */}
-    </ObjectiveBody>
+        <Checkbox
+          mode="ios"
+          slot="start"
+          checked={isDone}
+          onClick={() => onChangeCheckBox(isDone, id, n)}
+        />
+
+        <InputObjective
+          placeholder="Type here..."
+          value={text}
+          onIonChange={e => onChangeObjective(e.detail.value, id, n)}
+          // autoFocus={true} // POR QUE NO FUNCIONA
+          // ref={inputRef}
+          focus={true}
+        />
+      </ObjectiveBody>
+
+      <SlideOptions side="end">
+        <IonItemOption color="danger" onClick={() => console.log('share clicked')}>
+          <IonIcon name="trash" size={2} style={{ paddingLeft: 5, paddingRight: 5 }} />
+        </IonItemOption>
+
+        <IonItemOption>
+          <IonSelect
+            value=""
+            selectedText=""
+            placeholder={null}
+            onIonChange={e => console.log(e.detail)}
+            interface="action-sheet"
+          >
+            <IonSelectOption value="day">Every Day ✓</IonSelectOption>
+            <IonSelectOption value="week">Every Week</IonSelectOption>
+            <IonSelectOption value="month">Every Month</IonSelectOption>
+            <IonSelectOption value="year">Every Year</IonSelectOption>
+          </IonSelect>
+          <IonIcon name="repeat" style={{ paddingLeft: 5, paddingRight: 5 }} />
+        </IonItemOption>
+
+        <IonItemOption color="warning">
+          <IonSelect
+            value=""
+            selectedText=""
+            placeholder={null}
+            onIonChange={e => console.log(e.detail)}
+            interface="action-sheet"
+          >
+            <IonSelectOption value="notify">Notify Me ✓</IonSelectOption>
+            <IonSelectOption value="silenced">Silenced</IonSelectOption>
+          </IonSelect>
+          <IonIcon
+            name="notifications"
+            style={{ paddingLeft: 5, paddingRight: 5, color: 'white' }}
+          />
+        </IonItemOption>
+      </SlideOptions>
+    </IonItemSliding>
   );
 };
 
 export default Objective;
 
-const ObjectiveBody = styled.div`
+const Checkbox = styled(IonCheckbox)`
+  --background-checked: ${COLORS.secondary};
+  --border-color-checked: ${COLORS.secondary};
+  margin-left: 0 !important;
+`;
+
+const ObjectiveBody = styled(IonItem)`
+  display: flex;
   flex-direction: row;
+  align-items: center;
   width: 100%;
-  height: 30;
-  margin-bottom: 2px;
-  border-bottom-width: 1px;
-  border-bottom-color: lightgray;
+  /* margin-top: 8px; */
+  margin-bottom: 5px;
+  --padding-start: 0px !important;
+  --padding-bottom: 0px !important;
+  padding-bottom: 0px !important;
+  --min-height: 1px !important; // sirve, pero por que?
+  height: 30px !important;
+`;
+
+const SlideOptions = styled(IonItemOptions)`
+  height: 28px !important;
+  margin: 1px;
 `;
