@@ -1,46 +1,22 @@
-ion-item-option ion-datetime, ion-select{
+ion-item-option ion-datetime,
+ion-select {
   /* --padding-end: 20px; */
   /* --padding-start: 20px; */
   width: 50%;
   position: absolute !important;
   color: #0000;
   /* background-color: #ff0; */
-
 }
 
-
-
-ion-textarea{
+ion-textarea {
   --padding-top: 0px;
   --padding-bottom: 3px !important;
   /* padding-bottom: 0px !important; */
 }
 
-
-
-
-html {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  height: 100vh;
-
-}
-
-
 ion-content {
-  --background: #66CFD5 !important;
-  position: fixed;
-  padding-left: 1px !important;
-  padding-right: 1px !important;
-  
-  /* display: flex !important; */
-  /* justify-content: center !important;
-  align-items: center !important; */
+  --background: #66cfd5 !important;
 }
-
 
 a,
 a:hover,
@@ -58,11 +34,9 @@ ion-searchbar .searchbar-clear-button.sc-ion-searchbar-ios {
   border-radius: 10px;
 }
 
-
 ion-toolbar {
   height: 50px;
 }
-
 
 .ion-select,
 .ion-item,
@@ -79,63 +53,53 @@ ion-toolbar {
   --safe-area-right: env(safe-area-inset-right, 0);
 }
 
-
-.ion-tabs {
- 
-  width: 100vw;
-  height: 100%;
-  /* padding-bottom: 150px !important; */
-
-}
-
 ion-tab-bar {
-
-  position: fixed !important;
+  position: absolute !important;
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100vw;
+  width: 100vw !important;
+
   --background: #fff0 !important; /*APLICA A LA BARRA DE ARRIBA CON ITEMS*/
-  background: #fff9 !important;/*APLICA A TODA LA BARRA */
+  background: #fff9 !important; /*APLICA A TODA LA BARRA */
   backdrop-filter: blur(15px);
   border-top: solid 1px #bab9bacc;
   z-index: 999999999999;
-
 }
-
 
 .ios ion-icon {
-	font-size: 24px ;
+  font-size: 24px;
 }
 .ios ion-searchbar {
-	--cancel-button-color: #3880ff !important;
-	--background: #e4e3eabb  !important;
+  --cancel-button-color: #3880ff !important;
+  --background: #e4e3eabb !important;
 }
 .ios ion-searchbar ion-icon {
-	padding-left: 0 !important;
-	margin-left: 0 !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .ios ion-searchbar input {
-	padding-left: 32px !important ;
+  padding-left: 32px !important ;
 }
 
-
-
-
-
-
-/* #__next {
+#__next {
   height: 100vh;
   width: 100vw;
   overflow-y: hidden;
-} */
+  overflow-x: hidden;
+}
+html {
+  height: 100%;
+  width: 100vw;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+}
 
-/**
- * Styles for the Icon UI component.
- *
- * TODO: Move these into a styled component or similar system if desired
- */
+/* Styles for the Icon UI component */
 .ui-icon {
   display: inline-block;
 
@@ -168,7 +132,7 @@ ion-tab-bar {
   width: 100%;
 }
 
-/** Styles for React Toggle */
+/* Styles for React Toggle */
 
 .react-toggle {
   touch-action: pan-x;

@@ -2,7 +2,7 @@ import React from 'react';
 import { COLORS } from '../../constants/theme';
 import styled from 'styled-components';
 import { Title } from '../../constants/styledComponents';
-import { IonIcon } from '@ionic/react';
+import { IonHeader, IonIcon } from '@ionic/react';
 
 const months = [
   'January',
@@ -58,7 +58,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
 
 export default WeekHeader;
 
-const Header = styled.div`
+const Header = styled(IonHeader)`
   position: fixed;
   left: 0;
   right: 0;
