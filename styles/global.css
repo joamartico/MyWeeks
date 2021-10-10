@@ -14,8 +14,9 @@ ion-textarea {
   /* padding-bottom: 0px !important; */
 }
 
-ion-content {
+ion-content, html, body, #__next{
   --background: #66cfd5 !important;
+  background: #66cfd5 !important;
 }
 
 a,
