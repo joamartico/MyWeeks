@@ -7,6 +7,7 @@ import { Redirect, Route } from 'react-router-dom';
 import Week from "./Week";
 import Profile from "./Profile";
 import Plan from "./Plan";
+import { Context } from "../context/ContextComponent";
 
 
 
@@ -28,7 +29,7 @@ const Tabs = () => {
           </IonRouterOutlet>
 
           <IonTabBar slot="bottom">
-              <IonTabButton tab="tab1" href="/tabs/week"  >
+              <IonTabButton tab="tab1" href="/tabs/week" >
                 <IonIcon icon={calendar} />
                 <IonLabel>Week</IonLabel>
               </IonTabButton>

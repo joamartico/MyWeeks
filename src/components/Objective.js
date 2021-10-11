@@ -18,7 +18,7 @@ import {
   IonSelectOption,
   useIonActionSheet,
 } from '@ionic/react';
-import { notifications, repeat, trash } from "ionicons/icons";
+import { notifications, repeat, trash } from 'ionicons/icons';
 
 const Objective = ({ isDone, id, n, text, date, time }) => {
   const { objectives, setObjectives } = useContext(Context);
@@ -58,7 +58,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
   const inputRef = useRef(null);
 
   return (
-    <IonItemSliding style={{ minHeight: "100%", marginBottom: 8 }}>
+    <IonItemSliding style={{ paddingTop: 0 }}>
       <ObjectiveBody key={id}>
         {/* <BouncyCheckbox
 				text=""
@@ -91,7 +91,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
 
       <SlideOptions side="end">
         <IonItemOption color="danger" onClick={() => console.log('share clicked')}>
-          <IonIcon icon={trash} size={2} style={{ paddingLeft: 5, paddingRight: 5 }} />
+          <IonIcon icon={trash} size={2} style={{fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>
 
         <IonItemOption>
@@ -107,7 +107,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
             <IonSelectOption value="month">Every Month</IonSelectOption>
             <IonSelectOption value="year">Every Year</IonSelectOption>
           </IonSelect>
-          <IonIcon icon={repeat} style={{ paddingLeft: 5, paddingRight: 5 }} />
+          <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>
 
         <IonItemOption color="warning">
@@ -123,7 +123,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
           </IonSelect>
           <IonIcon
             icon={notifications}
-            style={{ paddingLeft: 5, paddingRight: 5, color: 'white' }}
+            style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5, color: 'white' }}
           />
         </IonItemOption>
       </SlideOptions>
@@ -146,11 +146,9 @@ const ObjectiveBody = styled(IonItem)`
   width: 100%;
   --padding-start: 0px !important;
   --padding-bottom: 0px !important;
+  --padding-top: 10px !important;
   padding-bottom: 0px !important;
   --min-height: 100% !important; // sirve, pero que hace?
 `;
 
-const SlideOptions = styled(IonItemOptions)`
-  height: calc(100% - 2px) !important;
-  margin: 1px !important;
-  `;
+const SlideOptions = styled(IonItemOptions)``;

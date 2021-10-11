@@ -54,18 +54,10 @@ ion-toolbar {
   --safe-area-right: env(safe-area-inset-right, 0);
 }
 
-ion-tab-bar {
-  position: absolute !important;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100vw !important;
 
-  --background: #fff0 !important; /*APLICA A LA BARRA DE ARRIBA CON ITEMS*/
-  background: #fff9 !important; /*APLICA A TODA LA BARRA */
-  backdrop-filter: blur(15px);
-  border-top: solid 1px #bab9bacc;
-  z-index: 999999999999;
+
+ion-icon {
+  cursor: pointer;
 }
 
 .ios ion-icon {
@@ -84,12 +76,27 @@ ion-tab-bar {
   padding-left: 32px !important ;
 }
 
+ion-tab-bar {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw !important;
+
+  --background: #fff0 !important; /* COLOR DE LA BARRA DE ARRIBA CON ITEMS*/
+  background: #fff9 !important; /* COLOR DE TODA LA BARRA */
+  backdrop-filter: blur(15px);
+  border-top: solid 1px #bab9bacc;
+  z-index: 999999999999;
+}
+
 #__next {
   height: 100vh;
   width: 100vw;
   overflow-y: hidden;
   overflow-x: hidden;
 }
+
 html {
   height: 100%;
   width: 100vw;

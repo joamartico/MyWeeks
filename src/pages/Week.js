@@ -1,4 +1,4 @@
-import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList, } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList } from '@ionic/react';
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
@@ -25,8 +25,7 @@ function getWeekDate() {
 
 const Week = () => {
   const router = useIonRouter();
-  // const insets = useSafeAreaInsets();
-  const { objectives, setObjectives, actualRoute, setActualRoute } = useContext(Context);
+  const { objectives, setObjectives } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
   const [notes, setNotes] = useState('');
 
@@ -39,32 +38,33 @@ const Week = () => {
       .doc(date.toString());
 
   useEffect(() => {
-    weekRef
-      ?.get()
-      .then(doc => {
-        doc.data() ? setNotes(doc.data().notes) : setNotes('');
-      })
-      .catch(err => console.log(err));
+    if (router.routeInfo.pathname == '/tabs/week') {
+      weekRef
+        ?.get()
+        .then(doc => {
+          doc.data() ? setNotes(doc.data().notes) : setNotes('');
+        })
+        .catch(err => console.log(err));
 
-    weekRef
-      ?.collection('objectives')
-      .orderBy('order', 'asc')
-      .get()
-      .then(snapshot => {
-        setObjectives(
-          snapshot.docs
-            .filter(doc => doc.data().text != '')
-            .map((doc, index) => {
-              var newDoc = doc.data();
-              newDoc.id = doc.id;
-              newDoc.n = index;
-              return newDoc;
-            })
-        );
-      });
-
-    setActualRoute(router.routeInfo.pathname);
-  }, [date, actualRoute]);
+      weekRef
+        ?.collection('objectives')
+        .orderBy('order', 'asc')
+        .get()
+        .then(snapshot => {
+          console.log('CAMBIANDO OBJETIVOS WEEK');
+          setObjectives(
+            snapshot.docs
+              .filter(doc => doc.data().text != '')
+              .map((doc, index) => {
+                var newDoc = doc.data();
+                newDoc.id = doc.id;
+                newDoc.n = index;
+                return newDoc;
+              })
+          );
+        });
+    }
+  }, [router.routeInfo, date]);
 
   const onChangeDate = symbol => {
     if (symbol === '+') {

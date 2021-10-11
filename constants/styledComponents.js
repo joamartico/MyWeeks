@@ -90,7 +90,7 @@ export const Subtitle = styled.p`
   display: flex;
   align-items: center;
   color: ${COLORS.primary};
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 export const StyledButton = styled.div`
@@ -120,7 +120,10 @@ export const InputNotes = styled(IonTextarea)`
   width: 100%;
   font-size: 15px;
   min-height: 20px;
-  --padding-top: 0;
+  --padding-top: 5px;
+  --padding-start: 0;
+
+
 `;
 
 export const InputObjective = styled(IonTextarea).attrs(props => ({

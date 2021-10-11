@@ -17,7 +17,7 @@ const getDate = () => {
 const Plan = () => {
   const router = useIonRouter();
 
-  const { objectives, setObjectives, actualRoute } = useContext(Context);
+  const { objectives, setObjectives } = useContext(Context);
 
   const [selectedSegment, setSelectedSegment] = useState('Months');
   const [date, setDate] = useState(getDate());
@@ -85,30 +85,33 @@ const Plan = () => {
       .doc(getDocName(selectedSegment));
 
   useEffect(() => {
-    timeRef
-      ?.get()
-      .then(doc => {
-        doc.data() ? setNotes(doc.data().notes) : setNotes('');
-      })
-      .catch(err => console.log(err));
+    if (router.routeInfo.pathname == '/tabs/plan') {
+      timeRef
+        ?.get()
+        .then(doc => {
+          doc.data() ? setNotes(doc.data().notes) : setNotes('');
+        })
+        .catch(err => console.log(err));
 
-    timeRef
-      ?.collection('objectives')
-      .orderBy('order', 'asc')
-      .get()
-      .then(snapshot => {
-        setObjectives(
-          snapshot.docs
-            .filter(doc => doc.data().text != '')
-            .map((doc, index) => {
-              var newDoc = doc.data();
-              newDoc.id = doc.id;
-              newDoc.n = index;
-              return newDoc;
-            })
-        );
-      });
-  }, [date, selectedSegment, actualRoute]);
+      timeRef
+        ?.collection('objectives')
+        .orderBy('order', 'asc')
+        .get()
+        .then(snapshot => {
+          console.log('CAMBIANDO OBJETIVOS PLAN');
+          setObjectives(
+            snapshot.docs
+              .filter(doc => doc.data().text != '')
+              .map((doc, index) => {
+                var newDoc = doc.data();
+                newDoc.id = doc.id;
+                newDoc.n = index;
+                return newDoc;
+              })
+          );
+        });
+    }
+  }, [date, selectedSegment, router.routeInfo]);
 
   useEffect(() => {
     setDate(getDate());
@@ -137,9 +140,6 @@ const Plan = () => {
       });
   };
 
-  useEffect(() => {
-    console.log('CAMBIO LA RUTA');
-  }, [actualRoute]);
 
   return (
     <IonPage>
@@ -164,11 +164,11 @@ const Plan = () => {
           withSegment
         >
           <IonSegment
-          style={{ zIndex: 999999, maxWidth: 700, width: '80%', justifyContent: 'center' }}
-          value={selectedSegment}
-          onIonChange={e => {
-            setSelectedSegment(e.detail.value);
-          }}
+            style={{ zIndex: 999999, maxWidth: 700, width: '80%', justifyContent: 'center' }}
+            value={selectedSegment}
+            onIonChange={e => {
+              setSelectedSegment(e.detail.value);
+            }}
           >
             <IonSegmentButton value="Months">
               <IonLabel>Months</IonLabel>
