@@ -38,7 +38,7 @@ const Onboarding = () => {
     <IonPage>
       <Body>
         <FullCard>
-          <Padding>
+          <Padding style={{paddinBottom:"80px"}}>
             <div
               style={{
                 height: '30%',
