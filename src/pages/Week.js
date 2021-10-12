@@ -84,6 +84,7 @@ const Week = () => {
         done: false,
         type,
         order: objectives.length,
+        repeatTime: "never"
       })
       .then(res => {
         console.log(res);
@@ -95,6 +96,7 @@ const Week = () => {
             type,
             n: objectives.length,
             id: res.id,
+            repeatTime: "never"
           },
         ]);
       });
@@ -115,6 +117,7 @@ const Week = () => {
             onClickPrevious={() => onChangeDate('-')}
             date={date}
             time="weeks"
+            
           />
           <Card>
             <Subtitle>Objectives</Subtitle>
@@ -134,6 +137,7 @@ const Week = () => {
                     isDone={objective.done}
                     date={date}
                     time="weeks"
+                    repeatTime={objective.repeatTime}
                   />
                 ))}
             </IonList>
@@ -173,6 +177,7 @@ const Week = () => {
                     isDone={objective.done}
                     date={date}
                     time="weeks"
+                    repeatTime={objective.repeatTime}
                   />
                 ))}
 

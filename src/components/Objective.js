@@ -20,9 +20,8 @@ import {
 } from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
 
-const Objective = ({ isDone, id, n, text, date, time }) => {
+const Objective = ({ isDone, id, n, text, date, time, repeatTime }) => {
   const { objectives, setObjectives, setRemoved, removed } = useContext(Context);
-  const [presentRepeatSheet, dismissRepeatSheet] = useIonActionSheet();
   const [selectedTime, setSelectedTime] = useState();
 
   function getDocName() {
@@ -37,9 +36,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
     authentication.currentUser &&
     db.collection('users').doc(authentication.currentUser.uid).collection(time).doc(getDocName());
 
-  const onChangeObjective = (text) => {
-    console.log(text, id, n);
-
+  const onChangeObjective = text => {
     objectives.sort((a, b) => a.n - b.n);
     const newObjectives = objectives.slice();
     newObjectives[n].text = text;
@@ -57,8 +54,16 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
 
   const onRemoveObjective = () => {
     timeRef.collection('objectives').doc(id).delete();
-    setRemoved(removed+1)
+    setRemoved(removed + 1);
   };
+
+  const onChangeRepeatTime = (newRepeatTime) => {
+    objectives.sort((a, b) => a.n - b.n);
+    const newObjectives = objectives.slice();
+    newObjectives[n].repeatTime = newRepeatTime;
+    setObjectives(newObjectives);
+    timeRef.collection('objectives').doc(id).update({ repeatTime: newRepeatTime });
+  }
 
   const inputRef = useRef(null);
 
@@ -77,12 +82,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
 				}}
 			/> */}
 
-        <Checkbox
-          mode="ios"
-          slot="start"
-          checked={isDone}
-          onClick={() => onChangeCheckBox()}
-        />
+        <Checkbox mode="ios" slot="start" checked={isDone} onClick={() => onChangeCheckBox()} />
 
         <InputObjective
           placeholder="Type here..."
@@ -96,21 +96,24 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
 
       <SlideOptions side="end">
         <IonItemOption color="danger" onClick={() => onRemoveObjective()}>
-          <IonIcon icon={trash} size={2} style={{fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
+          <IonIcon
+            icon={trash}
+            size={2}
+            style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }}
+          />
         </IonItemOption>
 
         <IonItemOption>
           <IonSelect
-            value=""
+            value={repeatTime}
             selectedText=""
             placeholder={null}
-            onIonChange={e => console.log(e.detail)}
+            onIonChange={e => onChangeRepeatTime(e.detail.value)}
             interface="action-sheet"
           >
-            <IonSelectOption value="day">Every Day ✓</IonSelectOption>
-            <IonSelectOption value="week">Every Week</IonSelectOption>
-            <IonSelectOption value="month">Every Month</IonSelectOption>
-            <IonSelectOption value="year">Every Year</IonSelectOption>
+            <IonSelectOption value="week">Every Week {repeatTime == "week" && "✓"}</IonSelectOption>
+            <IonSelectOption value="month">Every Month {repeatTime == "month" && "✓"}</IonSelectOption>
+            <IonSelectOption value="year">Every Year {repeatTime == "year" && "✓"}</IonSelectOption>
           </IonSelect>
           <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>
