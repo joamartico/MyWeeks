@@ -20,9 +20,8 @@ import {
 } from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
 
-const Objective = ({ isDone, id, n, text, date, time, repeatTime }) => {
+const Objective = ({ isDone, id, n, text, date, time, repeatTime, dayDate }) => {
   const { objectives, setObjectives, setRemoved, removed } = useContext(Context);
-  const [selectedTime, setSelectedTime] = useState();
 
   function getDocName() {
     if (time == 'weeks') return date.toString();
@@ -57,31 +56,32 @@ const Objective = ({ isDone, id, n, text, date, time, repeatTime }) => {
     setRemoved(removed + 1);
   };
 
-  const onChangeRepeatTime = (newRepeatTime) => {
+  const onChangeRepeatTime = newRepeatTime => {
+    var newRepeatDate = ""
+
+    if(newRepeatTime == "week") {
+      newRepeatDate = `week`
+    }
+    if(newRepeatTime == "month") {
+      newRepeatDate = `${dayDate.day}`
+    }
+    if(newRepeatTime == "year") {
+      newRepeatDate = `${dayDate.day}/${dayDate.month}`
+    }
+
     objectives.sort((a, b) => a.n - b.n);
     const newObjectives = objectives.slice();
-    newObjectives[n].repeatTime = newRepeatTime;
+    newObjectives[n].repeatTime = newRepeatDate;
     setObjectives(newObjectives);
-    timeRef.collection('objectives').doc(id).update({ repeatTime: newRepeatTime });
-  }
+    timeRef.collection('objectives').doc(id).update({ repeatTime: newRepeatDate });
+    console.log(newRepeatDate);
+  };
 
   const inputRef = useRef(null);
 
   return (
     <IonItemSliding style={{ paddingTop: 0 }}>
       <ObjectiveBody key={id}>
-        {/* <BouncyCheckbox
-				text=""
-				onClick={() => onChangeCheckBox(isDone, id, n)}
-				isChecked={isDone}
-				borderColor={COLORS.secondary}
-				fillColor={COLORS.secondary}
-				style={{
-          marginRight: -10,
-					marginLeft: 0,
-				}}
-			/> */}
-
         <Checkbox mode="ios" slot="start" checked={isDone} onClick={() => onChangeCheckBox()} />
 
         <InputObjective
@@ -105,15 +105,27 @@ const Objective = ({ isDone, id, n, text, date, time, repeatTime }) => {
 
         <IonItemOption>
           <IonSelect
-            value={repeatTime}
+            value={repeatTime === "week" ? "week" : repeatTime?.length < 3 ? "month" : repeatTime?.length > 3 && "year"}
             selectedText=""
             placeholder={null}
             onIonChange={e => onChangeRepeatTime(e.detail.value)}
             interface="action-sheet"
           >
-            <IonSelectOption value="week">Every Week {repeatTime == "week" && "✓"}</IonSelectOption>
-            <IonSelectOption value="month">Every Month {repeatTime == "month" && "✓"}</IonSelectOption>
-            <IonSelectOption value="year">Every Year {repeatTime == "year" && "✓"}</IonSelectOption>
+            <IonSelectOption value="week">
+              Every Week {repeatTime == 'week' && '✓'}
+            </IonSelectOption>
+            <IonSelectOption 
+              value="month"
+            // value={dayDate?.day}
+            >
+              Every Month {repeatTime?.length < 3 && '✓'}
+            </IonSelectOption>
+            <IonSelectOption 
+            // value={dayDate?.day + '/' + dayDate?.month}
+            value="year"
+            >
+              Every Year {repeatTime?.length >= 3 && repeatTime != 'week' && '✓'}
+            </IonSelectOption>
           </IonSelect>
           <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>

@@ -28,6 +28,7 @@ const Week = () => {
   const { objectives, setObjectives, removed } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
   const [notes, setNotes] = useState('');
+  const [repeatedObjectives, setRepeatedObjectives] = useState([]);
 
   const weekRef =
     authentication.currentUser &&
@@ -65,6 +66,25 @@ const Week = () => {
     }
   }, [router.routeInfo, date, removed]);
 
+  useEffect(() => {
+    weekRef
+      ?.collection('objectives')
+      .orderBy('order', 'asc')
+      .get()
+      .then(snapshot => {
+        setRepeatedObjectives(
+          snapshot.docs
+            .filter(doc => doc.data().text != '' && doc.data().repeatTime != null)
+            .map((doc, index) => {
+              var newDoc = doc.data();
+              newDoc.id = doc.id;
+              newDoc.n = index;
+              return newDoc;
+            })
+        );
+      });
+  }, []);
+
   const onChangeDate = symbol => {
     if (symbol === '+') {
       const newDate = date.add({ days: 7 });
@@ -84,7 +104,7 @@ const Week = () => {
         done: false,
         type,
         order: objectives.length,
-        repeatTime: "never"
+        repeatTime: null,
       })
       .then(res => {
         console.log(res);
@@ -96,7 +116,7 @@ const Week = () => {
             type,
             n: objectives.length,
             id: res.id,
-            repeatTime: "never"
+            repeatTime: null,
           },
         ]);
       });
@@ -108,6 +128,13 @@ const Week = () => {
     return `${day}/${month}`;
   }
 
+  const shouldDisplay = (objective, day, dayDate) => {
+    if(objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {return true}
+    if(objective.repeatTime == "week" && objective.type == day) {return true}
+    if(objective.repeatTime == dayDate.day) {return true}
+    console.log(`${dayDate.day}/${dayDate.month}`)
+  }
+
   return (
     <>
       <IonPage>
@@ -117,7 +144,6 @@ const Week = () => {
             onClickPrevious={() => onChangeDate('-')}
             date={date}
             time="weeks"
-            
           />
           <Card>
             <Subtitle>Objectives</Subtitle>
@@ -125,6 +151,23 @@ const Week = () => {
             <IonList>
               {objectives
                 ?.filter(objective => objective.type === 'week')
+                .sort((a, b) => {
+                  return a.n - b.n;
+                })
+                .map(objective => (
+                  <Objective
+                    key={objective.id}
+                    n={objective.n}
+                    text={objective.text}
+                    id={objective.id}
+                    isDone={objective.done}
+                    date={date}
+                    time="weeks"
+                    repeatTime={objective.repeatTime}
+                  />
+                ))}
+              {repeatedObjectives
+                ?.filter(objective => objective.type === 'week' && objective.repeatTime == 'week')
                 .sort((a, b) => {
                   return a.n - b.n;
                 })
@@ -175,11 +218,31 @@ const Week = () => {
                     text={objective.text}
                     id={objective.id}
                     isDone={objective.done}
-                    date={date}
                     time="weeks"
+                    date={date}
+                    dayDate={date.add({days:index})}
                     repeatTime={objective.repeatTime}
                   />
                 ))}
+              {repeatedObjectives
+                ?.filter(objective => objective.type != "week")
+                .map(objective => {
+                  if (shouldDisplay(objective, day, date.add({days:index}))) {
+                    return (
+                      <Objective
+                        key={objective.id}
+                        n={objective.n}
+                        text={objective.text}
+                        id={objective.id}
+                        isDone={objective.done}
+                        time="weeks"
+                        date={date}
+                        dayDate={date.add({days:index})}
+                        repeatTime={objective.repeatTime}
+                      />
+                    );
+                  }
+                })}
 
               <AddButton onClick={() => onAddObjective(day)} />
             </Card>
