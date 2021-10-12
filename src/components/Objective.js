@@ -21,7 +21,7 @@ import {
 import { notifications, repeat, trash } from 'ionicons/icons';
 
 const Objective = ({ isDone, id, n, text, date, time }) => {
-  const { objectives, setObjectives } = useContext(Context);
+  const { objectives, setObjectives, setRemoved, removed } = useContext(Context);
   const [presentRepeatSheet, dismissRepeatSheet] = useIonActionSheet();
   const [selectedTime, setSelectedTime] = useState();
 
@@ -37,7 +37,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
     authentication.currentUser &&
     db.collection('users').doc(authentication.currentUser.uid).collection(time).doc(getDocName());
 
-  const onChangeObjective = (text, id, n) => {
+  const onChangeObjective = (text) => {
     console.log(text, id, n);
 
     objectives.sort((a, b) => a.n - b.n);
@@ -47,12 +47,17 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
     timeRef.collection('objectives').doc(id).update({ text: text });
   };
 
-  const onChangeCheckBox = (isChecked, id, n) => {
+  const onChangeCheckBox = () => {
     objectives.sort((a, b) => a.n - b.n);
     const newObjectives = objectives.slice();
-    newObjectives[n].done = !isChecked;
+    newObjectives[n].done = !isDone;
     setObjectives(newObjectives);
-    timeRef.collection('objectives').doc(id).update({ done: !isChecked });
+    timeRef.collection('objectives').doc(id).update({ done: !isDone });
+  };
+
+  const onRemoveObjective = () => {
+    timeRef.collection('objectives').doc(id).delete();
+    setRemoved(removed+1)
   };
 
   const inputRef = useRef(null);
@@ -76,13 +81,13 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
           mode="ios"
           slot="start"
           checked={isDone}
-          onClick={() => onChangeCheckBox(isDone, id, n)}
+          onClick={() => onChangeCheckBox()}
         />
 
         <InputObjective
           placeholder="Type here..."
           value={text}
-          onIonChange={e => onChangeObjective(e.detail.value, id, n)}
+          onIonChange={e => onChangeObjective(e.detail.value)}
           // autoFocus={true} // POR QUE NO FUNCIONA
           // ref={inputRef}
           focus={true}
@@ -90,7 +95,7 @@ const Objective = ({ isDone, id, n, text, date, time }) => {
       </ObjectiveBody>
 
       <SlideOptions side="end">
-        <IonItemOption color="danger" onClick={() => console.log('share clicked')}>
+        <IonItemOption color="danger" onClick={() => onRemoveObjective()}>
           <IonIcon icon={trash} size={2} style={{fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
         </IonItemOption>
 

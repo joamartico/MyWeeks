@@ -25,7 +25,7 @@ function getWeekDate() {
 
 const Week = () => {
   const router = useIonRouter();
-  const { objectives, setObjectives } = useContext(Context);
+  const { objectives, setObjectives, removed } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
   const [notes, setNotes] = useState('');
 
@@ -51,7 +51,6 @@ const Week = () => {
         .orderBy('order', 'asc')
         .get()
         .then(snapshot => {
-          console.log('CAMBIANDO OBJETIVOS WEEK');
           setObjectives(
             snapshot.docs
               .filter(doc => doc.data().text != '')
@@ -64,7 +63,7 @@ const Week = () => {
           );
         });
     }
-  }, [router.routeInfo, date]);
+  }, [router.routeInfo, date, removed]);
 
   const onChangeDate = symbol => {
     if (symbol === '+') {

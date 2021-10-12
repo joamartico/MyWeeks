@@ -82,10 +82,10 @@ ion-tab-bar {
   left: 0;
   right: 0;
   width: 100vw !important;
-
+  -webkit-backdrop-filter: blur(20px);
   --background: #fff0 !important; /* COLOR DE LA BARRA DE ARRIBA CON ITEMS*/
   background: #fff9 !important; /* COLOR DE TODA LA BARRA */
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
   border-top: solid 1px #bab9bacc;
   z-index: 999999999999;
 }
