@@ -20,32 +20,6 @@ export const Padding = styled.div`
   justify-content: space-around;
 `;
 
-// export const ScrollBody = styled.ScrollView`
-// 	height: ${screenHeight};
-// 	width: 100vw;
-// 	background: ${COLORS.bg};
-// 	padding-left: 10px;
-// 	padding-right: 10px;
-// 	padding-top: ${({ insetTop }) => insetTop};
-// 	padding-bottom: ${({ insetBottom }) => insetBottom};
-// 	aspect-ratio: 1;
-// `;
-
-// export const Body = styled.SafeAreaView`
-// 	height: ${({ insetBottom, insetTop }) => screenHeight + insetTop};
-// 	/* width: 100vw; */
-// 	width: ${screenWidth};
-// 	background: ${COLORS.bg};
-// 	padding-left: 10px;
-// 	padding-right: 10px;
-// 	padding-top: ${({ insetTop }) => insetTop + 15};
-// 	padding-bottom: ${({ insetBottom }) => insetBottom + 15};
-// 	/* padding-top: 10px;
-// 	padding-bottom: 10px; */
-// 	align-items: center;
-// 	justify-content: center;
-// 	aspect-ratio: 1;
-// `;
 
 export const Card = styled.div`
   background-color: #fff;

@@ -19,13 +19,13 @@ const months = [
   'December',
 ];
 
-const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSegment }) => {
-  const fromDayNumber = date.day;
-  const fromDayMonthNumber = date.month;
+const WeekHeader = ({ children, weekDate, onClickNext, onClickPrevious, time, withSegment }) => {
+  const fromDayNumber = weekDate.day;
+  const fromDayMonthNumber = weekDate.month;
   const fromDayMonth = months[fromDayMonthNumber - 1];
 
-  const toDayNumber = date.add({ days: 6 }).day;
-  const toDayMonthNumber = date.add({ days: 6 }).month;
+  const toDayNumber = weekDate.add({ days: 6 }).day;
+  const toDayMonthNumber = weekDate.add({ days: 6 }).month;
   const toDayMonth = months[toDayMonthNumber - 1];
 
   return (
@@ -43,9 +43,9 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
               toDayNumber < 7 ? `${toDayMonth} ` : ''
             }${toDayNumber}`}
           {time == 'Months' && fromDayMonth}
-          {time == 'Years' && date.year}
-          {time == 'Five Years' && `${date.year} - ${date.add({ years: 5 }).year}`}
-          {time == 'Ten Years' && `${date.year} - ${date.add({ years: 10 }).year}`}
+          {time == 'Years' && weekDate.year}
+          {time == 'Five Years' && `${weekDate.year} - ${weekDate.add({ years: 5 }).year}`}
+          {time == 'Ten Years' && `${weekDate.year} - ${weekDate.add({ years: 10 }).year}`}
         </Title>
 
         <div onClick={onClickNext}>

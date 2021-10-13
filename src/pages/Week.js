@@ -24,6 +24,7 @@ function getWeekDate() {
 }
 
 const Week = () => {
+  const ref = useRef();
   const router = useIonRouter();
   const { objectives, setObjectives, removed } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
@@ -104,7 +105,7 @@ const Week = () => {
         type,
         order: objectives.length,
         repeatValue: 'never',
-        repeatTime: 'never',
+        // repeatTime: 'never',
       })
       .then(res => {
         console.log(res);
@@ -119,6 +120,10 @@ const Week = () => {
           },
         ]);
       });
+    // setTimeout(() => {
+    //   ref.current.setFocus();
+    //   console.log('REF: ', ref.current);
+    // }, 5000);
   };
 
   function dayDate(daysAfterMonday) {
@@ -128,11 +133,11 @@ const Week = () => {
   }
 
   const shouldDisplay = (objective, day, dayDate) => {
-    if (dayDate.year + '-' + dayDate.month + '-' + dayDate.day != objective.date) {
+    if (date.toString() != objective.date && date.toString() != objective.exceptionDate) {
       if (objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {
         return true;
       }
-      if (objective.repeatTime == 'week' && objective.type == day) {
+      if (objective.repeatTime == day) {
         return true;
       }
       if (objective.repeatTime == dayDate.day) {
@@ -148,7 +153,7 @@ const Week = () => {
           <WeekHeader
             onClickNext={() => onChangeDate('+')}
             onClickPrevious={() => onChangeDate('-')}
-            date={date}
+            weekDate={date}
             time="weeks"
           />
           <Card>
@@ -167,14 +172,18 @@ const Week = () => {
                     text={objective.text}
                     id={objective.id}
                     isDone={objective.done}
-                    date={date}
+                    weekDate={date}
                     time="weeks"
-                    repeatTime={objective.repeatTime}
+                    type="week"
+                    // repeatTime={objective.repeatTime}
                     repeatValue={objective.repeatValue}
+                    ref={ref}
                   />
                 ))}
               {repeatedObjectives
-                ?.filter(objective => objective.type === 'week' && objective.repeatTime == 'week')
+                ?.filter(
+                  objective => objective.repeatTime === 'week' && objective.repeatValue == 'week'
+                )
                 .sort((a, b) => {
                   return a.n - b.n;
                 })
@@ -185,9 +194,8 @@ const Week = () => {
                     text={objective.text}
                     id={objective.id}
                     isDone={objective.done}
-                    date={date}
+                    weekDate={date}
                     time="weeks"
-                    repeatTime={objective.repeatTime}
                     type={objective.type}
                     repeatValue={objective.repeatValue}
                   />
@@ -228,9 +236,8 @@ const Week = () => {
                     id={objective.id}
                     isDone={objective.done}
                     time="weeks"
-                    date={date}
+                    weekDate={date}
                     dayDate={date.add({ days: index })}
-                    repeatTime={objective.repeatTime}
                     type={objective.type}
                     repeatValue={objective.repeatValue}
                   />
@@ -247,10 +254,10 @@ const Week = () => {
                         id={objective.id}
                         isDone={objective.done}
                         time="weeks"
-                        date={objective.date}
+                        actualWeekDate={date}
+                        weekDate={objective.date}
                         dayDate={date.add({ days: index })}
                         repeatTime={objective.repeatTime}
-                        type={objective.type}
                         repeatValue={objective.repeatValue}
                       />
                     );
