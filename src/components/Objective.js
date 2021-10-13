@@ -20,27 +20,51 @@ import {
 } from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
 
-const Objective = ({ isDone, id, n, text, date, time, repeatTime, dayDate }) => {
+const Objective = ({ isDone, id, n, text, date, time, repeatTime, dayDate, type, repeatValue }) => {
   const { objectives, setObjectives, setRemoved, removed } = useContext(Context);
 
-  function getDocName() {
-    if (time == 'weeks') return date.toString();
-    if (time == 'Months') return `${date.year}-${date.month}`;
-    if (time == 'Years') return date.year.toString();
-    if (time == 'Five Years') return `${date.year}-${date.year + 5}`;
-    if (time == 'Ten Years') return `${date.year}-${date.year + 10}`;
+  function getDocName(DATE) {
+    if (time == 'weeks') return DATE.toString();
+    if (time == 'Months') return `${DATE.year}-${DATE.month}`;
+    if (time == 'Years') return DATE.year.toString();
+    if (time == 'Five Years') return `${DATE.year}-${DATE.year + 5}`;
+    if (time == 'Ten Years') return `${DATE.year}-${DATE.year + 10}`;
   }
 
-  const timeRef =
+  const objRef =
     authentication.currentUser &&
-    db.collection('users').doc(authentication.currentUser.uid).collection(time).doc(getDocName());
+    db
+      .collection('users')
+      .doc(authentication.currentUser.uid)
+      .collection(time)
+      .doc(getDocName(date))
+      .collection('objectives')
+      .doc(id);
+
+  // const srcObjRef =
+  //   authentication.currentUser && dayDate &&
+  //   db
+  //     .collection('users')
+  //     .doc(authentication.currentUser.uid)
+  //     .collection(time)
+  //     .doc(getDocName(dayDate))
+  //     .collection('objectives')
+  //     .doc(id);
+
+  const repObjRef =
+    authentication.currentUser &&
+    db
+      .collection('users')
+      .doc(authentication.currentUser.uid)
+      .collection('repeatedObjectives')
+      .doc(id);
 
   const onChangeObjective = text => {
     objectives.sort((a, b) => a.n - b.n);
     const newObjectives = objectives.slice();
     newObjectives[n].text = text;
     setObjectives(newObjectives);
-    timeRef.collection('objectives').doc(id).update({ text: text });
+    objRef.update({ text: text });
   };
 
   const onChangeCheckBox = () => {
@@ -48,36 +72,61 @@ const Objective = ({ isDone, id, n, text, date, time, repeatTime, dayDate }) => 
     const newObjectives = objectives.slice();
     newObjectives[n].done = !isDone;
     setObjectives(newObjectives);
-    timeRef.collection('objectives').doc(id).update({ done: !isDone });
+    objRef.update({ done: !isDone });
   };
 
   const onRemoveObjective = () => {
-    timeRef.collection('objectives').doc(id).delete();
+    objRef.delete();
     setRemoved(removed + 1);
   };
 
   const onChangeRepeatTime = newRepeatTime => {
-    var newRepeatDate = ""
+    console.log('CHANGED SELECTOR: ', newRepeatTime);
+    var newRepeatDate = '';
 
-    if(newRepeatTime == "week") {
-      newRepeatDate = `week`
-    }
-    if(newRepeatTime == "month") {
-      newRepeatDate = `${dayDate.day}`
-    }
-    if(newRepeatTime == "year") {
-      newRepeatDate = `${dayDate.day}/${dayDate.month}`
-    }
+    if (newRepeatTime == 'never') {
+      objRef.update({
+        repeatTime: 'never',
+        repeatValue: 'never',
+      });
 
-    objectives.sort((a, b) => a.n - b.n);
-    const newObjectives = objectives.slice();
-    newObjectives[n].repeatTime = newRepeatDate;
-    setObjectives(newObjectives);
-    timeRef.collection('objectives').doc(id).update({ repeatTime: newRepeatDate });
-    console.log(newRepeatDate);
+      repObjRef.delete();
+
+      setRemoved(removed + 1);
+    } else {
+      if (newRepeatTime == 'week') {
+        newRepeatDate = `week`;
+      }
+      if (newRepeatTime == 'month') {
+        newRepeatDate = `${dayDate.day}`;
+      }
+      if (newRepeatTime == 'year') {
+        newRepeatDate = `${dayDate.day}/${dayDate.month}`;
+      }
+
+      // objectives.sort((a, b) => a.n - b.n);
+      // const newObjectives = objectives.slice();
+      // newObjectives[n].repeatTime = newRepeatDate;
+      // setObjectives(newObjectives);
+      if (newRepeatTime) {
+        objRef.update({
+          repeatTime: newRepeatDate,
+          repeatValue: newRepeatTime,
+        });
+
+        repObjRef.set({
+          repeatTime: newRepeatDate,
+          repeatValue: newRepeatTime,
+          isDone: false,
+          text,
+          type,
+          date: dayDate.year + '-' + dayDate.month + '-' + dayDate.day,
+        });
+
+        setRemoved(removed + 1);
+      }
+    }
   };
-
-  const inputRef = useRef(null);
 
   return (
     <IonItemSliding style={{ paddingTop: 0 }}>
@@ -92,6 +141,7 @@ const Objective = ({ isDone, id, n, text, date, time, repeatTime, dayDate }) => 
           // ref={inputRef}
           focus={true}
         />
+
       </ObjectiveBody>
 
       <SlideOptions side="end">
@@ -104,27 +154,29 @@ const Objective = ({ isDone, id, n, text, date, time, repeatTime, dayDate }) => 
         </IonItemOption>
 
         <IonItemOption>
+          {console.log(repeatValue)}
           <IonSelect
-            value={repeatTime === "week" ? "week" : repeatTime?.length < 3 ? "month" : repeatTime?.length > 3 && "year"}
+            // value={repeatValue}
             selectedText=""
             placeholder={null}
-            onIonChange={e => onChangeRepeatTime(e.detail.value)}
+            onIonChange={e => {
+              onChangeRepeatTime(e.detail.value);
+              console.log(e.detail);
+            }}
             interface="action-sheet"
           >
+            <IonSelectOption value="never">Never {repeatValue == 'never' && '✓'}</IonSelectOption>
+
             <IonSelectOption value="week">
-              Every Week {repeatTime == 'week' && '✓'}
+              Every Week {repeatValue == 'week' && '✓'}
             </IonSelectOption>
-            <IonSelectOption 
-              value="month"
-            // value={dayDate?.day}
-            >
-              Every Month {repeatTime?.length < 3 && '✓'}
+
+            <IonSelectOption value="month">
+              Every Month {repeatValue == 'month' && '✓'}
             </IonSelectOption>
-            <IonSelectOption 
-            // value={dayDate?.day + '/' + dayDate?.month}
-            value="year"
-            >
-              Every Year {repeatTime?.length >= 3 && repeatTime != 'week' && '✓'}
+
+            <IonSelectOption value="year">
+              Every Year {repeatValue == 'year' && '✓'}
             </IonSelectOption>
           </IonSelect>
           <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />

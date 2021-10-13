@@ -38,6 +38,10 @@ const Week = () => {
       .collection('weeks')
       .doc(date.toString());
 
+  const repObjRef =
+    authentication.currentUser &&
+    db.collection('users').doc(authentication.currentUser.uid).collection('repeatedObjectives');
+
   useEffect(() => {
     if (router.routeInfo.pathname == '/tabs/week') {
       weekRef
@@ -67,23 +71,18 @@ const Week = () => {
   }, [router.routeInfo, date, removed]);
 
   useEffect(() => {
-    weekRef
-      ?.collection('objectives')
-      .orderBy('order', 'asc')
-      .get()
-      .then(snapshot => {
-        setRepeatedObjectives(
-          snapshot.docs
-            .filter(doc => doc.data().text != '' && doc.data().repeatTime != null)
-            .map((doc, index) => {
-              var newDoc = doc.data();
-              newDoc.id = doc.id;
-              newDoc.n = index;
-              return newDoc;
-            })
-        );
-      });
-  }, []);
+    repObjRef.onSnapshot(snapshot => {
+      console.log(snapshot.docs);
+      setRepeatedObjectives(
+        snapshot.docs.map((doc, index) => {
+          var newDoc = doc.data();
+          newDoc.id = doc.id;
+          newDoc.n = index;
+          return newDoc;
+        })
+      );
+    });
+  }, [removed]);
 
   const onChangeDate = symbol => {
     if (symbol === '+') {
@@ -104,7 +103,8 @@ const Week = () => {
         done: false,
         type,
         order: objectives.length,
-        repeatTime: null,
+        repeatValue: 'never',
+        repeatTime: 'never',
       })
       .then(res => {
         console.log(res);
@@ -116,7 +116,6 @@ const Week = () => {
             type,
             n: objectives.length,
             id: res.id,
-            repeatTime: null,
           },
         ]);
       });
@@ -129,11 +128,18 @@ const Week = () => {
   }
 
   const shouldDisplay = (objective, day, dayDate) => {
-    if(objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {return true}
-    if(objective.repeatTime == "week" && objective.type == day) {return true}
-    if(objective.repeatTime == dayDate.day) {return true}
-    console.log(`${dayDate.day}/${dayDate.month}`)
-  }
+    if (dayDate.year + '-' + dayDate.month + '-' + dayDate.day != objective.date) {
+      if (objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {
+        return true;
+      }
+      if (objective.repeatTime == 'week' && objective.type == day) {
+        return true;
+      }
+      if (objective.repeatTime == dayDate.day) {
+        return true;
+      }
+    }
+  };
 
   return (
     <>
@@ -164,6 +170,7 @@ const Week = () => {
                     date={date}
                     time="weeks"
                     repeatTime={objective.repeatTime}
+                    repeatValue={objective.repeatValue}
                   />
                 ))}
               {repeatedObjectives
@@ -181,6 +188,8 @@ const Week = () => {
                     date={date}
                     time="weeks"
                     repeatTime={objective.repeatTime}
+                    type={objective.type}
+                    repeatValue={objective.repeatValue}
                   />
                 ))}
             </IonList>
@@ -220,14 +229,16 @@ const Week = () => {
                     isDone={objective.done}
                     time="weeks"
                     date={date}
-                    dayDate={date.add({days:index})}
+                    dayDate={date.add({ days: index })}
                     repeatTime={objective.repeatTime}
+                    type={objective.type}
+                    repeatValue={objective.repeatValue}
                   />
                 ))}
               {repeatedObjectives
-                ?.filter(objective => objective.type != "week")
+                ?.filter(objective => objective.type != 'week')
                 .map(objective => {
-                  if (shouldDisplay(objective, day, date.add({days:index}))) {
+                  if (shouldDisplay(objective, day, date.add({ days: index }))) {
                     return (
                       <Objective
                         key={objective.id}
@@ -236,9 +247,11 @@ const Week = () => {
                         id={objective.id}
                         isDone={objective.done}
                         time="weeks"
-                        date={date}
-                        dayDate={date.add({days:index})}
+                        date={objective.date}
+                        dayDate={date.add({ days: index })}
                         repeatTime={objective.repeatTime}
+                        type={objective.type}
+                        repeatValue={objective.repeatValue}
                       />
                     );
                   }

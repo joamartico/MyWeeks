@@ -13,6 +13,7 @@ const ContextComponent = props => {
         setObjectives,
         removed,
         setRemoved,
+        
       }}
     >
       {props.children}
