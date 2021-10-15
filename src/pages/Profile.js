@@ -19,7 +19,7 @@ const Profile = () => {
 
 	return (
 		<IonPage>
-			<IonContent className="ion-padding">
+			<Body>
 			<FullCard className="ion-padding" intoTabs>
 				<Title>{displayName && displayName}</Title>
 				<Subtitle>{email && email}</Subtitle>
@@ -33,7 +33,7 @@ const Profile = () => {
 					<ButtonTitle>Log Out</ButtonTitle>
 				</StyledButton>
 			</FullCard>
-			</IonContent>
+			</Body>
 		</IonPage>
 	);
 };
