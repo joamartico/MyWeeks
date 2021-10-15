@@ -9,7 +9,7 @@ export default (req, res) => {
   const data = {
     from: 'myweeksapp@gmail.com',
     subject: body.message,
-    text: `${body.notifTime}`,
+    text: "",
     to: body.email,
     send_at: parseInt(body.notifTime),
   };
