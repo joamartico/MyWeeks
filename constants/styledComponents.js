@@ -15,7 +15,6 @@ export const Padding = styled.div`
   height: 90%;
   width: 90%;
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: space-around;
 `;

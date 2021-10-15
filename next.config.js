@@ -9,7 +9,4 @@ module.exports = withPWA({
     runtimeCaching, // que hace?
     // reactStrictMode: true, ??
   },
-  env: {
-    SENDGRID_API_KEY: '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',
-  },
 });

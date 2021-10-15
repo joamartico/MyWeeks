@@ -27,7 +27,7 @@ const Profile = () => {
 					style={{ background: "red", borderWidth: 0 }}
 					onClick={() =>
 						authentication?.signOut()
-							.then(() => router.push("/signin", "forward", "pop" ) )
+							.then(() => router.push("/onboarding", "forward", "pop" ) )
 					}
 				>
 					<ButtonTitle>Log Out</ButtonTitle>

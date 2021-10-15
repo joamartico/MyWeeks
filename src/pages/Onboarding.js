@@ -38,28 +38,31 @@ const Onboarding = () => {
     <IonPage>
       <Body>
         <FullCard>
-          <Padding style={{paddinBottom:"80px"}}>
+          <Padding >
             <div
               style={{
-                height: '30%',
+                // height: '80%',
+                // marginTop:"20%",
                 margin: 'auto',
-                maxWidth: '550px',
+                // maxWidth: '550px',
+                // background: "#f001"
               }}
             >
               <Title style={{ fontSize: '7vh' }}>Welcome to {''} MyWeeks!</Title>
 
-              <Subtitle style={{ marginTop: '3vh' }}>
+              <Subtitle style={{ marginTop: '3vh', maxWidth: '500px', }}>
                 Your weekly schedule app to manage your time and achive your goals
               </Subtitle>
             </div>
+            {/* <div> */}
             {IsSafari() && (
               <StyledButton
-                style={{
-                  marginTop: 'auto',
-                  background: '#fff',
-                  // marginBottom: 10,
-                }}
-                onClick={() => setShowPWAPrompt(true)}
+              style={{
+                marginTop: 'auto',
+                background: '#fff',
+                // marginBottom: 10,
+              }}
+              onClick={() => setShowPWAPrompt(true)}
               >
                 <ButtonTitle style={{ color: COLORS.primary }}>Install App</ButtonTitle>
               </StyledButton>
@@ -67,9 +70,10 @@ const Onboarding = () => {
             <StyledButton
               style={{ marginTop: '10px', marginBottom: '10px' }}
               onClick={() => router.push('/signin', 'forward', 'push')}
-            >
+              >
               <ButtonTitle>Get Started!</ButtonTitle>
             </StyledButton>
+              {/* </div> */}
           </Padding>
         </FullCard>
 
