@@ -1,11 +1,29 @@
-import { IonIcon, IonItemOption, IonItemOptions, IonSelect, IonSelectOption } from '@ionic/react';
+import {
+  IonDatetime,
+  IonIcon,
+  IonItemOption,
+  IonItemOptions,
+  IonSelect,
+  IonSelectOption,
+} from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 
-const SlideOptions = ({ id, dayDate, weekDate, type, repeatValue, text, time, actualWeekDate }) => {
+const SlideOptions = ({
+  id,
+  dayDate,
+  weekDate,
+  type,
+  text,
+  time,
+  actualWeekDate,
+  repeatValue,
+  notifTime,
+}) => {
   const { setRemoved, removed } = useContext(Context);
+  // const [notifTime, setNotifTime] = useState();
 
   function getDocName(DATE) {
     if (time == 'weeks') return DATE.toString();
@@ -34,7 +52,7 @@ const SlideOptions = ({ id, dayDate, weekDate, type, repeatValue, text, time, ac
       .doc(id);
 
   const onRemoveObjective = () => {
-    if (repeatValue == 'never' || repeatValue == undefined) {
+    if (actualWeekDate == undefined) {
       objRef.delete();
     } else {
       repObjRef.update({
@@ -49,9 +67,10 @@ const SlideOptions = ({ id, dayDate, weekDate, type, repeatValue, text, time, ac
     var newRepeatTime = '';
 
     if (newRepeatValue == 'never') {
-      objRef.update({
-        repeatValue: 'never',
-      });
+      objRef &&
+        objRef?.update({
+          repeatValue: 'never',
+        });
 
       repObjRef.delete();
 
@@ -68,16 +87,16 @@ const SlideOptions = ({ id, dayDate, weekDate, type, repeatValue, text, time, ac
       }
 
       if (newRepeatValue) {
-        objRef.update({
-          repeatValue: newRepeatValue,
-        });
+        objRef &&
+          objRef?.update({
+            repeatValue: newRepeatValue,
+          });
 
         repObjRef.set({
           repeatValue: newRepeatValue,
           repeatTime: newRepeatTime,
           isDone: false,
           text,
-        //   date: dayDate.toString(),
           date: weekDate.toString(),
         });
 
@@ -86,17 +105,52 @@ const SlideOptions = ({ id, dayDate, weekDate, type, repeatValue, text, time, ac
     }
   };
 
+  const onChangeNotifTime = newNotifTime => {
+    objRef.update({
+      notifTime: newNotifTime,
+    });
+
+    const data = {
+      notifTime: (new Date(dayDate.month + "/" + dayDate.day + "/" + dayDate.year + " " + newNotifTime).getTime() / 1000).toFixed(0),
+      email: authentication.currentUser.email,
+      message: text,
+    };
+    
+    fetch('/api/mail', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  };
+
   return (
     <IonItemOptions side="end">
       <IonItemOption color="danger" onClick={() => onRemoveObjective()}>
+        {' '}
+        {/* DELETE */}
         <IonIcon icon={trash} size={2} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
       </IonItemOption>
 
-      {console.log('TYPE:', type)}
-
       {type != 'week' && (
         <>
+          <IonItemOption color="warning">
+            {' '}
+            {/* NOTIFY */}
+            <IonDatetime
+              pickerFormat="HH:mm"
+              value={notifTime}
+              onIonChange={e => onChangeNotifTime(e.detail.value)}
+              displayFormat={"HH:mm"}
+              displayTimezone="local"
+            />
+            <IonIcon
+              icon={notifications}
+              style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5, color: 'white' }}
+            />
+          </IonItemOption>
+
           <IonItemOption>
+            {' '}
+            {/* REPEAT */}
             {console.log(repeatValue)}
             <IonSelect
               //value={repeatValue != undefined && repeatValue} //POR QUE CUANDO ESTA ACTIVADO AL HACER ONIONCHANGE Y CAMBIARSE EL VALUE SE EJECUTA OTRO ONIONCHANGE PERO AHORA UNDEFINED?
@@ -123,23 +177,6 @@ const SlideOptions = ({ id, dayDate, weekDate, type, repeatValue, text, time, ac
               </IonSelectOption>
             </IonSelect>
             <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
-          </IonItemOption>
-
-          <IonItemOption color="warning">
-            <IonSelect
-              value=""
-              selectedText=""
-              placeholder={null}
-              onIonChange={e => console.log(e.detail)}
-              interface="action-sheet"
-            >
-              <IonSelectOption value="notify">Notify Me ✓</IonSelectOption>
-              <IonSelectOption value="silenced">Silenced</IonSelectOption>
-            </IonSelect>
-            <IonIcon
-              icon={notifications}
-              style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5, color: 'white' }}
-            />
           </IonItemOption>
         </>
       )}

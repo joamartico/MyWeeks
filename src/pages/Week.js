@@ -240,6 +240,7 @@ const Week = () => {
                     dayDate={date.add({ days: index })}
                     type={objective.type}
                     repeatValue={objective.repeatValue}
+                    notifTime={objective.notifTime}
                   />
                 ))}
               {repeatedObjectives
@@ -259,6 +260,7 @@ const Week = () => {
                         dayDate={date.add({ days: index })}
                         repeatTime={objective.repeatTime}
                         repeatValue={objective.repeatValue}
+                        notifTime={objective.notifTime}
                       />
                     );
                   }
