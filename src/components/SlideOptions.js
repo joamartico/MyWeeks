@@ -118,6 +118,7 @@ const SlideOptions = ({
       ).toFixed(0),
       email: authentication.currentUser.email,
       message: text,
+      time: newNotifTime
     };
 
     fetch('/api/mail', {
