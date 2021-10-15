@@ -111,11 +111,15 @@ const SlideOptions = ({
     });
 
     const data = {
-      notifTime: (new Date(dayDate.month + "/" + dayDate.day + "/" + dayDate.year + " " + newNotifTime).getTime() / 1000).toFixed(0),
+      notifTime: (
+        new Date(
+          dayDate.month + '/' + dayDate.day + '/' + dayDate.year + ' ' + newNotifTime
+        ).getTime() / 1000
+      ).toFixed(0),
       email: authentication.currentUser.email,
       message: text,
     };
-    
+
     fetch('/api/mail', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -139,7 +143,7 @@ const SlideOptions = ({
               pickerFormat="HH:mm"
               value={notifTime}
               onIonChange={e => onChangeNotifTime(e.detail.value)}
-              displayFormat={"HH:mm"}
+              displayFormat={'HH:mm'}
               displayTimezone="local"
             />
             <IonIcon
