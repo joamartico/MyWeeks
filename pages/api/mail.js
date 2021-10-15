@@ -1,9 +1,9 @@
-import { SENDGRID_API_KEY } from "../../constants/env";
+// import { SENDGRID_API_KEY } from "../../constants/env";
 
 const mail = require('@sendgrid/mail');
 
-mail.setApiKey(SENDGRID_API_KEY);
-// mail.setApiKey(process.env.SENDGRID_API_KEY);
+// mail.setApiKey(SENDGRID_API_KEY);
+mail.setApiKey('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');
 
 
 
