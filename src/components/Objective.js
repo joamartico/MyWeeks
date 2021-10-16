@@ -7,20 +7,35 @@ import { COLORS } from '../../constants/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
 
-const objective = ({ isDone, id, n, text, dayDate, weekDate, time, type, actualWeekDate, repeatValue, notifTime }, ref) => {
+const Objective = (
+  { isDone, id, n, text, dayDate, weekDate, time, type, actualWeekDate, repeatValue, notifTime }) => {
   const { objectives, setObjectives, removed, setRemoved } = useContext(Context);
 
   // NECESITO QUE LA PROP repeatValue NO RE RENDERIZE EL COMPONENTE CUANDO CAMBIA
 
   // date y dayDate deben ser las fechas del Lunes de cada semana
 
-  function getDocName(DATE) {
-    if (time == 'weeks') return DATE.toString();
-    if (time == 'Months') return `${DATE.year}-${DATE.month}`;
-    if (time == 'Years') return DATE.year.toString();
-    if (time == 'Five Years') return `${DATE.year}-${DATE.year + 5}`;
-    if (time == 'Ten Years') return `${DATE.year}-${DATE.year + 10}`;
+  function getDocName() {
+    if (time == 'weeks') return weekDate.toString();
+    if (time == 'Months') return `${weekDate.year}-${weekDate.month}`;
+    if (time == 'Years') return weekDate.year.toString();
+    if (time == 'Five Years') return `${weekDate.year}-${weekDate.year + 5}`;
+    if (time == 'Ten Years') return `${weekDate.year}-${weekDate.year + 10}`;
   }
+
+  const timeRef =
+    authentication.currentUser &&
+    db.collection('users').doc(authentication.currentUser.uid).collection(time).doc(getDocName());
+
+  // const objRef =
+  //   authentication.currentUser &&
+  //   db
+  //     .collection('users')
+  //     .doc(authentication.currentUser.uid)
+  //     .collection(time)
+  //     .doc(getDocName())
+  //     .collection('objectives')
+  //     .doc(id);
 
   const repObjRef =
     authentication.currentUser &&
@@ -30,33 +45,25 @@ const objective = ({ isDone, id, n, text, dayDate, weekDate, time, type, actualW
       .collection('repeatedObjectives')
       .doc(id);
 
-  const objRef =
-    authentication.currentUser &&
-    db
-      .collection('users')
-      .doc(authentication.currentUser.uid)
-      .collection(time)
-      .doc(getDocName(weekDate))
-      .collection('objectives')
-      .doc(id);
-
   const onChangeObjective = text => {
-
     if (actualWeekDate == undefined) {
+      
       objectives.sort((a, b) => a.n - b.n);
       const newObjectives = objectives.slice();
       newObjectives[n].text = text;
       setObjectives(newObjectives);
-      objRef.update({ text: text });
+      timeRef.collection("objectives").doc(id).update({ text: text });
 
-      if(repeatValue != undefined && repeatValue != "never") {
-      repObjRef.update({ text: text });
+      if (repeatValue != undefined && repeatValue != 'never') {
+        repObjRef.update({ text: text });
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
       }
-      
     } else {
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
       repObjRef.update({ text: text });
-      objRef.update({ text: text });
-      
+      timeRef.collection("objectives").doc(id).update({ text: text });
+
       // setRemoved(removed + 1);
     }
   };
@@ -66,15 +73,8 @@ const objective = ({ isDone, id, n, text, dayDate, weekDate, time, type, actualW
     const newObjectives = objectives.slice();
     newObjectives[n].done = !isDone;
     setObjectives(newObjectives);
-    objRef.update({ done: !isDone });
+    timeRef.collection("objectives").doc(id).update({ done: !isDone });
   };
-
-  useEffect(() => {
-    // setTimeout(() => {
-    // console.log(ref.current)
-    // ref.current.setFocus()
-    // }, 1000);
-  }, []);
 
   return (
     <IonItemSliding style={{ paddingTop: 0 }}>
@@ -86,13 +86,11 @@ const objective = ({ isDone, id, n, text, dayDate, weekDate, time, type, actualW
           value={text}
           onIonChange={e => onChangeObjective(e.detail.value)}
           //autofocus // POR QUE NO FUNCIONA
-          ref={ref}
         />
         {/* <p>{weekDate.toString()}</p> */}
       </ObjectiveBody>
 
       <SlideOptions
-        objRef={objRef}
         time={time}
         type={type}
         repeatValue={repeatValue}
@@ -107,7 +105,7 @@ const objective = ({ isDone, id, n, text, dayDate, weekDate, time, type, actualW
   );
 };
 
-const Objective = React.forwardRef(objective);
+// const Objective = React.forwardRef(objective);
 
 export default Objective;
 

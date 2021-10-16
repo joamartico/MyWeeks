@@ -57,7 +57,7 @@ const SignIn = () => {
       <IonContent className="scroll ion-padding" fullscreen>
         <FullCard>
           <Padding>
-            <Title style={{ fontSize: '5vh', paddingTop: '3vh' }}>Login</Title>
+            <Title size="big" style={{ fontSize: '5vh', paddingTop: '3vh' }}>Login</Title>
             <div>
               <InputText
                 placeholder="Email"

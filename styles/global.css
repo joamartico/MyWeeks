@@ -60,6 +60,10 @@ ion-icon {
   cursor: pointer;
 }
 
+ion-icon:active{
+  opacity: 0.6;
+}
+
 .ios ion-icon {
   font-size: 24px;
 }

@@ -24,7 +24,6 @@ function getWeekDate() {
 }
 
 const Week = () => {
-  const ref = useRef();
   const router = useIonRouter();
   const { objectives, setObjectives, removed } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
@@ -153,7 +152,7 @@ const Week = () => {
           <WeekHeader
             onClickNext={() => onChangeDate('+')}
             onClickPrevious={() => onChangeDate('-')}
-            weekDate={date}
+            date={date}
             time="weeks"
           />
           <Card>
@@ -177,7 +176,6 @@ const Week = () => {
                     type="week"
                     // repeatTime={objective.repeatTime}
                     repeatValue={objective.repeatValue}
-                    ref={ref}
                   />
                 ))}
               {repeatedObjectives

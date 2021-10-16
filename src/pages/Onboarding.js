@@ -48,7 +48,7 @@ const Onboarding = () => {
                 // background: "#f001"
               }}
             >
-              <Title style={{ fontSize: '7vh' }}>Welcome to {''} MyWeeks!</Title>
+              <Title size="giant">Welcome to {''} MyWeeks!</Title>
 
               <Subtitle style={{ marginTop: '3vh', maxWidth: '500px', }}>
                 Your weekly schedule app to manage your time and achive your goals

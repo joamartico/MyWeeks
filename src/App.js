@@ -41,11 +41,12 @@ const App = () => {
       <div
         style={{
           background: COLORS.bg,
-          height: '100vh',
+          height: '90%',
           width: '100vw',
-          position: 'fixed',
+          position: 'absolute',
           top: 0,
           left: 0,
+          paddingBottom: '10%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -55,15 +56,6 @@ const App = () => {
       </div>
     );
 
-    // return (
-    //   <IonApp>
-    //     <IonPage>
-    //       <Body style={{display: "flex !important", justifyContent: 'center !important', alignItems: 'center !important'}}>
-    //         <IonSpinner />
-    //       </Body>
-    //     </IonPage>
-    //   </IonApp>
-    // );
   } else {
     return (
       <Context>
@@ -75,7 +67,17 @@ const App = () => {
                 <Route path="/signin" render={() => <SignIn />} />
                 <Route path="/signup" render={() => <SignUp />} />
                 <Route path="/onboarding" render={() => <Onboarding />} />
-                <Route exact path="/" render={() => initialRoute=="Onboarding"?<Redirect to="/onboarding"/>:<Redirect to="/tabs/week"/>} />
+                <Route
+                  exact
+                  path="/"
+                  render={() =>
+                    initialRoute == 'Onboarding' ? (
+                      <Redirect to="/onboarding" />
+                    ) : (
+                      <Redirect to="/tabs/week" />
+                    )
+                  }
+                />
               </IonRouterOutlet>
             </IonSplitPane>
             {initialRoute == 'Onboarding' && <Redirect to="/onboarding" />}

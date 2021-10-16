@@ -51,7 +51,7 @@ const SignUp = () => {
       <IonContent className="scroll ion-padding" fullscreen>
         <FullCard>
           <Padding>
-            <Title style={{ fontSize: '5vh', }}>Create your account</Title>
+            <Title size="big">Create your account</Title>
 
             <div>
               <Subtitle>User Name</Subtitle>

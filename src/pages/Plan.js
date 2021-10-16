@@ -203,7 +203,7 @@ const Plan = () => {
                 text={objective.text}
                 id={objective.id}
                 isDone={objective.done}
-                date={date}
+                weekDate={date}
                 time={selectedSegment}
               />
             ))}

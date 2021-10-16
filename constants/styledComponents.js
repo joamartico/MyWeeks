@@ -19,7 +19,6 @@ export const Padding = styled.div`
   justify-content: space-around;
 `;
 
-
 export const Card = styled.div`
   background-color: #fff;
   padding-left: 4%;
@@ -52,7 +51,11 @@ export const FullCard = styled.div`
 `;
 
 export const Title = styled.p`
-  font-size: 20px;
+  font-size: ${({ size }) => {
+    if (size === 'giant') return '7vh';
+    if (size === 'big') return '5vh';
+    return '20px';
+  }};
   font-weight: bold;
   color: ${COLORS.primary};
   align-items: center;
@@ -77,9 +80,9 @@ export const StyledButton = styled.div`
   border: 1px solid ${COLORS.primary};
   cursor: pointer;
   background: ${COLORS.primary};
-  background: ${({outlined}) => outlined? "#0000" : COLORS.primary };
-  &:active{
-    background: ${({outlined}) => outlined? "#0005" : COLORS.primary+"99" };
+  background: ${({ outlined }) => (outlined ? '#0000' : COLORS.primary)};
+  &:active {
+    opacity: 0.6 !important;
   }
 `;
 
@@ -95,8 +98,6 @@ export const InputNotes = styled(IonTextarea)`
   min-height: 20px;
   --padding-top: 5px;
   --padding-start: 0;
-
-
 `;
 
 export const InputObjective = styled(IonTextarea).attrs(props => ({

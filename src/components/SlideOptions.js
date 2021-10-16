@@ -34,7 +34,7 @@ const SlideOptions = ({
   }
 
   const objRef =
-    authentication.currentUser &&
+    authentication.currentUser && weekDate &&
     db
       .collection('users')
       .doc(authentication.currentUser.uid)
@@ -130,15 +130,13 @@ const SlideOptions = ({
   return (
     <IonItemOptions side="end">
       <IonItemOption color="danger" onClick={() => onRemoveObjective()}>
-        {' '}
         {/* DELETE */}
         <IonIcon icon={trash} size={2} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
       </IonItemOption>
 
-      {type != 'week' && (
+      {type != 'week' && time == "weeks" && (
         <>
           <IonItemOption color="warning">
-            {' '}
             {/* NOTIFY */}
             <IonDatetime
               pickerFormat="HH:mm"
@@ -154,7 +152,6 @@ const SlideOptions = ({
           </IonItemOption>
 
           <IonItemOption>
-            {' '}
             {/* REPEAT */}
             {console.log(repeatValue)}
             <IonSelect

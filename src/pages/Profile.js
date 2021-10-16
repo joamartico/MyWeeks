@@ -5,6 +5,7 @@ import {
 	Title,
 	Subtitle,
 	FullCard,
+	Body,
 } from "../../constants/styledComponents";
 import { authentication } from "../../firebase";
 import { IonContent, IonPage, useIonRouter } from "@ionic/react";
