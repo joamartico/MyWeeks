@@ -21,9 +21,10 @@ const SlideOptions = ({
   actualWeekDate,
   repeatValue,
   notifTime,
+  repObjRef
 }) => {
   const { setRemoved, removed } = useContext(Context);
-  // const [notifTime, setNotifTime] = useState();
+
 
   function getDocName(DATE) {
     if (time == 'weeks') return DATE.toString();
@@ -43,13 +44,6 @@ const SlideOptions = ({
       .collection('objectives')
       .doc(id);
 
-  const repObjRef =
-    authentication.currentUser &&
-    db
-      .collection('users')
-      .doc(authentication.currentUser.uid)
-      .collection('repeatedObjectives')
-      .doc(id);
 
   const onRemoveObjective = () => {
     if (actualWeekDate == undefined) {

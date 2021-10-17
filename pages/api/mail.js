@@ -13,8 +13,11 @@ export default (req, res) => {
     subject: '[' + body.time + ']',
     text: body.message,
     to: body.email,
-    send_at: parseInt(body.notifTime),
   };
+
+  if(body.notifTime){
+    data.send_at = parseInt(body.notifTime)
+  }
 
   console.log(data);
 

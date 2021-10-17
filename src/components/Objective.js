@@ -23,19 +23,17 @@ const Objective = (
     if (time == 'Ten Years') return `${weekDate.year}-${weekDate.year + 10}`;
   }
 
-  const timeRef =
-    authentication.currentUser &&
-    db.collection('users').doc(authentication.currentUser.uid).collection(time).doc(getDocName());
 
-  // const objRef =
-  //   authentication.currentUser &&
-  //   db
-  //     .collection('users')
-  //     .doc(authentication.currentUser.uid)
-  //     .collection(time)
-  //     .doc(getDocName())
-  //     .collection('objectives')
-  //     .doc(id);
+
+  const objRef =
+    authentication.currentUser &&
+    db
+      .collection('users')
+      .doc(authentication.currentUser.uid)
+      .collection(time)
+      .doc(getDocName())
+      .collection('objectives')
+      .doc(id);
 
   const repObjRef =
     authentication.currentUser &&
@@ -52,17 +50,15 @@ const Objective = (
       const newObjectives = objectives.slice();
       newObjectives[n].text = text;
       setObjectives(newObjectives);
-      timeRef.collection("objectives").doc(id).update({ text: text });
+      objRef.update({ text: text });
 
       if (repeatValue != undefined && repeatValue != 'never') {
         repObjRef.update({ text: text });
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
       }
     } else {
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
       repObjRef.update({ text: text });
-      timeRef.collection("objectives").doc(id).update({ text: text });
+      objRef.update({ text: text });
 
       // setRemoved(removed + 1);
     }
@@ -73,7 +69,7 @@ const Objective = (
     const newObjectives = objectives.slice();
     newObjectives[n].done = !isDone;
     setObjectives(newObjectives);
-    timeRef.collection("objectives").doc(id).update({ done: !isDone });
+    objRef.update({ done: !isDone });
   };
 
   return (
@@ -100,6 +96,7 @@ const Objective = (
         text={text}
         actualWeekDate={actualWeekDate}
         notifTime={notifTime}
+        repObj={repObjRef}
       />
     </IonItemSliding>
   );

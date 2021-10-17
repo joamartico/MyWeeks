@@ -77,13 +77,32 @@ export const StyledButton = styled.div`
   width: 100%;
   height: 55px;
   border-radius: 10px;
-  border: 1px solid ${COLORS.primary};
+  border: 1px solid ${({ red }) => (red ? 'red' : COLORS.primary)};
   cursor: pointer;
-  background: ${COLORS.primary};
-  background: ${({ outlined }) => (outlined ? '#0000' : COLORS.primary)};
+  background: ${({ outlined, red }) => {
+    if (outlined) {
+      return '#0000';
+    } else {
+      if (red) {
+        return 'red';
+      } else {
+        return COLORS.primary;
+      }
+    }
+  }};
   &:active {
     opacity: 0.6 !important;
   }
+  font-size: 20px;
+  font-weight: bold;
+  color: ${({ outlined, red }) => {
+    if (outlined) {
+      if (red) return 'red';
+      else return COLORS.primary;
+    } else {
+      return 'white';
+    }
+  }};
 `;
 
 export const ButtonTitle = styled.p`
