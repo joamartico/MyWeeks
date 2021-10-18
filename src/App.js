@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { Body } from '../constants/styledComponents';
 import { COLORS } from '../constants/theme';
-import { authentication, msg } from '../firebase';
+import { authentication } from '../firebase';
 import Context from './context/ContextComponent';
 import Onboarding from './pages/Onboarding';
 import SignIn from './pages/SignIn';
@@ -24,11 +24,6 @@ const App = () => {
   const [initialRoute, setInitialRoute] = useState(undefined);
 
   useEffect(() => {
-    msg
-      .requestPermission()
-      .then(() => msg.getToken())
-      .then(token => console.log('TOKEN: ', token))
-      .catch(error => console.log(error));
 
     authentication.onAuthStateChanged(res => {
       if (res == null) {

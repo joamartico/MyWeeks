@@ -17,8 +17,7 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const authentication = firebase.auth();
-const msg = firebase.messaging()
 
 db.enablePersistence();
 
-export { db, authentication, msg };
+export { db, authentication };
