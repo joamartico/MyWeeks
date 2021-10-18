@@ -134,7 +134,7 @@ const SlideOptions = ({
             {/* NOTIFY */}
             <IonDatetime
               pickerFormat="HH:mm"
-              value={notifTime}
+              value={notifTime && notifTime}
               onIonChange={e => onChangeNotifTime(e.detail.value)}
               displayFormat={'HH:mm'}
               displayTimezone="local"

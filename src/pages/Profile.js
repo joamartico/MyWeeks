@@ -81,7 +81,9 @@ const Profile = () => {
           </IonItem>
 
           <IonItem lines="none">
-            <TextArea onIonChange={(e) => setFeedbacktext(e.detail.value)} rows="5" placeholder="Tell us your ideas to improve the app" />
+            <TextArea onIonChange={(e) => setFeedbacktext(e.detail.value)} rows="5" 
+            // placeholder="Tell us your ideas to improve the app" 
+            />
           </IonItem>
 
           <IonItem lines="none">

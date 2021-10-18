@@ -96,7 +96,7 @@ const Objective = (
         text={text}
         actualWeekDate={actualWeekDate}
         notifTime={notifTime}
-        repObj={repObjRef}
+        repObjRef={repObjRef}
       />
     </IonItemSliding>
   );

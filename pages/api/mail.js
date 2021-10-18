@@ -19,6 +19,8 @@ export default (req, res) => {
     data.send_at = parseInt(body.notifTime)
   }
 
+
+
   console.log(data);
 
   mail.send(data);
