@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { authentication, db } from '../../firebase';
 import {
   StyledButton,
-  ButtonTitle,
   InputText,
   Title,
   Card,
   FullCard,
   Padding,
+  Body,
 } from '../../constants/styledComponents';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
@@ -54,10 +54,12 @@ const SignIn = () => {
 
   return (
     <IonPage>
-      <IonContent className="scroll ion-padding" fullscreen>
+      <Body>
         <FullCard>
           <Padding>
-            <Title size="big" style={{ fontSize: '5vh', paddingTop: '3vh' }}>Login</Title>
+            <Title size="big" style={{ fontSize: '5vh', paddingTop: '3vh' }}>
+              Login
+            </Title>
             <div>
               <InputText
                 placeholder="Email"
@@ -83,18 +85,17 @@ const SignIn = () => {
               </p>
 
               <StyledButton onClick={() => onSignIn()} style={{ marginTop: 20 }}>
-                <ButtonTitle>Sign In</ButtonTitle>
+                Sign In
               </StyledButton>
 
               <StyledButton
                 onClick={() => router.push('/signup', 'forward', 'push')}
                 style={{
                   marginTop: 10,
-                  
                 }}
                 outlined
               >
-                <ButtonTitle style={{ color: COLORS.primary }}>Create an account</ButtonTitle>
+                Create an account
               </StyledButton>
             </div>
 
@@ -118,21 +119,21 @@ const SignIn = () => {
                 />
 
                 {/* <SocialButton style={{ borderColor: "#eb060a" }}>
-								<ButtonTitle style={{ color: "#eb060a" }}>
+								<Title style={{ color: "#eb060a" }}>
 									Google
-								</ButtonTitle>
+								</Title>
 							</SocialButton>
 
 							<SocialButton style={{ borderColor: "#1a4367" }}>
-								<ButtonTitle style={{ color: "#1a4367" }}>
+								<Title style={{ color: "#1a4367" }}>
 									Facebook
-								</ButtonTitle>
+								</Title>
 							</SocialButton> */}
               </Row>
             </div>
           </Padding>
         </FullCard>
-      </IonContent>
+      </Body>
     </IonPage>
   );
 };

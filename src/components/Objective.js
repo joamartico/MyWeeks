@@ -110,6 +110,7 @@ const Checkbox = styled(IonCheckbox)`
   --background-checked: ${COLORS.secondary};
   --border-color-checked: ${COLORS.secondary};
   margin-left: 0 !important;
+  margin-right: 20px !important;
 `;
 
 const ObjectiveBody = styled(IonItem)`

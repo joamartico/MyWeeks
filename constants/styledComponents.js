@@ -105,11 +105,6 @@ export const StyledButton = styled.div`
   }};
 `;
 
-export const ButtonTitle = styled.p`
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-`;
 
 export const InputNotes = styled(IonTextarea)`
   width: 100%;

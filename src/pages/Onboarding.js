@@ -5,7 +5,6 @@ import {
   FullCard,
   Subtitle,
   StyledButton,
-  ButtonTitle,
   Padding,
 } from '../../constants/styledComponents';
 import PWAPrompt from 'react-ios-pwa-prompt';
@@ -59,19 +58,18 @@ const Onboarding = () => {
               <StyledButton
               style={{
                 marginTop: 'auto',
-                background: '#fff',
-                // marginBottom: 10,
               }}
+              outlined
               onClick={() => setShowPWAPrompt(true)}
               >
-                <ButtonTitle style={{ color: COLORS.primary }}>Install App</ButtonTitle>
+                Install App
               </StyledButton>
             )}
             <StyledButton
               style={{ marginTop: '10px', marginBottom: '10px' }}
               onClick={() => router.push('/signin', 'forward', 'push')}
               >
-              <ButtonTitle>Get Started!</ButtonTitle>
+              Get Started!
             </StyledButton>
               {/* </div> */}
           </Padding>

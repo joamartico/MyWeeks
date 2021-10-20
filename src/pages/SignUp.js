@@ -3,7 +3,6 @@ import { authentication, db } from '../../firebase';
 import {
   Body,
   StyledButton,
-  ButtonTitle,
   Title,
   FullCard,
   InputText,
@@ -48,7 +47,7 @@ const SignUp = () => {
 
   return (
     <IonPage>
-      <IonContent className="scroll ion-padding" fullscreen>
+      <Body>
         <FullCard>
           <Padding>
             <Title size="big">Create your account</Title>
@@ -56,7 +55,7 @@ const SignUp = () => {
             <div>
               <Subtitle>User Name</Subtitle>
               <InputText
-                style={{ marginTop: 0, }}
+                style={{ marginTop: 0 }}
                 placeholder="Enter your name"
                 value={name}
                 onIonChange={e => setName(e.detail.value)}
@@ -66,7 +65,7 @@ const SignUp = () => {
             <div>
               <Subtitle>Email</Subtitle>
               <InputText
-                style={{ marginTop: 0, }}
+                style={{ marginTop: 0 }}
                 placeholder="Enter your email"
                 value={email}
                 onIonChange={e => setEmail(e.detail.value)}
@@ -85,12 +84,12 @@ const SignUp = () => {
               />
             </div>
 
-            <StyledButton onClick={() => onSignUp()} style={{marginTop: 40}}>
-              <ButtonTitle>Sign Up</ButtonTitle>
-            </StyledButton>
+
+              <StyledButton onClick={() => onSignUp()}>Sign Up</StyledButton>
+
           </Padding>
         </FullCard>
-      </IonContent>
+      </Body>
     </IonPage>
   );
 };
