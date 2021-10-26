@@ -1,8 +1,23 @@
-// import { SENDGRID_API_KEY } from "../../constants/env";
+// let nodemailer = require('nodemailer');
+
+// let mailOptions = {
+//   from: '<FROM_EMAIL_ADDRESS>',
+//   to: '<TO_EMAIL_ADDRESS>',
+//   subject: 'Email from Node-App: A Test Message!',
+//   text: 'Some content to send'
+// };
+
+
+
+
+
+
+
+
+
 
 const mail = require('@sendgrid/mail');
 
-// mail.setApiKey(SENDGRID_API_KEY);
 mail.setApiKey('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');
 
 export default (req, res) => {
@@ -27,3 +42,8 @@ export default (req, res) => {
 
   res.status(200).json({ status: 'Ok' });
 };
+
+
+
+
+

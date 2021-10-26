@@ -21,10 +21,9 @@ const SlideOptions = ({
   actualWeekDate,
   repeatValue,
   notifTime,
-  repObjRef
+  repObjRef,
 }) => {
   const { setRemoved, removed } = useContext(Context);
-
 
   function getDocName(DATE) {
     if (time == 'weeks') return DATE.toString();
@@ -35,7 +34,8 @@ const SlideOptions = ({
   }
 
   const objRef =
-    authentication.currentUser && weekDate &&
+    authentication.currentUser &&
+    weekDate &&
     db
       .collection('users')
       .doc(authentication.currentUser.uid)
@@ -43,7 +43,6 @@ const SlideOptions = ({
       .doc(getDocName(weekDate))
       .collection('objectives')
       .doc(id);
-
 
   const onRemoveObjective = () => {
     if (actualWeekDate == undefined) {
@@ -99,12 +98,12 @@ const SlideOptions = ({
     }
   };
 
-  const onChangeNotifTime = newNotifTime => {
-    objRef.update({
+  const onChangeNotifTime = async (newNotifTime) => {
+    await objRef.update({
       notifTime: newNotifTime,
     });
 
-    const data = {
+    const data = await {
       notifTime: (
         new Date(
           dayDate.month + '/' + dayDate.day + '/' + dayDate.year + ' ' + newNotifTime
@@ -112,23 +111,22 @@ const SlideOptions = ({
       ).toFixed(0),
       email: authentication.currentUser.email,
       message: text,
-      time: newNotifTime
+      time: newNotifTime,
     };
 
-    fetch('/api/mail', {
+    await fetch('/api/mail', {
       method: 'POST',
+      // headers: {
+      //   'Accept': 'application/json, text/plain, */*',
+      //   'Content-Type': 'application/json'
+      // },
       body: JSON.stringify(data),
     });
   };
 
   return (
-    <IonItemOptions side="end">
-      <IonItemOption color="danger" onClick={() => onRemoveObjective()}>
-        {/* DELETE */}
-        <IonIcon icon={trash} size={2} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
-      </IonItemOption>
-
-      {type != 'week' && time == "weeks" && (
+    <IonItemOptions side="end" >
+      {type != 'week' && time == 'weeks' && (
         <>
           <IonItemOption color="warning">
             {/* NOTIFY */}
@@ -176,6 +174,11 @@ const SlideOptions = ({
           </IonItemOption>
         </>
       )}
+
+      <IonItemOption color="danger" onClick={() => onRemoveObjective()}>
+        {/* DELETE */}
+        <IonIcon icon={trash} size={2} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
+      </IonItemOption>
     </IonItemOptions>
   );
 };

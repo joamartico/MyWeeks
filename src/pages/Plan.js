@@ -164,11 +164,18 @@ const Plan = () => {
           withSegment
         >
           <IonSegment
-            style={{ zIndex: 999999, maxWidth: 700, width: '80%', justifyContent: 'center' }}
+            style={{ zIndex: 999999, maxWidth: 700, 
+              // paddingLeft: "10%",paddingRight: "10%",
+              width: '90%', 
+              // justifyContent: 'center',
+              // background: "red" 
+            }}
             value={selectedSegment}
             onIonChange={e => {
               setSelectedSegment(e.detail.value);
             }}
+            scrollable
+            
           >
             <IonSegmentButton value="Months">
               <IonLabel>Months</IonLabel>

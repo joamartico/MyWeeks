@@ -32,15 +32,19 @@ const Profile = () => {
   const displayName = authentication?.currentUser && authentication?.currentUser?.displayName;
   const email = authentication?.currentUser && authentication?.currentUser?.email;
 
-  const sendEmail = () => {
-	const data = {
+  const sendEmail = async () => {
+	const data = await {
 		time: authentication.currentUser.email,
 		email: "joamartico@gmail.com",
 		message: feedbacktext,
 	  };
   
-	  fetch('/api/mail', {
+	  await fetch('/api/mail', {
 		method: 'POST',
+    // headers: {
+    //   'Accept': 'application/json, text/plain, */*',
+    //   'Content-Type': 'application/json'
+    // },
 		body: JSON.stringify(data),
 	  });
   }
@@ -75,7 +79,7 @@ const Profile = () => {
           </IonItem>
           <Separator />
 
-          <IonItem lines="none" style={{ marginBottom: '0x' }}>
+          <IonItem lines="none" style={{ marginBottom: '-2%' }}>
             <IonLabel>Send us Feedback</IonLabel>
           </IonItem>
 
@@ -121,6 +125,7 @@ const TextArea = styled(IonTextarea)`
   --padding-end: 10px !important;
   --padding-bottom: 10px !important;
   margin-bottom: 10px;
+  /* margin-top: -3px; */
 `;
 
 const Separator = styled.div`

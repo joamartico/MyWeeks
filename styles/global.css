@@ -2,7 +2,6 @@
 
 
 
-
 ion-item-option ion-datetime,
 ion-select {
   /* --padding-end: 20px; */
@@ -19,7 +18,10 @@ ion-textarea {
   /* padding-bottom: 0px !important; */
 }
 
-ion-content, html, body, #__next{
+ion-content,
+html,
+body,
+#__next {
   --background: #66cfd5 !important;
   background: #66cfd5 !important;
 }
@@ -59,13 +61,11 @@ ion-toolbar {
   --safe-area-right: env(safe-area-inset-right, 0);
 }
 
-
-
 ion-icon {
   cursor: pointer;
 }
 
-ion-icon:active{
+ion-icon:active {
   opacity: 0.6;
 }
 
@@ -76,6 +76,10 @@ ion-icon:active{
   --cancel-button-color: #3880ff !important;
   --background: #e4e3eabb !important;
 }
+ion-segment::-webkit-scrollbar {
+  display: none;
+}
+
 .ios ion-searchbar ion-icon {
   padding-left: 0 !important;
   margin-left: 0 !important;
@@ -115,8 +119,6 @@ html {
   top: 0 !important;
   left: 0 !important;
 }
-
-
 
 /* Styles for the Icon UI component */
 .ui-icon {
