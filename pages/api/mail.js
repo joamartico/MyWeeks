@@ -20,10 +20,10 @@ const mail = require('@sendgrid/mail');
 
 mail.setApiKey('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');
 
-export default (req, res) => {
-  const body = JSON.parse(req.body);
+export default async (req, res) => {
+  const body = await JSON.parse(req.body);
 
-  const data = {
+  const data = await {
     from: 'myweeksapp@gmail.com',
     subject: '[' + body.time + ']',
     text: body.message,
@@ -31,16 +31,16 @@ export default (req, res) => {
   };
 
   if(body.notifTime){
-    data.send_at = parseInt(body.notifTime)
+    data.send_at = await parseInt(body.notifTime)
   }
 
 
 
   console.log(data);
 
-  mail.send(data);
+  await mail.send(data);
 
-  res.status(200).json({ status: 'Ok' });
+  await res.status(200).json({ status: 'Ok' });
 };
 
 
