@@ -56,7 +56,6 @@ const SlideOptions = ({
   };
 
   const onChangeRepeatTime = newRepeatValue => {
-    console.log('CHANGED SELECTOR: ', newRepeatValue);
     var newRepeatTime = '';
 
     if (newRepeatValue == 'never') {
@@ -78,6 +77,12 @@ const SlideOptions = ({
       if (newRepeatValue == 'year') {
         newRepeatTime = `${dayDate.day}/${dayDate.month}`;
       }
+      if (newRepeatValue == '5 years') {
+        newRepeatTime = {
+          date:`${dayDate.day}/${dayDate.month}`,
+          year: dayDate.year
+        };
+      }
 
       if (newRepeatValue) {
         objRef &&
@@ -98,7 +103,7 @@ const SlideOptions = ({
     }
   };
 
-  const onChangeNotifTime = async (newNotifTime) => {
+  const onChangeNotifTime = async newNotifTime => {
     await objRef.update({
       notifTime: newNotifTime,
     });
@@ -125,7 +130,7 @@ const SlideOptions = ({
   };
 
   return (
-    <IonItemOptions side="end" >
+    <IonItemOptions side="end">
       {type != 'week' && time == 'weeks' && (
         <>
           <IonItemOption color="warning">
@@ -158,17 +163,22 @@ const SlideOptions = ({
             >
               <IonSelectOption value="never">Never {repeatValue == 'never' && '✓'}</IonSelectOption>
 
-              <IonSelectOption value="week">
-                Every Week {repeatValue == 'week' && '✓'}
+              <IonSelectOption value="5 years">
+                Five Years {repeatValue == '5 years' && '✓'}
+              </IonSelectOption>
+
+              <IonSelectOption value="year">
+                Every Year {repeatValue == 'year' && '✓'}
               </IonSelectOption>
 
               <IonSelectOption value="month">
                 Every Month {repeatValue == 'month' && '✓'}
               </IonSelectOption>
 
-              <IonSelectOption value="year">
-                Every Year {repeatValue == 'year' && '✓'}
+              <IonSelectOption value="week">
+                Every Week {repeatValue == 'week' && '✓'}
               </IonSelectOption>
+
             </IonSelect>
             <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
           </IonItemOption>

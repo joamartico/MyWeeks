@@ -65,7 +65,7 @@ ion-icon {
   cursor: pointer;
 }
 
-ion-icon:active {
+ion-icon:active, ion-button:active {
   opacity: 0.6;
 }
 

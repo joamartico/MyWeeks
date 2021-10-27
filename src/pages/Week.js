@@ -1,3 +1,6 @@
+
+
+
 import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList } from '@ionic/react';
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
@@ -133,6 +136,9 @@ const Week = () => {
 
   const shouldDisplay = (objective, day, dayDate) => {
     if (date.toString() != objective.date && date.toString() != objective.exceptionDate) {
+      if (objective.repeatTime.date == `${dayDate.day}/${dayDate.month}` && (dayDate.year - objective.repeatTime.year) % 5 === 0 ) {
+        return true;
+      }
       if (objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {
         return true;
       }

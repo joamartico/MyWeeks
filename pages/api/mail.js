@@ -25,8 +25,8 @@ export default async (req, res) => {
 
   const data = await {
     from: 'myweeksapp@gmail.com',
-    subject: '[' + body.time + ']',
-    text: body.message,
+    subject: ' ',
+    text: '[' + body.time + '] ' + body.message,
     to: body.email,
   };
 

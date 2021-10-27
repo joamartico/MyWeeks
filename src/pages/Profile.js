@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyledButton,
-  Title,
-  Subtitle,
-  FullCard,
-  Body,
-} from '../../constants/styledComponents';
+import { StyledButton, Title, Subtitle, FullCard, Body } from '../../constants/styledComponents';
 import { authentication } from '../../firebase';
 import {
   IonButton,
@@ -20,34 +14,48 @@ import {
   IonTextarea,
   IonToggle,
   useIonRouter,
+  useIonToast,
 } from '@ionic/react';
 import styled from 'styled-components';
 
 const Profile = () => {
   const router = useIonRouter();
-  const [feedbacktext, setFeedbacktext] = useState("")
-
-
+  const [feedbacktext, setFeedbacktext] = useState('');
+  const [presentToast, dismissToast] = useIonToast();
 
   const displayName = authentication?.currentUser && authentication?.currentUser?.displayName;
   const email = authentication?.currentUser && authentication?.currentUser?.email;
 
   const sendEmail = async () => {
-	const data = await {
-		time: authentication.currentUser.email,
-		email: "joamartico@gmail.com",
-		message: feedbacktext,
-	  };
-  
-	  await fetch('/api/mail', {
-		method: 'POST',
-    // headers: {
-    //   'Accept': 'application/json, text/plain, */*',
-    //   'Content-Type': 'application/json'
-    // },
-		body: JSON.stringify(data),
-	  });
-  }
+    const data = await {
+      time: authentication.currentUser.email,
+      email: 'joamartico@gmail.com',
+      message: feedbacktext,
+    };
+
+    await fetch('/api/mail', {
+      method: 'POST',
+      // headers: {
+      //   'Accept': 'application/json, text/plain, */*',
+      //   'Content-Type': 'application/json'
+      // },
+      body: JSON.stringify(data),
+    })
+      .then(() =>
+        presentToast({
+          color: 'dark',
+          message: 'Email sent!',
+          duration: 1500,
+        })
+      )
+      .catch(() =>
+        presentToast({
+          color: 'danger',
+          message: 'Email sent!',
+          duration: 2000,
+        })
+      );
+  };
 
   return (
     <IonPage>
@@ -84,8 +92,10 @@ const Profile = () => {
           </IonItem>
 
           <IonItem lines="none">
-            <TextArea onIonChange={(e) => setFeedbacktext(e.detail.value)} rows="5" 
-            // placeholder="Tell us your ideas to improve the app" 
+            <TextArea
+              onIonChange={e => setFeedbacktext(e.detail.value)}
+              rows="5"
+              // placeholder="Tell us your ideas to improve the app"
             />
           </IonItem>
 
