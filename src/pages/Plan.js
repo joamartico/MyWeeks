@@ -68,6 +68,11 @@ const Plan = () => {
     }
   };
 
+
+  
+
+
+
   function getDocName(selectedSegmentt) {
     if (selectedSegmentt == 'Months') return `${date.year}-${date.month}`;
     if (selectedSegmentt == 'Years') return date.year.toString();
@@ -98,7 +103,6 @@ const Plan = () => {
         .orderBy('order', 'asc')
         .get()
         .then(snapshot => {
-          console.log('CAMBIANDO OBJETIVOS PLAN');
           setObjectives(
             snapshot.docs
               .filter(doc => doc.data().text != '')
@@ -118,6 +122,7 @@ const Plan = () => {
   }, [selectedSegment]);
 
   const onAddObjective = () => {
+    change
     timeRef
       .collection('objectives')
       .add({
@@ -139,7 +144,6 @@ const Plan = () => {
         ]);
       });
   };
-
 
   return (
     <IonPage>
@@ -164,18 +168,19 @@ const Plan = () => {
           withSegment
         >
           <IonSegment
-            style={{ zIndex: 999999, maxWidth: 700, 
+            style={{
+              zIndex: 999999,
+              maxWidth: 700,
               // paddingLeft: "10%",paddingRight: "10%",
-              width: '90%', 
+              width: '90%',
               // justifyContent: 'center',
-              // background: "red" 
+              // background: "red"
             }}
             value={selectedSegment}
             onIonChange={e => {
               setSelectedSegment(e.detail.value);
             }}
             scrollable
-            
           >
             <IonSegmentButton value="Months">
               <IonLabel>Months</IonLabel>

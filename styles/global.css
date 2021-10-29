@@ -67,6 +67,7 @@ ion-icon {
 
 ion-icon:active, ion-button:active {
   opacity: 0.6;
+  /* transition: 0.2s opacity ease-in-out; */
 }
 
 .ios ion-icon {

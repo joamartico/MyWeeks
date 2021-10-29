@@ -13,18 +13,19 @@ import {
 } from '../../constants/styledComponents';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
-import { IonContent, IonPage, useIonRouter } from '@ionic/react';
+import { IonContent, IonPage, useIonRouter, useIonToast } from '@ionic/react';
 
 const SignIn = () => {
   const router = useIonRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [presentToast, dismissToast] = useIonToast();
+
 
   const onSignIn = () => {
     authentication
       .signInWithEmailAndPassword(email, password)
       .then(user => {
-        console.log(user);
         router.push('/tabs/week', 'none', 'replace');
       })
       .catch(err => {
@@ -32,8 +33,11 @@ const SignIn = () => {
           if (err.code === 'auth/user-not-found') return `The email ${email} is not registered`;
           if (err.code === 'auth/wrong-password') return `The password is incorrect`;
         }
-        alert(getMessage(err) || err);
-        console.log(err);
+        presentToast({
+          color: 'danger',
+          message: getMessage(err) || err,
+          duration: 2500,
+        })
       });
   };
 

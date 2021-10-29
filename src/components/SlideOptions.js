@@ -150,14 +150,12 @@ const SlideOptions = ({
 
           <IonItemOption>
             {/* REPEAT */}
-            {console.log(repeatValue)}
             <IonSelect
               //value={repeatValue != undefined && repeatValue} //POR QUE CUANDO ESTA ACTIVADO AL HACER ONIONCHANGE Y CAMBIARSE EL VALUE SE EJECUTA OTRO ONIONCHANGE PERO AHORA UNDEFINED?
               selectedText=""
               placeholder={null}
               onIonChange={e => {
                 onChangeRepeatTime(e.detail.value);
-                console.log(e.detail);
               }}
               interface="action-sheet"
             >

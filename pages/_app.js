@@ -43,7 +43,8 @@ function MyApp({ Component, pageProps }) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#e0f6f6"></meta>
+        {/* <meta name="theme-color" content="#e0f6f6"></meta>  */}
+        <meta name="theme-color" content="#66CFD5"></meta> 
 
         {/* ICONS */}
         <link rel="icon" href="/rounded.png" />

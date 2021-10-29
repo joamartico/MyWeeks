@@ -9,13 +9,15 @@ import {
   Subtitle,
   Padding,
 } from '../../constants/styledComponents';
-import { IonContent, IonPage, useIonRouter } from '@ionic/react';
+import { IonContent, IonPage, useIonRouter, useIonToast } from '@ionic/react';
 
 const SignUp = () => {
   const router = useIonRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [presentToast, dismissToast] = useIonToast();
+
 
   const onSignUp = () => {
     authentication
@@ -40,8 +42,11 @@ const SignUp = () => {
           if (err.code === 'auth/email-already-in-use')
             return `The email ${email} is already in use by another account.`;
         }
-        alert(getMessage(err) || err);
-        console.log(err);
+        presentToast({
+          color: 'danger',
+          message: getMessage(err) || err,
+          duration: 2500,
+        })
       });
   };
 

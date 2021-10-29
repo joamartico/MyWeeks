@@ -75,7 +75,6 @@ const Week = () => {
 
   useEffect(() => {
     repObjRef.onSnapshot(snapshot => {
-      console.log(snapshot.docs);
       setRepeatedObjectives(
         snapshot.docs.map((doc, index) => {
           var newDoc = doc.data();
@@ -110,7 +109,6 @@ const Week = () => {
         // repeatTime: 'never',
       })
       .then(res => {
-        console.log(res);
         setObjectives([
           ...objectives,
           {

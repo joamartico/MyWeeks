@@ -18,7 +18,6 @@ const Onboarding = () => {
   function IsSafari() {
     let userAgentString = navigator.userAgent;
 
-    console.log(userAgentString);
 
     // Detect Chrome
     let chromeAgent = userAgentString.indexOf('Chrome') > -1;
@@ -29,7 +28,6 @@ const Onboarding = () => {
     // Discard Safari since it also matches Chrome
     if (chromeAgent && safariAgent) safariAgent = false;
 
-    console.log(safariAgent);
     return safariAgent;
   }
 

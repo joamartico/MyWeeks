@@ -24,18 +24,17 @@ const App = () => {
   const [initialRoute, setInitialRoute] = useState(undefined);
 
   useEffect(() => {
-
     authentication.onAuthStateChanged(res => {
       if (res == null) {
         setInitialRoute('Onboarding');
         router.push('/signin', 'forward', 'replace');
-        console.log('NULLlllllllllllllllllLLLLLLLlllllllLLLLlllllll');
       } else {
         setInitialRoute('Weeks');
       }
-      console.log(res);
     });
   }, []);
+
+  
 
   if (initialRoute === undefined) {
     return (
