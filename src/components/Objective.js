@@ -7,8 +7,21 @@ import { COLORS } from '../../constants/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
 
-const Objective = (
-  { isDone, id, n, text, dayDate, weekDate, time, type, actualWeekDate, repeatValue, notifTime }) => {
+
+
+const Objective = ({
+  isDone,
+  id,
+  n,
+  text,
+  dayDate,
+  weekDate,
+  time,
+  type,
+  actualWeekDate,
+  repeatValue,
+  notifTime,
+}) => {
   const { objectives, setObjectives, removed, setRemoved } = useContext(Context);
 
   // NECESITO QUE LA PROP repeatValue NO RE RENDERIZE EL COMPONENTE CUANDO CAMBIA
@@ -22,8 +35,6 @@ const Objective = (
     if (time == 'Five Years') return `${weekDate.year}-${weekDate.year + 5}`;
     if (time == 'Ten Years') return `${weekDate.year}-${weekDate.year + 10}`;
   }
-
-
 
   const objRef =
     authentication.currentUser &&
@@ -45,7 +56,6 @@ const Objective = (
 
   const onChangeObjective = text => {
     if (actualWeekDate == undefined) {
-      
       objectives.sort((a, b) => a.n - b.n);
       const newObjectives = objectives.slice();
       newObjectives[n].text = text;
@@ -56,7 +66,6 @@ const Objective = (
         repObjRef.update({ text: text });
       }
     } else {
-
       repObjRef.update({ text: text });
       objRef.update({ text: text });
 

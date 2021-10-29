@@ -23,8 +23,15 @@ function MyApp({ Component, pageProps }) {
           name="google-site-verification"
           // content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU"
         />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
+        <meta
+          name="description"
+          content="Your weekly schedule app to manage your time and achieve your
+    goals"
+        />
+        <meta
+          name="keywords"
+          content="myweeks,week,weeks,schedule,weekly schedule,app,calendario,calendario semanal,semana,semanas,goals,time,objetivos"
+        />
 
         {/*  PWA  */}
         <meta

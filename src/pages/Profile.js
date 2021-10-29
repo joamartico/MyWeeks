@@ -19,6 +19,10 @@ import {
 import styled from 'styled-components';
 
 const Profile = () => {
+  function scrolltoBottom() {
+    window.scrollTo(0, 200);
+  }
+
   const router = useIonRouter();
   const [feedbacktext, setFeedbacktext] = useState('');
   const [presentToast, dismissToast] = useIonToast();
@@ -95,6 +99,9 @@ const Profile = () => {
             <TextArea
               onIonChange={e => setFeedbacktext(e.detail.value)}
               rows="5"
+              autocapitalize
+              position="floating"
+              onIonFocus={scrolltoBottom}
               // placeholder="Tell us your ideas to improve the app"
             />
           </IonItem>

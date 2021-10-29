@@ -2,6 +2,8 @@ import { IonButton, IonContent, IonInput, IonTextarea } from '@ionic/react';
 import styled from 'styled-components';
 import { COLORS } from './theme';
 
+
+
 export const Body = styled(IonContent).attrs(props => ({
   fullscreen: true,
   className: 'scroll ion-padding ',
@@ -105,8 +107,10 @@ export const StyledButton = styled.div`
   }};
 `;
 
-
-export const InputNotes = styled(IonTextarea)`
+export const InputNotes = styled(IonTextarea).attrs(() => ({
+  autocapitalize: true,
+  // onIonFocus: scrollUp,
+}))`
   width: 100%;
   font-size: 15px;
   min-height: 20px;
@@ -117,6 +121,8 @@ export const InputNotes = styled(IonTextarea)`
 export const InputObjective = styled(IonTextarea).attrs(props => ({
   autoGrow: true,
   rows: 1,
+  autocapitalize: true,
+  // onIonFocus: scrollDown,
 }))`
   width: 100%;
   font-size: 15px;
