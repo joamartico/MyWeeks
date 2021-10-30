@@ -68,11 +68,6 @@ const Plan = () => {
     }
   };
 
-
-  
-
-
-
   function getDocName(selectedSegmentt) {
     if (selectedSegmentt == 'Months') return `${date.year}-${date.month}`;
     if (selectedSegmentt == 'Years') return date.year.toString();
@@ -122,7 +117,6 @@ const Plan = () => {
   }, [selectedSegment]);
 
   const onAddObjective = () => {
-    change
     timeRef
       .collection('objectives')
       .add({

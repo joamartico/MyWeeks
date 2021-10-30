@@ -109,6 +109,8 @@ const Week = () => {
         // repeatTime: 'never',
       })
       .then(res => {
+        alert(res.id)
+
         setObjectives([
           ...objectives,
           {

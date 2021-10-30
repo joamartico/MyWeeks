@@ -10,3 +10,21 @@ module.exports = withPWA({
     // reactStrictMode: true, ??
   },
 });
+
+
+// module.exports = {
+//   exportPathMap: async function (
+//     defaultPathMap,
+//     { dev, dir, outDir, distDir, buildId }
+//   ) {
+//     return {
+//       '/': { page: '/' },
+//       '/onboarding': { page: '/' },
+//       '/signup': { page: '/' },
+//       '/signin': { page: '/' },
+//       '/tabs/week': { page: '/' },
+//       '/tabs/plan': { page: '/' },
+//       '/tabs/profile': { page: '/' },
+//     }
+//   },
+// }

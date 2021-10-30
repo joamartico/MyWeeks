@@ -21,6 +21,24 @@ import { Context } from '../context/ContextComponent';
 import { COLORS } from "../../constants/theme";
 const themeColor = document.querySelector('meta[name="theme-color"]');
 
+export const getStaticProps = async ({ params }) => {
+  return {
+    props: {
+      id: params.id,
+    },
+  };
+}
+
+export const getStaticPaths = async () => {
+  const paths = [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+  ];
+  return { paths, fallback: true };
+}
+
+
 const Tabs = () => {
   const router = useIonRouter()
 
