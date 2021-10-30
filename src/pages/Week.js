@@ -121,7 +121,7 @@ const Week = () => {
             id: res.id,
           },
         ]);
-      });
+      }).catch(err => console.log(err));
     // setTimeout(() => {
     //   ref.current.setFocus();
     //   console.log('REF: ', ref.current);
