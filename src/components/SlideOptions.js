@@ -35,7 +35,7 @@ const SlideOptions = ({
 
   const objRef =
     authentication.currentUser &&
-    weekDate &&
+    weekDate && id &&
     db
       .collection('users')
       .doc(authentication.currentUser.uid)

@@ -1,6 +1,3 @@
-
-
-
 import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList } from '@ionic/react';
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
@@ -28,10 +25,12 @@ function getWeekDate() {
 
 const Week = () => {
   const router = useIonRouter();
-  const { objectives, setObjectives, removed } = useContext(Context);
+  const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
   const [notes, setNotes] = useState('');
   const [repeatedObjectives, setRepeatedObjectives] = useState([]);
+
+
 
   const weekRef =
     authentication.currentUser &&
@@ -97,31 +96,33 @@ const Week = () => {
     }
   };
 
-  const onAddObjective = type => {
-    weekRef
-      .collection('objectives')
-      .add({
+
+  const onAddObjective =  async type => {
+
+    setObjectives([
+      ...objectives,
+      {
+        text: '',
+        done: false,
+        type,
+        n: objectives.length,
+      },
+    ]);
+
+    const newDoc = await weekRef.collection('objectives').doc();
+
+    setNewDocId(newDoc.id)
+
+
+    newDoc
+      .set({
         text: '',
         done: false,
         type,
         order: objectives.length,
         repeatValue: 'never',
-        // repeatTime: 'never',
       })
-      .then(res => {
-        alert(res.id)
 
-        setObjectives([
-          ...objectives,
-          {
-            text: '',
-            done: false,
-            type,
-            n: objectives.length,
-            id: res.id,
-          },
-        ]);
-      }).catch(err => console.log(err));
     // setTimeout(() => {
     //   ref.current.setFocus();
     //   console.log('REF: ', ref.current);
@@ -136,7 +137,10 @@ const Week = () => {
 
   const shouldDisplay = (objective, day, dayDate) => {
     if (date.toString() != objective.date && date.toString() != objective.exceptionDate) {
-      if (objective.repeatTime.date == `${dayDate.day}/${dayDate.month}` && (dayDate.year - objective.repeatTime.year) % 5 === 0 ) {
+      if (
+        objective.repeatTime.date == `${dayDate.day}/${dayDate.month}` &&
+        (dayDate.year - objective.repeatTime.year) % 5 === 0
+      ) {
         return true;
       }
       if (objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {
@@ -175,7 +179,7 @@ const Week = () => {
                     key={objective.id}
                     n={objective.n}
                     text={objective.text}
-                    id={objective.id}
+                    id={objective.id ? objective.id : newDocId }
                     isDone={objective.done}
                     weekDate={date}
                     time="weeks"
@@ -196,7 +200,7 @@ const Week = () => {
                     key={objective.id}
                     n={objective.n}
                     text={objective.text}
-                    id={objective.id}
+                    id={objective.id ? objective.id : newDocId }
                     isDone={objective.done}
                     weekDate={date}
                     time="weeks"
@@ -237,7 +241,7 @@ const Week = () => {
                     key={objective.id}
                     n={objective.n}
                     text={objective.text}
-                    id={objective.id}
+                    id={objective.id ? objective.id : newDocId }
                     isDone={objective.done}
                     time="weeks"
                     weekDate={date}
@@ -256,7 +260,7 @@ const Week = () => {
                         key={objective.id}
                         n={objective.n}
                         text={objective.text}
-                        id={objective.id}
+                        id={objective.id ? objective.id : newDocId }
                         isDone={objective.done}
                         time="weeks"
                         actualWeekDate={date}

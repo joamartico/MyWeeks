@@ -7,8 +7,6 @@ import { COLORS } from '../../constants/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
 
-
-
 const Objective = ({
   isDone,
   id,
@@ -24,6 +22,9 @@ const Objective = ({
 }) => {
   const { objectives, setObjectives, removed, setRemoved } = useContext(Context);
 
+  // const [objRef, setObjRef] = useState()
+  // const [repObjRef, setrepObjRef] = useState()
+
   // NECESITO QUE LA PROP repeatValue NO RE RENDERIZE EL COMPONENTE CUANDO CAMBIA
 
   // date y dayDate deben ser las fechas del Lunes de cada semana
@@ -36,8 +37,9 @@ const Objective = ({
     if (time == 'Ten Years') return `${weekDate.year}-${weekDate.year + 10}`;
   }
 
-  const objRef =
+  var objRef =
     authentication.currentUser &&
+    id &&
     db
       .collection('users')
       .doc(authentication.currentUser.uid)
@@ -46,8 +48,9 @@ const Objective = ({
       .collection('objectives')
       .doc(id);
 
-  const repObjRef =
+  var repObjRef =
     authentication.currentUser &&
+    id &&
     db
       .collection('users')
       .doc(authentication.currentUser.uid)
@@ -55,21 +58,23 @@ const Objective = ({
       .doc(id);
 
   const onChangeObjective = text => {
-    if (actualWeekDate == undefined) {
-      objectives.sort((a, b) => a.n - b.n);
-      const newObjectives = objectives.slice();
-      newObjectives[n].text = text;
-      setObjectives(newObjectives);
-      objRef.update({ text: text });
+    if (id) {
+      if (actualWeekDate == undefined) {
+        objectives.sort((a, b) => a.n - b.n);
+        const newObjectives = objectives.slice();
+        newObjectives[n].text = text;
+        setObjectives(newObjectives);
+        objRef?.update({ text: text });
 
-      if (repeatValue != undefined && repeatValue != 'never') {
-        repObjRef.update({ text: text });
+        if (repeatValue != undefined && repeatValue != 'never') {
+          repObjRef?.update({ text: text });
+        }
+      } else {
+        repObjRef?.update({ text: text });
+        objRef?.update({ text: text });
+
+        // setRemoved(removed + 1);
       }
-    } else {
-      repObjRef.update({ text: text });
-      objRef.update({ text: text });
-
-      // setRemoved(removed + 1);
     }
   };
 
@@ -90,9 +95,9 @@ const Objective = ({
           placeholder="Type here..."
           value={text}
           onIonChange={e => onChangeObjective(e.detail.value)}
-          //autofocus // POR QUE NO FUNCIONA
+          autofocus // POR QUE NO FUNCIONA
+          autoFocus
         />
-        {/* <p>{weekDate.toString()}</p> */}
       </ObjectiveBody>
 
       <SlideOptions

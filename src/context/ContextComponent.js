@@ -5,6 +5,8 @@ export const Context = createContext();
 const ContextComponent = props => {
   const [objectives, setObjectives] = useState([]);
   const [removed, setRemoved] = useState(0)
+  const [newDocId, setNewDocId] = useState();
+
 
   return (
     <Context.Provider
@@ -13,6 +15,8 @@ const ContextComponent = props => {
         setObjectives,
         removed,
         setRemoved,
+        newDocId,
+        setNewDocId
         
       }}
     >

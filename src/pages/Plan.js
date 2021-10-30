@@ -8,8 +8,6 @@ import Objective from '../components/Objective';
 import AddButton from '../components/AddButton';
 import { IonLabel, IonPage, IonSegment, IonSegmentButton, useIonRouter } from '@ionic/react';
 
-const segmentValues = ['Months', 'Years', 'Five Years', 'Ten Years'];
-
 const getDate = () => {
   return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 };
@@ -17,7 +15,7 @@ const getDate = () => {
 const Plan = () => {
   const router = useIonRouter();
 
-  const { objectives, setObjectives } = useContext(Context);
+  const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
 
   const [selectedSegment, setSelectedSegment] = useState('Months');
   const [date, setDate] = useState(getDate());
@@ -75,7 +73,7 @@ const Plan = () => {
     if (selectedSegmentt == 'Ten Years') return `${date.year}-${date.year + 10}`;
   }
 
-  const timeRef =
+  var timeRef =
     selectedSegment &&
     authentication.currentUser &&
     db
@@ -110,33 +108,32 @@ const Plan = () => {
           );
         });
     }
-  }, [date, selectedSegment, router.routeInfo]);
+    setNewDocId();
+  }, [date, selectedSegment, router.routeInfo, removed]);
 
   useEffect(() => {
     setDate(getDate());
   }, [selectedSegment]);
 
-  const onAddObjective = () => {
-    timeRef
-      .collection('objectives')
-      .add({
+  const onAddObjective = async () => {
+    setObjectives([
+      ...objectives,
+      {
         text: '',
         done: false,
+        n: objectives.length,
+      },
+    ]);
 
-        order: objectives.length,
-      })
-      .then(res => {
-        setObjectives([
-          ...objectives,
-          {
-            text: '',
-            done: false,
+    const newDoc = await timeRef.collection('objectives').doc();
 
-            n: objectives.length,
-            id: res.id,
-          },
-        ]);
-      });
+    setNewDocId(newDoc.id);
+
+    newDoc.set({
+      text: '',
+      done: false,
+      order: objectives.length,
+    });
   };
 
   return (
@@ -207,7 +204,7 @@ const Plan = () => {
                 key={objective.id}
                 n={objective.n}
                 text={objective.text}
-                id={objective.id}
+                id={objective.id ? objective.id : newDocId}
                 isDone={objective.done}
                 weekDate={date}
                 time={selectedSegment}
