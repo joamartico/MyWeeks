@@ -19,10 +19,7 @@ function MyApp({ Component, pageProps }) {
 
         {/* SEO  */}
         <title>MyWeeks</title>
-        <meta
-          name="google-site-verification"
-          // content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU"
-        />
+        <meta name="google-site-verification" content="mP13VuAeytF9U8fdSUU_5nX6hpPMHQw2ftd_QvoXtok" />
         <meta
           name="description"
           content="Your weekly schedule app to manage your time and achieve your
