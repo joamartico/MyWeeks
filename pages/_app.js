@@ -19,7 +19,10 @@ function MyApp({ Component, pageProps }) {
 
         {/* SEO  */}
         <title>MyWeeks</title>
-        <meta name="google-site-verification" content="mP13VuAeytF9U8fdSUU_5nX6hpPMHQw2ftd_QvoXtok" />
+        <meta
+          name="google-site-verification"
+          content="mP13VuAeytF9U8fdSUU_5nX6hpPMHQw2ftd_QvoXtok"
+        />
         <meta
           name="description"
           content="Your weekly schedule app to manage your time and achieve your
@@ -41,7 +44,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="manifest" href="/manifest.json" />
         {/* <meta name="theme-color" content="#e0f6f6"></meta>  */}
-        <meta name="theme-color" content="#66CFD5"></meta> 
+        <meta name="theme-color" content="#66CFD5"></meta>
 
         {/* ICONS */}
         <link rel="icon" href="/rounded.png" />

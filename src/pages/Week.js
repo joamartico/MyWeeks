@@ -30,7 +30,7 @@ const Week = () => {
   const [notes, setNotes] = useState('');
   const [repeatedObjectives, setRepeatedObjectives] = useState([]);
 
-
+  const ref = useRef();
 
   const weekRef =
     authentication.currentUser &&
@@ -96,10 +96,8 @@ const Week = () => {
     }
   };
 
-
-  const onAddObjective =  async type => {
-
-    setObjectives([
+  const onAddObjective = async type => {
+    await setObjectives([
       ...objectives,
       {
         text: '',
@@ -111,22 +109,20 @@ const Week = () => {
 
     const newDoc = await weekRef.collection('objectives').doc();
 
-    setNewDocId(newDoc.id)
+    await setNewDocId(newDoc.id);
 
-
-    newDoc
-      .set({
-        text: '',
-        done: false,
-        type,
-        order: objectives.length,
-        repeatValue: 'never',
-      })
+    await newDoc.set({
+      text: '',
+      done: false,
+      type,
+      order: objectives.length,
+      repeatValue: 'never',
+    });
 
     // setTimeout(() => {
-    //   ref.current.setFocus();
+    //   await ref.current.setFocus()
     //   console.log('REF: ', ref.current);
-    // }, 5000);
+    // }, 3000);
   };
 
   function dayDate(daysAfterMonday) {
@@ -179,13 +175,14 @@ const Week = () => {
                     key={objective.id}
                     n={objective.n}
                     text={objective.text}
-                    id={objective.id ? objective.id : newDocId }
+                    id={objective.id ? objective.id : newDocId}
                     isDone={objective.done}
                     weekDate={date}
                     time="weeks"
                     type="week"
                     // repeatTime={objective.repeatTime}
                     repeatValue={objective.repeatValue}
+                    // forwardedRef={ref}
                   />
                 ))}
               {repeatedObjectives
@@ -200,7 +197,7 @@ const Week = () => {
                     key={objective.id}
                     n={objective.n}
                     text={objective.text}
-                    id={objective.id ? objective.id : newDocId }
+                    id={objective.id ? objective.id : newDocId}
                     isDone={objective.done}
                     weekDate={date}
                     time="weeks"
@@ -209,7 +206,14 @@ const Week = () => {
                   />
                 ))}
             </IonList>
-            <AddButton onClick={() => onAddObjective('week')} />
+            <AddButton
+              onClick={() => {
+                onAddObjective('week')
+                // .then(() => {
+                //   ref.current.setFocus();
+                // });
+              }}
+            />
 
             <Subtitle>Notes</Subtitle>
 
@@ -241,7 +245,7 @@ const Week = () => {
                     key={objective.id}
                     n={objective.n}
                     text={objective.text}
-                    id={objective.id ? objective.id : newDocId }
+                    id={objective.id ? objective.id : newDocId}
                     isDone={objective.done}
                     time="weeks"
                     weekDate={date}
@@ -260,7 +264,7 @@ const Week = () => {
                         key={objective.id}
                         n={objective.n}
                         text={objective.text}
-                        id={objective.id ? objective.id : newDocId }
+                        id={objective.id ? objective.id : newDocId}
                         isDone={objective.done}
                         time="weeks"
                         actualWeekDate={date}

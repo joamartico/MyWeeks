@@ -21,6 +21,7 @@ const Objective = ({
   notifTime,
 }) => {
   const { objectives, setObjectives, removed, setRemoved } = useContext(Context);
+  
 
   // const [objRef, setObjRef] = useState()
   // const [repObjRef, setrepObjRef] = useState()
@@ -95,8 +96,8 @@ const Objective = ({
           placeholder="Type here..."
           value={text}
           onIonChange={e => onChangeObjective(e.detail.value)}
-          autofocus // POR QUE NO FUNCIONA
-          autoFocus
+          // autofocus
+          // ref={forwardedRef}
         />
       </ObjectiveBody>
 
@@ -137,4 +138,5 @@ const ObjectiveBody = styled(IonItem)`
   --padding-top: 10px !important;
   padding-bottom: 0px !important;
   --min-height: 100% !important; // sirve, pero que hace?
+  --background-focused: #0000;
 `;
