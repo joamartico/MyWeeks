@@ -1,3 +1,5 @@
+//      NODEMAILER
+
 // let nodemailer = require('nodemailer');
 
 // let mailOptions = {
@@ -7,14 +9,30 @@
 //   text: 'Some content to send'
 // };
 
+//
+//
+//
+//
+//      EMAILJS
+
+// const emailjs = require('emailjs-com');
+// global.XMLHttpRequest = require('xhr2');
+// emailjs.init('user_FyVHB2ZfDjkG5oE4yjGyi');
 
 
+// await emailjs.send('service_l0i0owc', 'template_ou7q0k7', {
+  //   message: body.message + '                                                 ',
+  //   to_email: body.email,
+  //   subject: '[' + body.time + '] ',
+  // });
+  
 
 
-
-
-
-
+//
+//
+//
+//
+//      SENDGRID
 
 const mail = require('@sendgrid/mail');
 
@@ -25,25 +43,18 @@ export default async (req, res) => {
 
   const data = await {
     from: 'myweeksapp@gmail.com',
-    subject: ' ',
+    subject: '    ',
     text: '[' + body.time + '] ' + body.message,
     to: body.email,
   };
 
-  if(body.notifTime){
-    data.send_at = await parseInt(body.notifTime)
+  if (body.notifTime) {
+    data.send_at = await parseInt(body.notifTime);
   }
-
-
-
-  console.log(data);
 
   await mail.send(data);
 
+
+
   await res.status(200).json({ status: 'Ok' });
 };
-
-
-
-
-

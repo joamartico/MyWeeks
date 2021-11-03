@@ -1,6 +1,6 @@
 {
   "appId": "com.example.app",
-  "appName": "periodictable",
+  "appName": "myweeks",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "out",
