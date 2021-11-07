@@ -8,6 +8,7 @@ import {
 } from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
 import { useContext, useState } from 'react';
+import { convertToUnix } from "../../constants/helpers";
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 
@@ -109,11 +110,7 @@ const SlideOptions = ({
     });
 
     const data = await {
-      notifTime: (
-        new Date(
-          dayDate.month + '/' + dayDate.day + '/' + dayDate.year + ' ' + newNotifTime
-        ).getTime() / 1000
-      ).toFixed(0),
+      notifTime: convertToUnix(dayDate.month, dayDate.day, dayDate.year, newNotifTime),
       email: authentication.currentUser.email,
       message: text,
       time: newNotifTime,
@@ -121,10 +118,6 @@ const SlideOptions = ({
 
     await fetch('/api/mail', {
       method: 'POST',
-      // headers: {
-      //   'Accept': 'application/json, text/plain, */*',
-      //   'Content-Type': 'application/json'
-      // },
       body: JSON.stringify(data),
     });
   };

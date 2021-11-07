@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
         {/* SEO  */}
-        <title>MyWeeks</title>
+        <title>MyWeeks App</title>
         <meta
           name="google-site-verification"
           content="mP13VuAeytF9U8fdSUU_5nX6hpPMHQw2ftd_QvoXtok"

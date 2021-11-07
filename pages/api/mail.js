@@ -19,14 +19,11 @@
 // global.XMLHttpRequest = require('xhr2');
 // emailjs.init('user_FyVHB2ZfDjkG5oE4yjGyi');
 
-
 // await emailjs.send('service_l0i0owc', 'template_ou7q0k7', {
-  //   message: body.message + '                                                 ',
-  //   to_email: body.email,
-  //   subject: '[' + body.time + '] ',
-  // });
-  
-
+//   message: body.message + '                                                 ',
+//   to_email: body.email,
+//   subject: '[' + body.time + '] ',
+// });
 
 //
 //
@@ -39,6 +36,8 @@ const mail = require('@sendgrid/mail');
 mail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async (req, res) => {
+  console.log(req.body);
+
   const body = await JSON.parse(req.body);
 
   const data = await {
@@ -53,8 +52,6 @@ export default async (req, res) => {
   }
 
   await mail.send(data);
-
-
 
   await res.status(200).json({ status: 'Ok' });
 };

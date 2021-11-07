@@ -17,6 +17,7 @@ import {
   useIonToast,
 } from '@ionic/react';
 import styled from 'styled-components';
+import useCheck from '../hooks/useCheck';
 
 const Profile = () => {
   function scrolltoBottom() {
@@ -26,6 +27,7 @@ const Profile = () => {
   const router = useIonRouter();
   const [feedbacktext, setFeedbacktext] = useState('');
   const [presentToast, dismissToast] = useIonToast();
+  const [checked, setChecked] = useCheck();
 
   const displayName = authentication?.currentUser && authentication?.currentUser?.displayName;
   const email = authentication?.currentUser && authentication?.currentUser?.email;
@@ -39,10 +41,6 @@ const Profile = () => {
 
     await fetch('/api/mail', {
       method: 'POST',
-      // headers: {
-      //   'Accept': 'application/json, text/plain, */*',
-      //   'Content-Type': 'application/json'
-      // },
       body: JSON.stringify(data),
     })
       .then(() =>
@@ -85,8 +83,8 @@ const Profile = () => {
             <IonLabel>Daily Notifications</IonLabel>
             <IonToggle
               color="success"
-              checked={false}
-              onIonChange={e => console.log(e.detail.checked)}
+              checked={checked}
+              onIonChange={e => setChecked(e.detail.checked)}
             />
           </IonItem>
           <Separator />

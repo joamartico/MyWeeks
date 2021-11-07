@@ -208,7 +208,7 @@ const Week = () => {
             </IonList>
             <AddButton
               onClick={() => {
-                onAddObjective('week')
+                onAddObjective('week');
                 // .then(() => {
                 //   ref.current.setFocus();
                 // });
