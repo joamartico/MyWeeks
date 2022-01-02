@@ -18,7 +18,6 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [presentToast, dismissToast] = useIonToast();
 
-
   const onSignUp = () => {
     authentication
       .createUserWithEmailAndPassword(email, password)
@@ -46,7 +45,7 @@ const SignUp = () => {
           color: 'danger',
           message: getMessage(err) || err,
           duration: 2500,
-        })
+        });
       });
   };
 
@@ -63,7 +62,7 @@ const SignUp = () => {
                 style={{ marginTop: 0 }}
                 placeholder="Enter your name"
                 value={name}
-                onIonChange={e => setName(e.detail.value)}
+                onIonInput={e => setName(e.target.value)}
               />
             </div>
 
@@ -73,7 +72,7 @@ const SignUp = () => {
                 style={{ marginTop: 0 }}
                 placeholder="Enter your email"
                 value={email}
-                onIonChange={e => setEmail(e.detail.value)}
+                onIonInput={e => setEmail(e.target.value)}
                 // type="email"
               />
             </div>
@@ -84,14 +83,12 @@ const SignUp = () => {
                 style={{ marginTop: 0 }}
                 placeholder="Enter your password"
                 value={password}
-                onIonChange={e => setPassword(e.detail.value)}
+                onIonInput={e => setPassword(e.target.value)}
                 type="password"
               />
             </div>
 
-
-              <StyledButton onClick={() => onSignUp()}>Sign Up</StyledButton>
-
+            <StyledButton onClick={() => onSignUp()}>Sign Up</StyledButton>
           </Padding>
         </FullCard>
       </Body>

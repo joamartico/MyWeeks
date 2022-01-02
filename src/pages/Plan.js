@@ -115,27 +115,6 @@ const Plan = () => {
     setDate(getDate());
   }, [selectedSegment]);
 
-  const onAddObjective = async () => {
-    setObjectives([
-      ...objectives,
-      {
-        text: '',
-        done: false,
-        n: objectives.length,
-      },
-    ]);
-
-    const newDoc = await timeRef.collection('objectives').doc();
-
-    setNewDocId(newDoc.id);
-
-    newDoc.set({
-      text: '',
-      done: false,
-      order: objectives.length,
-    });
-  };
-
   return (
     <IonPage>
       {/* <SegmentedControl
@@ -168,8 +147,8 @@ const Plan = () => {
               // background: "red"
             }}
             value={selectedSegment}
-            onIonChange={e => {
-              setSelectedSegment(e.detail.value);
+            onIonInput={e => {
+              setSelectedSegment(e.target.value);
             }}
             scrollable
           >
@@ -211,15 +190,15 @@ const Plan = () => {
               />
             ))}
 
-          <AddButton onClick={() => onAddObjective()} />
+          <AddButton timeRef={timeRef} onClick={() => onAddObjective()} />
 
           <Subtitle>Notes</Subtitle>
 
           <InputNotes
             value={notes}
-            onIonChange={e => {
-              setNotes(e.detail.value);
-              timeRef.set({ notes: e.detail.value });
+            onIonInput={e => {
+              setNotes(e.target.value);
+              timeRef.set({ notes: e.target.value });
             }}
             autoGrow
             rows={20}

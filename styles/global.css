@@ -1,15 +1,17 @@
-
-
-
-
+/* ion-item-options,
+ion-item-option,
+ion-select,
+ion-datetime {
+  border: 1px solid rgb(167, 167, 167) !important;
+} */
 ion-item-option ion-datetime,
 ion-select {
-  /* --padding-end: 20px; */
-  /* --padding-start: 20px; */
-  width: 50%;
   position: absolute !important;
-  color: #0000;
-  /* background-color: #ff0; */
+  color: transparent !important;
+}
+
+ion-item-options{
+  z-index: 9999999999;
 }
 
 ion-textarea {
@@ -65,7 +67,8 @@ ion-icon {
   cursor: pointer;
 }
 
-ion-icon:active, ion-button:active {
+ion-icon:active,
+ion-button:active {
   opacity: 0.6;
   /* transition: 0.2s opacity ease-in-out; */
 }

@@ -84,7 +84,7 @@ const Profile = () => {
             <IonToggle
               color="success"
               checked={checked}
-              onIonChange={e => setChecked(e.detail.checked)}
+              onIonInput={e => setChecked(e.target.checked)}
             />
           </IonItem>
           <Separator />
@@ -95,7 +95,7 @@ const Profile = () => {
 
           <IonItem lines="none">
             <TextArea
-              onIonChange={e => setFeedbacktext(e.detail.value)}
+              onIonInput={e => setFeedbacktext(e.target.value)}
               rows="5"
               autocapitalize
               position="floating"
@@ -146,4 +146,3 @@ const TextArea = styled(IonTextarea)`
 const Separator = styled.div`
   margin-bottom: 15px;
 `;
-

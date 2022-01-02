@@ -8,7 +8,7 @@ import {
 } from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
 import { useContext, useState } from 'react';
-import { convertToUnix } from "../../constants/helpers";
+import { convertToUnix } from '../../constants/helpers';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 
@@ -36,7 +36,8 @@ const SlideOptions = ({
 
   const objRef =
     authentication.currentUser &&
-    weekDate && id &&
+    weekDate &&
+    id &&
     db
       .collection('users')
       .doc(authentication.currentUser.uid)
@@ -80,8 +81,8 @@ const SlideOptions = ({
       }
       if (newRepeatValue == '5 years') {
         newRepeatTime = {
-          date:`${dayDate.day}/${dayDate.month}`,
-          year: dayDate.year
+          date: `${dayDate.day}/${dayDate.month}`,
+          year: dayDate.year,
         };
       }
 
@@ -123,7 +124,7 @@ const SlideOptions = ({
   };
 
   return (
-    <IonItemOptions side="end">
+    <IonItemOptions side="end" onIonSwipe={e => console.log("swipe", e)}>
       {type != 'week' && time == 'weeks' && (
         <>
           <IonItemOption color="warning">
@@ -144,7 +145,7 @@ const SlideOptions = ({
           <IonItemOption>
             {/* REPEAT */}
             <IonSelect
-              //value={repeatValue != undefined && repeatValue} //POR QUE CUANDO ESTA ACTIVADO AL HACER ONIONCHANGE Y CAMBIARSE EL VALUE SE EJECUTA OTRO ONIONCHANGE PERO AHORA UNDEFINED?
+              //value={repeatValue != undefined && repeatValue} //POR QUE CUANDO ESTA ACTIVADO AL HACER onIonInput Y CAMBIARSE EL VALUE SE EJECUTA OTRO onIonInput PERO AHORA UNDEFINED?
               selectedText=""
               placeholder={null}
               onIonChange={e => {
@@ -169,7 +170,6 @@ const SlideOptions = ({
               <IonSelectOption value="week">
                 Every Week {repeatValue == 'week' && '✓'}
               </IonSelectOption>
-
             </IonSelect>
             <IonIcon icon={repeat} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
           </IonItemOption>

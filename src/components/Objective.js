@@ -21,7 +21,6 @@ const Objective = ({
   notifTime,
 }) => {
   const { objectives, setObjectives, removed, setRemoved } = useContext(Context);
-  
 
   // const [objRef, setObjRef] = useState()
   // const [repObjRef, setrepObjRef] = useState()
@@ -88,14 +87,14 @@ const Objective = ({
   };
 
   return (
-    <IonItemSliding style={{ paddingTop: 0 }}>
+    <IonItemSliding style={{ paddingTop: 0 }} onIonDrag={e => console.log('drag', e)}>
       <ObjectiveBody key={id}>
         <Checkbox mode="ios" slot="start" checked={isDone} onClick={() => onChangeCheckBox()} />
 
         <InputObjective
           placeholder="Type here..."
           value={text}
-          onIonChange={e => onChangeObjective(e.detail.value)}
+          onIonInput={e => onChangeObjective(e.target.value)}
           // autofocus
           // ref={forwardedRef}
         />

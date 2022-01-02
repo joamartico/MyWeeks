@@ -21,7 +21,6 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [presentToast, dismissToast] = useIonToast();
 
-
   const onSignIn = () => {
     authentication
       .signInWithEmailAndPassword(email, password)
@@ -37,7 +36,7 @@ const SignIn = () => {
           color: 'danger',
           message: getMessage(err) || err,
           duration: 2500,
-        })
+        });
       });
   };
 
@@ -68,12 +67,12 @@ const SignIn = () => {
               <InputText
                 placeholder="Email"
                 value={email}
-                onIonChange={e => setEmail(e.detail.value)}
+                onIonInput={e => setEmail(e.target.value)}
               />
               <InputText
                 placeholder="Password"
                 value={password}
-                onIonChange={e => setPassword(e.detail.value)}
+                onIonInput={e => setPassword(e.target.value)}
                 type="password"
               />
 
