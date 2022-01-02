@@ -140,6 +140,5 @@ const ObjectiveBody = styled(IonItem)`
   --min-height: 100% !important; // sirve, pero que hace?
   --background-focused: #0000;
   /* z-index: -9999999999 !important; */
-  background: red;
-  position: sticky;
+  /* background: red; */
 `;
