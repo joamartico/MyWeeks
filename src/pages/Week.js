@@ -15,7 +15,6 @@ import AddButton from '../components/AddButton';
 import Days from '../components/Days';
 import MainCard from '../components/MainCard';
 
-
 const nowDate = Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 
 function getWeekDate() {
@@ -103,16 +102,29 @@ const Week = () => {
   return (
     <>
       <IonPage>
+        <WeekHeader
+          onClickNext={() => onChangeDate('+')}
+          onClickPrevious={() => onChangeDate('-')}
+          date={date}
+          time="weeks"
+        />
         <Body pt="70px" intoTabs ref={ref}>
-          <WeekHeader
-            onClickNext={() => onChangeDate('+')}
-            onClickPrevious={() => onChangeDate('-')}
+          <MainCard
+            repeatedObjectives={repeatedObjectives}
+            notes={notes}
+            setNotes={setNotes}
             date={date}
+            timeRef={weekRef}
+            type="week"
             time="weeks"
           />
-          <MainCard repeatedObjectives={repeatedObjectives} notes={notes} setNotes={setNotes} date={date} nowDate={nowDate} weekRef={weekRef}/>
 
-          <Days repeatedObjectives={repeatedObjectives} date={date} nowDate={nowDate} weekRef={weekRef}/>
+          <Days
+            repeatedObjectives={repeatedObjectives}
+            date={date}
+            nowDate={nowDate}
+            weekRef={weekRef}
+          />
         </Body>
       </IonPage>
     </>
@@ -120,5 +132,3 @@ const Week = () => {
 };
 
 export default Week;
-
-

@@ -5,8 +5,8 @@ import { Context } from '../context/ContextComponent';
 import AddButton from './AddButton';
 import Objective from './Objective';
 
-const MainCard = ({ repeatedObjectives, notes, date, weekRef, setNotes }) => {
-  const ref = useRef();
+const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, time }) => {
+
   const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
 
   return (
@@ -15,7 +15,7 @@ const MainCard = ({ repeatedObjectives, notes, date, weekRef, setNotes }) => {
 
       <IonList>
         {objectives
-          ?.filter(objective => objective.type === 'week')
+          ?.filter(objective => objective.type == type)
           .sort((a, b) => {
             return a.n - b.n;
           })
@@ -27,15 +27,13 @@ const MainCard = ({ repeatedObjectives, notes, date, weekRef, setNotes }) => {
               id={objective.id ? objective.id : newDocId}
               isDone={objective.done}
               weekDate={date}
-              time="weeks"
-              type="week"
-              // repeatTime={objective.repeatTime}
+              time={time}
+              type={type}
               repeatValue={objective.repeatValue}
-              // forwardedRef={ref}
             />
           ))}
         {repeatedObjectives
-          ?.filter(objective => objective.repeatTime === 'week' && objective.repeatValue == 'week')
+          ?.filter(objective => objective.repeatTime === type && objective.repeatValue == type)
           .sort((a, b) => {
             return a.n - b.n;
           })
@@ -54,20 +52,19 @@ const MainCard = ({ repeatedObjectives, notes, date, weekRef, setNotes }) => {
           ))}
       </IonList>
 
-      <AddButton type="week" weekRef={weekRef} />
+      <AddButton type={type} timeRef={timeRef} />
 
       <Subtitle>Notes</Subtitle>
 
       <InputNotes
         value={notes}
-        ref={ref}
         onIonInput={e => {
-          weekRef.set({ notes: e.target.value });
+          timeRef.set({ notes: e.target.value });
           setNotes(e.target.value);
         }}
         multiline={true}
         rows={20}
-        placeholder="Write your achievements, mistakes, learnings and thoughts of the week"
+        placeholder={`Write your achievements, mistakes, learnings and thoughts of the ${type}`}
       />
     </Card>
   );

@@ -8,7 +8,7 @@ export const Body = styled(IonContent).attrs(props => ({
   fullscreen: true,
   className: 'scroll ion-padding ',
 }))`
-  --padding-top: ${({ pt }) => pt && pt};
+  /* --padding-top: ${({ pt }) => pt && pt}; */
   --padding-bottom: ${({ intoTabs }) => intoTabs && 'calc(75px + env(safe-area-inset-bottom))'};
 `;
 

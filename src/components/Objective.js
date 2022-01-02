@@ -85,9 +85,10 @@ const Objective = ({
     setObjectives(newObjectives);
     objRef.update({ done: !isDone });
   };
+  
 
   return (
-    <IonItemSliding style={{ paddingTop: 0 }} onIonDrag={e => console.log('drag', e)}>
+    <IonItemSliding style={{ paddingTop: 0 }} onIonDrag={e => console.log('drag', e)} >
       <ObjectiveBody key={id}>
         <Checkbox mode="ios" slot="start" checked={isDone} onClick={() => onChangeCheckBox()} />
 
@@ -138,4 +139,7 @@ const ObjectiveBody = styled(IonItem)`
   padding-bottom: 0px !important;
   --min-height: 100% !important; // sirve, pero que hace?
   --background-focused: #0000;
+  /* z-index: -9999999999 !important; */
+  background: red;
+  position: sticky;
 `;

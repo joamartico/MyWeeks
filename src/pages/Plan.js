@@ -7,6 +7,7 @@ import { Context } from '../context/ContextComponent';
 import Objective from '../components/Objective';
 import AddButton from '../components/AddButton';
 import { IonLabel, IonPage, IonSegment, IonSegmentButton, useIonRouter } from '@ionic/react';
+import MainCard from '../components/MainCard';
 
 const getDate = () => {
   return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
@@ -129,45 +130,53 @@ const Plan = () => {
 				}}
 			/> */}
 
-      <Body intoTabs pt="80px">
-        <WeekHeader
-          date={date}
-          time={selectedSegment}
-          onClickNext={() => changeTime(selectedSegment, '+')}
-          onClickPrevious={() => changeTime(selectedSegment, '-')}
-          withSegment
+      <WeekHeader
+        date={date}
+        time={selectedSegment}
+        onClickNext={() => changeTime(selectedSegment, '+')}
+        onClickPrevious={() => changeTime(selectedSegment, '-')}
+        withSegment
+      >
+        <IonSegment
+          style={{
+            zIndex: 999999,
+            maxWidth: 700,
+            // paddingLeft: "10%",paddingRight: "10%",
+            width: '90%',
+            // justifyContent: 'center',
+            // background: "red"
+          }}
+          value={selectedSegment}
+          onIonChange={e => {
+            setSelectedSegment(e.detail.value);
+          }}
+          scrollable
         >
-          <IonSegment
-            style={{
-              zIndex: 999999,
-              maxWidth: 700,
-              // paddingLeft: "10%",paddingRight: "10%",
-              width: '90%',
-              // justifyContent: 'center',
-              // background: "red"
-            }}
-            value={selectedSegment}
-            onIonInput={e => {
-              setSelectedSegment(e.target.value);
-            }}
-            scrollable
-          >
-            <IonSegmentButton value="Months">
-              <IonLabel>Months</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="Years">
-              <IonLabel>Years</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="Five Years">
-              <IonLabel>Five Years</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="Ten Years">
-              <IonLabel>Ten Years</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-        </WeekHeader>
+          <IonSegmentButton value="Months">
+            <IonLabel>Months</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="Years">
+            <IonLabel>Years</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="Five Years">
+            <IonLabel>Five Years</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="Ten Years">
+            <IonLabel>Ten Years</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
+      </WeekHeader>
+      <Body intoTabs pt="80px">
+        <MainCard
+          notes={notes}
+          setNotes={setNotes}
+          date={date}
+          timeRef={timeRef}
+          time={selectedSegment}
+          type=""
+        />
 
-        <Card
+        {/* <Card
           style={{ marginTop: '12vh' }}
           // style={{marginTop: "50%", marginBottom: "50%"}}
         >
@@ -190,7 +199,7 @@ const Plan = () => {
               />
             ))}
 
-          <AddButton timeRef={timeRef} onClick={() => onAddObjective()} />
+          <AddButton timeRef={timeRef} />
 
           <Subtitle>Notes</Subtitle>
 
@@ -204,7 +213,7 @@ const Plan = () => {
             rows={20}
             placeholder="Write your achievements, mistakes, learnings and thoughts of the week"
           />
-        </Card>
+        </Card> */}
       </Body>
     </IonPage>
   );

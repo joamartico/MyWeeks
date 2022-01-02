@@ -23,6 +23,7 @@ const SlideOptions = ({
   repeatValue,
   notifTime,
   repObjRef,
+  slideRef
 }) => {
   const { setRemoved, removed } = useContext(Context);
 
@@ -124,8 +125,8 @@ const SlideOptions = ({
   };
 
   return (
-    <IonItemOptions side="end" onIonSwipe={e => console.log("swipe", e)}>
-      {type != 'week' && time == 'weeks' && (
+    <IonItemOptions side="end" onIonSwipe={e => console.log("swipe", e)} >
+      { !type || (type != 'week' && time == 'weeks') && (
         <>
           <IonItemOption color="warning">
             {/* NOTIFY */}

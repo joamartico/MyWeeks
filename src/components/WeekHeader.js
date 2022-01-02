@@ -59,10 +59,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
 export default WeekHeader;
 
 const Header = styled(IonHeader)`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
+
   height: ${({withSegment}) => withSegment ? "146px" : "73px"};
   border-bottom: 1px solid #6666;
   flex-direction: row;

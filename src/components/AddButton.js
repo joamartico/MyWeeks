@@ -49,7 +49,7 @@ const AddButton = ({ type, weekRef, timeRef }) => {
         text: '',
         done: false,
         n: objectives.length,
-       type: !timeRef && type,
+       type:  type || "",
       },
     ]);
 
@@ -61,8 +61,8 @@ const AddButton = ({ type, weekRef, timeRef }) => {
       text: '',
       done: false,
       order: objectives.length,
-      type: !timeRef && type,
-      repeatValue: !timeRef && 'never',
+      type: type || "",
+      repeatValue: type ? 'never' : "",
     });
 
     // setTimeout(() => {
