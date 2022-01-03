@@ -15,7 +15,7 @@ const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, ti
 
       <IonList>
         {objectives
-          ?.filter(objective => objective.type == type)
+          ?.filter(objective => type ? objective.type == type : true)
           .sort((a, b) => {
             return a.n - b.n;
           })
