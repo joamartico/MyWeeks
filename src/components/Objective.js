@@ -19,7 +19,6 @@ const Objective = ({
   repeatValue,
   notifTime,
   n,
-  order,
 }) => {
   const { objectives, setObjectives } = useContext(Context);
 
@@ -88,7 +87,7 @@ const Objective = ({
   };
 
   return (
-    <IonItemSliding style={{ paddingTop: 0 }} onIonDrag={e => console.log('drag', e)}>
+    <IonItemSliding style={{ paddingTop: 0 }}>
       <ObjectiveBody key={id}>
         <Checkbox mode="ios" slot="start" checked={isDone} onClick={() => onChangeCheckBox()} />
 
@@ -113,7 +112,6 @@ const Objective = ({
         actualWeekDate={actualWeekDate}
         notifTime={notifTime}
         repObjRef={repObjRef}
-        isLast={!order}
       />
     </IonItemSliding>
   );

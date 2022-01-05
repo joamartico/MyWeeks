@@ -8,7 +8,7 @@ import Objective from './Objective';
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const Days = ({ repeatedObjectives, date, nowDate, weekRef }) => {
-  const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
+  const { objectives, newDocId } = useContext(Context);
 
   const shouldDisplayObjective = (objective, day, dayDate) => {
     if (date.toString() != objective.date && date.toString() != objective.exceptionDate) {
@@ -47,18 +47,18 @@ const Days = ({ repeatedObjectives, date, nowDate, weekRef }) => {
 
           {objectives
             ?.filter(objective => objective.type === day)
-            .map(objective => (
+            .map((objective) => (
               <Objective
-                key={objective.order}
+                key={objective.id || newDocId}
                 n={objective.n}
                 order={objective.order}
                 text={objective.text}
                 id={objective.id ? objective.id : newDocId}
                 isDone={objective.done}
                 time="weeks"
+                type={objective.type}
                 weekDate={date}
                 dayDate={date.add({ days: index })}
-                type={objective.type}
                 repeatValue={objective.repeatValue}
                 notifTime={objective.notifTime}
               />

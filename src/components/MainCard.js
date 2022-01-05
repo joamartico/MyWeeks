@@ -9,21 +9,21 @@ const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, ti
   const { newDocId, objectives } = useContext(Context);
 
   console.log('aca: ', objectives);
+  {console.log('--------key---------')}
 
   return (
     <Card>
       <Subtitle>Objectives</Subtitle>
 
       <IonList>
-        {console.log('-----------------')}
         {objectives
           ?.filter(objective => (type ? objective.type == type : true))
           .sort((a, b) => {
             return a.n - b.n;
           })
-          .map(objective => (
+          .map((objective) => (
             <Objective
-              key={objective.order}
+              key={objective.id || newDocId}
               n={objective.n}
               order={objective.order}
               text={objective.text}
@@ -33,7 +33,7 @@ const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, ti
               time={time}
               type={type}
               repeatValue={objective.repeatValue}
-            />
+            >{console.log("key: ", objective.id || newDocId, " n: ", objective.n, " order: ", objective.order, " text: ", objective.text )}</Objective>
           ))}
         {repeatedObjectives
           ?.filter(objective => objective.repeatTime === type && objective.repeatValue == type)

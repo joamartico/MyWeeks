@@ -1,19 +1,17 @@
-import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList } from '@ionic/react';
+import { IonPage, useIonRouter } from '@ionic/react';
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import WeekHeader from '../components/WeekHeader';
 
-import { InputNotes, Subtitle, Card, ScrollBody, Body } from '../components/styledComponents';
+import { Body } from '../components/styledComponents';
 
 import { Temporal } from 'proposal-temporal';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
-import Objective from '../components/Objective';
-import AddButton from '../components/AddButton';
 import Days from '../components/Days';
 import MainCard from '../components/MainCard';
+import useGlobalState from "../hooks/useGlobalState";
+import useNotes from "../hooks/useNotes";
 
 const nowDate = Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 
@@ -25,9 +23,11 @@ function getWeekDate() {
 
 const Week = () => {
   const router = useIonRouter();
-  const { removed, newDocId, setNewDocId, objectives, setObjectives } = useContext(Context);
+  const { removed, newDocId, setNewDocId, objectives, setObjectives } = useGlobalState();
   const [date, setDate] = useState(getWeekDate());
-  const [notes, setNotes] = useState('');
+  // const [notes, setNotes] = useState('');
+  const {notes, setNotes} = useNotes(date, 'weeks');
+  console.log("DATE: ", date);
   const [repeatedObjectives, setRepeatedObjectives] = useState([]);
 
   const ref = useRef();
@@ -46,19 +46,19 @@ const Week = () => {
 
   useEffect(() => {
     if (router.routeInfo.pathname == '/tabs/week') {
-      weekRef
-        ?.get()
-        .then(doc => {
-          doc.data() ? setNotes(doc.data().notes) : setNotes('');
-        })
-        .catch(err => console.log(err));
+      console.log("aca fetch week")
+      // weekRef
+      //   ?.get()
+      //   .then(doc => {
+      //     doc.data() ? setNotes(doc.data().notes) : setNotes('');
+      //   })
+      //   .catch(err => console.log(err));
 
       weekRef
         ?.collection('objectives')
         .orderBy('order', 'asc')
         .get()
         .then(snapshot => {
-          console.log('aca get');
           setObjectives(
             snapshot.docs
               .filter(doc => doc.data().text != '')
@@ -73,7 +73,6 @@ const Week = () => {
         });
     }
 
-    console.log('aca get removed');
 
     weekRef
       ?.collection('objectives')
@@ -84,7 +83,7 @@ const Week = () => {
           doc.ref.delete();
         });
       });
-  }, [router.routeInfo, date, removed]);
+  }, [ date, removed, router.routeInfo ]);
 
   useEffect(() => {
     repObjRef.onSnapshot(snapshot => {
@@ -112,6 +111,8 @@ const Week = () => {
       setDate(newDate);
     }
   };
+
+
 
   return (
     <>

@@ -8,6 +8,8 @@ import Objective from '../components/Objective';
 import AddButton from '../components/AddButton';
 import { IonLabel, IonPage, IonSegment, IonSegmentButton, useIonRouter } from '@ionic/react';
 import MainCard from '../components/MainCard';
+import useNotes from "../hooks/useNotes";
+
 
 const getDate = () => {
   return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
@@ -20,10 +22,10 @@ const Plan = () => {
 
   const [selectedSegment, setSelectedSegment] = useState('Months');
   const [date, setDate] = useState(getDate());
-  const [notes, setNotes] = useState('');
+  const { notes, setNotes } = useNotes(date, selectedSegment);
 
-  const changeTime = (selectedSegmentt, symbol) => {
-    switch (selectedSegmentt) {
+  const changeTime = (_selectedSegment, symbol) => {
+    switch (_selectedSegment) {
       case 'Months':
         if (symbol === '+') {
           const newDate = date.add({ months: 1 });
@@ -67,11 +69,11 @@ const Plan = () => {
     }
   };
 
-  function getDocName(selectedSegmentt) {
-    if (selectedSegmentt == 'Months') return `${date.year}-${date.month}`;
-    if (selectedSegmentt == 'Years') return date.year.toString();
-    if (selectedSegmentt == 'Five Years') return `${date.year}-${date.year + 5}`;
-    if (selectedSegmentt == 'Ten Years') return `${date.year}-${date.year + 10}`;
+  function getDocName(_selectedSegment) {
+    if (_selectedSegment == 'Months') return `${date.year}-${date.month}`;
+    if (_selectedSegment == 'Years') return date.year.toString();
+    if (_selectedSegment == 'Five Years') return `${date.year}-${date.year + 5}`;
+    if (_selectedSegment == 'Ten Years') return `${date.year}-${date.year + 10}`;
   }
 
   var timeRef =
@@ -85,12 +87,13 @@ const Plan = () => {
 
   useEffect(() => {
     if (router.routeInfo.pathname == '/tabs/plan') {
-      timeRef
-        ?.get()
-        .then(doc => {
-          doc.data() ? setNotes(doc.data().notes) : setNotes('');
-        })
-        .catch(err => console.log(err));
+      console.log("aca fetch plan")
+      // timeRef
+      //   ?.get()
+      //   .then(doc => {
+      //     doc.data() ? setNotes(doc.data().notes) : setNotes('');
+      //   })
+      //   .catch(err => console.log(err));
 
       timeRef
         ?.collection('objectives')

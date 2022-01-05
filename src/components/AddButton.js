@@ -1,24 +1,30 @@
 import { IonIcon } from '@ionic/react';
 import { addCircle } from 'ionicons/icons';
 import React, { useContext } from 'react';
-
-import styled from 'styled-components';
 import { Context } from '../context/ContextComponent';
 
 const AddButton = ({ type, weekRef, timeRef }) => {
   const ref = weekRef || timeRef;
-  const { objectives, setObjectives, setNewDocId, setRemoved, removed } = useContext(Context);
+  const { objectives, setObjectives, setNewDocId, newDocId} = useContext(Context);
 
 
 
   const onAddObjective = async type => {
+    if(newDocId && objectives.length > 0) {
+      var newObjectives = await objectives.slice();
+      newObjectives[newObjectives.length - 1].id = await newDocId;
+      // newObjectives[newObjectives.length - 1].order = await newObjectives.length ;
+      await setObjectives(newObjectives);
+    }
+
     await setObjectives(prevObjectives => [
       ...prevObjectives,
       {
         text: '',
         done: false,
         n: prevObjectives.length,
-        // order: objectives.length, NO SE POR QUE CUANDO LO DESCOMENTO NO FUNCIONA
+        order: objectives.length, 
+        // NO SE POR QUE CUANDO LO DESCOMENTO NO FUNCIONA
         type: type || '',
         repeatValue: type ? 'never' : '',
       },
@@ -39,10 +45,13 @@ const AddButton = ({ type, weekRef, timeRef }) => {
 
     // await setRemoved(removed + 1)
     
-    // funciona?:
+    // no funciona:
     // var newObjectives = await objectives.slice();
     // newObjectives[newObjectives.length - 1].id = await newDoc.id;
     // await setObjectives(newObjectives);
+
+    
+
 
     // setTimeout(() => {
     //   await ref.current.setFocus()
