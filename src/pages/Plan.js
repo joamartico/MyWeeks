@@ -166,7 +166,7 @@ const Plan = () => {
           </IonSegmentButton>
         </IonSegment>
       </WeekHeader>
-      <Body intoTabs pt="80px">
+      <Body intoTabs >
         <MainCard
           notes={notes}
           setNotes={setNotes}

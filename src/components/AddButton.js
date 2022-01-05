@@ -5,21 +5,9 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Context } from '../context/ContextComponent';
 
-function isDay(type) {
-  return (
-    type === 'Monday' ||
-    type === 'Tuesday' ||
-    type === 'Wednesday' ||
-    type === 'Thursday' ||
-    type === 'Friday' ||
-    type === 'Saturday' ||
-    type === 'Sunday'
-  );
-}
-
 const AddButton = ({ type, weekRef, timeRef }) => {
   const ref = weekRef || timeRef;
-  const { objectives, setObjectives, setNewDocId } = useContext(Context);
+  const { objectives, setObjectives, setNewDocId, setRemoved, removed } = useContext(Context);
 
   // const onAddObjective = async () => {
   //   setObjectives([
@@ -43,27 +31,37 @@ const AddButton = ({ type, weekRef, timeRef }) => {
   // };
 
   const onAddObjective = async type => {
-    await setObjectives([
-      ...objectives,
+    await setObjectives(prevObjectives => [
+      ...prevObjectives,
       {
         text: '',
         done: false,
-        n: objectives.length,
-       type:  type || "",
+        n: prevObjectives.length,
+        // order: objectives.length, NO SE POR QUE CUANDO LO DESCOMENTO NO FUNCIONA
+        type: type || '',
+        repeatValue: type ? 'never' : '',
       },
     ]);
 
     const newDoc = await ref.collection('objectives').doc();
 
+    
     await setNewDocId(newDoc.id);
-
+    
     await newDoc.set({
       text: '',
       done: false,
       order: objectives.length,
-      type: type || "",
-      repeatValue: type ? 'never' : "",
+      type: type || '',
+      repeatValue: type ? 'never' : '',
     });
+
+    // await setRemoved(removed + 1)
+    
+    // funciona?:
+    // var newObjectives = await objectives.slice();
+    // newObjectives[newObjectives.length - 1].id = await newDoc.id;
+    // await setObjectives(newObjectives);
 
     // setTimeout(() => {
     //   await ref.current.setFocus()

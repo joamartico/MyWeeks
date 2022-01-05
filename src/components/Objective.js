@@ -10,7 +10,6 @@ import SlideOptions from './SlideOptions';
 const Objective = ({
   isDone,
   id,
-  n,
   text,
   dayDate,
   weekDate,
@@ -19,8 +18,10 @@ const Objective = ({
   actualWeekDate,
   repeatValue,
   notifTime,
+  n,
+  order
 }) => {
-  const { objectives, setObjectives, removed, setRemoved } = useContext(Context);
+  const { objectives, setObjectives } = useContext(Context);
 
   // const [objRef, setObjRef] = useState()
   // const [repObjRef, setrepObjRef] = useState()
@@ -85,10 +86,9 @@ const Objective = ({
     setObjectives(newObjectives);
     objRef.update({ done: !isDone });
   };
-  
 
   return (
-    <IonItemSliding style={{ paddingTop: 0 }} onIonDrag={e => console.log('drag', e)} >
+    <IonItemSliding style={{ paddingTop: 0 }} onIonDrag={e => console.log('drag', e)}>
       <ObjectiveBody key={id}>
         <Checkbox mode="ios" slot="start" checked={isDone} onClick={() => onChangeCheckBox()} />
 
@@ -96,7 +96,8 @@ const Objective = ({
           placeholder="Type here..."
           value={text}
           onIonInput={e => onChangeObjective(e.target.value)}
-          // autofocus
+          autofocus
+
           // ref={forwardedRef}
         />
       </ObjectiveBody>
@@ -112,6 +113,7 @@ const Objective = ({
         actualWeekDate={actualWeekDate}
         notifTime={notifTime}
         repObjRef={repObjRef}
+        isLast={!order}
       />
     </IonItemSliding>
   );
@@ -138,7 +140,7 @@ const ObjectiveBody = styled(IonItem)`
   --padding-top: 10px !important;
   padding-bottom: 0px !important;
   --min-height: 100% !important; // sirve, pero que hace?
-  --background-focused: #0000;
+  --background-focused: #0000; // ?
   /* z-index: -9999999999 !important; */
   /* background: red; */
 `;

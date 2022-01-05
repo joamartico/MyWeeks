@@ -8,6 +8,7 @@ import {
 } from '@ionic/react';
 import { notifications, repeat, trash } from 'ionicons/icons';
 import { useContext, useState } from 'react';
+import styled from "styled-components";
 import { convertToUnix } from '../../constants/helpers';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
@@ -23,7 +24,7 @@ const SlideOptions = ({
   repeatValue,
   notifTime,
   repObjRef,
-  slideRef
+  isLast
 }) => {
   const { setRemoved, removed } = useContext(Context);
 
@@ -125,7 +126,7 @@ const SlideOptions = ({
   };
 
   return (
-    <IonItemOptions side="end" onIonSwipe={e => console.log("swipe", e)} >
+    <Options side="end" isLast={isLast} onIonSwipe={e => console.log("swipe", e)} >
       { !type || (type != 'week' && time == 'weeks') && (
         <>
           <IonItemOption color="warning">
@@ -181,8 +182,12 @@ const SlideOptions = ({
         {/* DELETE */}
         <IonIcon icon={trash} size={2} style={{ fontSize: 20, paddingLeft: 5, paddingRight: 5 }} />
       </IonItemOption>
-    </IonItemOptions>
+    </Options>
   );
 };
 
 export default SlideOptions;
+
+const Options = styled(IonItemOptions)`
+    z-index:${({isLast}) => isLast && "9999999"} !important;
+`;

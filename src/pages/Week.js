@@ -25,7 +25,7 @@ function getWeekDate() {
 
 const Week = () => {
   const router = useIonRouter();
-  const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
+  const { removed, newDocId, setNewDocId, objectives, setObjectives} = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
   const [notes, setNotes] = useState('');
   const [repeatedObjectives, setRepeatedObjectives] = useState([]);
@@ -58,11 +58,13 @@ const Week = () => {
         .orderBy('order', 'asc')
         .get()
         .then(snapshot => {
+          console.log("aca get")
           setObjectives(
             snapshot.docs
               .filter(doc => doc.data().text != '')
               .map((doc, index) => {
                 var newDoc = doc.data();
+                console.log("aca doc: ", doc.data())
                 newDoc.id = doc.id;
                 newDoc.n = index;
                 return newDoc;
@@ -70,6 +72,14 @@ const Week = () => {
           );
         });
     }
+
+    console.log("aca get removed")
+
+    weekRef?.collection('objectives').where("text", "==", "").get().then(snapshot => {
+      snapshot.docs.map(doc => {
+        doc.ref.delete();
+      })
+    })
   }, [router.routeInfo, date, removed]);
 
   useEffect(() => {
@@ -108,7 +118,7 @@ const Week = () => {
           date={date}
           time="weeks"
         />
-        <Body pt="70px" intoTabs ref={ref}>
+        <Body intoTabs ref={ref}>
           <MainCard
             repeatedObjectives={repeatedObjectives}
             notes={notes}

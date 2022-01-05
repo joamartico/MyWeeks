@@ -1,37 +1,34 @@
-import { useContext } from "react";
-import styled from "styled-components";
-import { Card, Subtitle } from "../../constants/styledComponents";
-import { Context } from "../context/ContextComponent";
-import AddButton from "./AddButton";
-import Objective from "./Objective";
+import { useContext } from 'react';
+import styled from 'styled-components';
+import { Card, Subtitle } from '../../constants/styledComponents';
+import { Context } from '../context/ContextComponent';
+import AddButton from './AddButton';
+import Objective from './Objective';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-
-const Days = ({repeatedObjectives,  date, nowDate, weekRef}) => {
+const Days = ({ repeatedObjectives, date, nowDate, weekRef }) => {
   const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
 
-    const shouldDisplayObjective = (objective, day, dayDate) => {
-        if (date.toString() != objective.date && date.toString() != objective.exceptionDate) {
-          if (
-            objective.repeatTime.date == `${dayDate.day}/${dayDate.month}` &&
-            (dayDate.year - objective.repeatTime.year) % 5 === 0
-          ) {
-            return true;
-          }
-          if (objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {
-            return true;
-          }
-          if (objective.repeatTime == day) {
-            return true;
-          }
-          if (objective.repeatTime == dayDate.day) {
-            return true;
-          }
-        }
-      };
-
-       
+  const shouldDisplayObjective = (objective, day, dayDate) => {
+    if (date.toString() != objective.date && date.toString() != objective.exceptionDate) {
+      if (
+        objective.repeatTime.date == `${dayDate.day}/${dayDate.month}` &&
+        (dayDate.year - objective.repeatTime.year) % 5 === 0
+      ) {
+        return true;
+      }
+      if (objective.repeatTime == `${dayDate.day}/${dayDate.month}`) {
+        return true;
+      }
+      if (objective.repeatTime == day) {
+        return true;
+      }
+      if (objective.repeatTime == dayDate.day) {
+        return true;
+      }
+    }
+  };
 
   function dayDate(daysAfterMonday) {
     const day = date.add({ days: daysAfterMonday }).day;
@@ -52,8 +49,9 @@ const Days = ({repeatedObjectives,  date, nowDate, weekRef}) => {
             ?.filter(objective => objective.type === day)
             .map(objective => (
               <Objective
-                key={objective.id}
+                key={objective.order}
                 n={objective.n}
+                order={objective.order}
                 text={objective.text}
                 id={objective.id ? objective.id : newDocId}
                 isDone={objective.done}
@@ -88,7 +86,7 @@ const Days = ({repeatedObjectives,  date, nowDate, weekRef}) => {
               }
             })}
 
-          <AddButton weekRef={weekRef} type={day}  />
+          <AddButton weekRef={weekRef} type={day} />
         </Card>
       ))}
     </>

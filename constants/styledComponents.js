@@ -29,7 +29,7 @@ export const Card = styled.div`
   padding-bottom: 4%;
   width: 92%;
   border-radius: 15px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   box-shadow: 0 7px 5px ${() => '#0004'};
   max-width: 700px;
   margin-left: auto;
