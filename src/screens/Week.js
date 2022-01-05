@@ -2,10 +2,10 @@ import { IonPage, IonContent, useIonRouter, IonHeader, IonToolbar, IonList } fro
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../constants/theme';
+import { COLORS } from '../../styles/theme';
 import WeekHeader from '../components/WeekHeader';
 
-import { InputNotes, Subtitle, Card, ScrollBody, Body } from '../../constants/styledComponents';
+import { InputNotes, Subtitle, Card, ScrollBody, Body } from '../components/styledComponents';
 
 import { Temporal } from 'proposal-temporal';
 import { authentication, db } from '../../firebase';
@@ -25,7 +25,7 @@ function getWeekDate() {
 
 const Week = () => {
   const router = useIonRouter();
-  const { removed, newDocId, setNewDocId, objectives, setObjectives} = useContext(Context);
+  const { removed, newDocId, setNewDocId, objectives, setObjectives } = useContext(Context);
   const [date, setDate] = useState(getWeekDate());
   const [notes, setNotes] = useState('');
   const [repeatedObjectives, setRepeatedObjectives] = useState([]);
@@ -58,13 +58,13 @@ const Week = () => {
         .orderBy('order', 'asc')
         .get()
         .then(snapshot => {
-          console.log("aca get")
+          console.log('aca get');
           setObjectives(
             snapshot.docs
               .filter(doc => doc.data().text != '')
               .map((doc, index) => {
                 var newDoc = doc.data();
-                console.log("aca doc: ", doc.data())
+                console.log('aca doc: ', doc.data());
                 newDoc.id = doc.id;
                 newDoc.n = index;
                 return newDoc;
@@ -73,13 +73,17 @@ const Week = () => {
         });
     }
 
-    console.log("aca get removed")
+    console.log('aca get removed');
 
-    weekRef?.collection('objectives').where("text", "==", "").get().then(snapshot => {
-      snapshot.docs.map(doc => {
-        doc.ref.delete();
-      })
-    })
+    weekRef
+      ?.collection('objectives')
+      .where('text', '==', '')
+      .get()
+      .then(snapshot => {
+        snapshot.docs.map(doc => {
+          doc.ref.delete();
+        });
+      });
   }, [router.routeInfo, date, removed]);
 
   useEffect(() => {

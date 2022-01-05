@@ -6,9 +6,9 @@ import {
   Subtitle,
   StyledButton,
   Padding,
-} from '../../constants/styledComponents';
+} from '../components/styledComponents';
 import PWAPrompt from 'react-ios-pwa-prompt';
-import { COLORS } from '../../constants/theme';
+import { COLORS } from '../../styles/theme';
 import { IonPage, useIonRouter } from '@ionic/react';
 
 const Onboarding = () => {
@@ -17,7 +17,6 @@ const Onboarding = () => {
 
   function IsSafari() {
     let userAgentString = navigator.userAgent;
-
 
     // Detect Chrome
     let chromeAgent = userAgentString.indexOf('Chrome') > -1;
@@ -35,7 +34,7 @@ const Onboarding = () => {
     <IonPage>
       <Body>
         <FullCard>
-          <Padding >
+          <Padding>
             <div
               style={{
                 // height: '80%',
@@ -47,18 +46,18 @@ const Onboarding = () => {
             >
               <Title size="giant">Welcome to {''} MyWeeks!</Title>
 
-              <Subtitle style={{ marginTop: '3vh', maxWidth: '500px', }}>
+              <Subtitle style={{ marginTop: '3vh', maxWidth: '500px' }}>
                 Your weekly schedule app to manage your time and achive your goals
               </Subtitle>
             </div>
             {/* <div> */}
             {IsSafari() && (
               <StyledButton
-              style={{
-                marginTop: 'auto',
-              }}
-              outlined
-              onClick={() => setShowPWAPrompt(true)}
+                style={{
+                  marginTop: 'auto',
+                }}
+                outlined
+                onClick={() => setShowPWAPrompt(true)}
               >
                 Install App
               </StyledButton>
@@ -66,10 +65,10 @@ const Onboarding = () => {
             <StyledButton
               style={{ marginTop: '10px', marginBottom: '10px' }}
               onClick={() => router.push('/signin', 'forward', 'push')}
-              >
+            >
               Get Started!
             </StyledButton>
-              {/* </div> */}
+            {/* </div> */}
           </Padding>
         </FullCard>
 

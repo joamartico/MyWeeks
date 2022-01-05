@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { Card, Subtitle } from '../../constants/styledComponents';
+import { Card, Subtitle } from '../components/styledComponents';
 import { Context } from '../context/ContextComponent';
 import AddButton from './AddButton';
 import Objective from './Objective';

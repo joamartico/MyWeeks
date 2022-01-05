@@ -1,6 +1,6 @@
 import { IonList } from '@ionic/react';
 import React, { useContext, useRef } from 'react';
-import { Card, InputNotes, Subtitle } from '../../constants/styledComponents';
+import { Card, InputNotes, Subtitle } from '../components/styledComponents';
 import { Context } from '../context/ContextComponent';
 import AddButton from './AddButton';
 import Objective from './Objective';
@@ -8,14 +8,14 @@ import Objective from './Objective';
 const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, time }) => {
   const { newDocId, objectives } = useContext(Context);
 
-  console.log("aca: ", objectives)
+  console.log('aca: ', objectives);
 
   return (
     <Card>
       <Subtitle>Objectives</Subtitle>
 
       <IonList>
-        {console.log("-----------------")}
+        {console.log('-----------------')}
         {objectives
           ?.filter(objective => (type ? objective.type == type : true))
           .sort((a, b) => {

@@ -1,6 +1,7 @@
 import { IonButton, IonContent, IonInput, IonTextarea } from '@ionic/react';
 import styled from 'styled-components';
-import { COLORS } from './theme';
+import { COLORS } from "../../styles/theme";
+
 
 
 

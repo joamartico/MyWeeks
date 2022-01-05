@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { COLORS } from '../../constants/theme';
+import { COLORS } from '../../styles/theme';
 import styled from 'styled-components';
 import { authentication, db } from '../../firebase';
 import {
@@ -10,7 +10,7 @@ import {
   FullCard,
   Padding,
   Body,
-} from '../../constants/styledComponents';
+} from '../components/styledComponents';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import { IonContent, IonPage, useIonRouter, useIonToast } from '@ionic/react';

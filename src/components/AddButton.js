@@ -9,26 +9,7 @@ const AddButton = ({ type, weekRef, timeRef }) => {
   const ref = weekRef || timeRef;
   const { objectives, setObjectives, setNewDocId, setRemoved, removed } = useContext(Context);
 
-  // const onAddObjective = async () => {
-  //   setObjectives([
-  //     ...objectives,
-  //     {
-  //       text: '',
-  //       done: false,
-  //       n: objectives.length,
-  //     },
-  //   ]);
 
-  //   const newDoc = await timeRef.collection('objectives').doc();
-
-  //   setNewDocId(newDoc.id);
-
-  //   newDoc.set({
-  //     text: '',
-  //     done: false,
-  //     order: objectives.length,
-  //   });
-  // };
 
   const onAddObjective = async type => {
     await setObjectives(prevObjectives => [

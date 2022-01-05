@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyledButton, Title, Subtitle, FullCard, Body } from '../../constants/styledComponents';
+import { StyledButton, Title, Subtitle, FullCard, Body } from '../components/styledComponents';
 import { authentication } from '../../firebase';
 import {
   IonButton,

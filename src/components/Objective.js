@@ -1,9 +1,9 @@
 import React, { useContext, useRef, useEffect, useState } from 'react';
-import { InputObjective } from '../../constants/styledComponents';
+import { InputObjective } from '../components/styledComponents';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 import styled from 'styled-components';
-import { COLORS } from '../../constants/theme';
+import { COLORS } from '../../styles/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
 
@@ -19,7 +19,7 @@ const Objective = ({
   repeatValue,
   notifTime,
   n,
-  order
+  order,
 }) => {
   const { objectives, setObjectives } = useContext(Context);
 

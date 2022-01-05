@@ -9,7 +9,6 @@ import {
 import { notifications, repeat, trash } from 'ionicons/icons';
 import { useContext, useState } from 'react';
 import styled from "styled-components";
-import { convertToUnix } from '../../constants/helpers';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 
@@ -27,6 +26,10 @@ const SlideOptions = ({
   isLast
 }) => {
   const { setRemoved, removed } = useContext(Context);
+
+  function convertToUnix(month, day, year, time) {
+    return (new Date(month + '/' + day + '/' + year + ' ' + time).getTime() / 1000).toFixed(0);
+  }
 
   function getDocName(DATE) {
     if (time == 'weeks') return DATE.toString();

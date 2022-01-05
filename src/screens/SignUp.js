@@ -8,7 +8,7 @@ import {
   InputText,
   Subtitle,
   Padding,
-} from '../../constants/styledComponents';
+} from '../components/styledComponents';
 import { IonContent, IonPage, useIonRouter, useIonToast } from '@ionic/react';
 
 const SignUp = () => {

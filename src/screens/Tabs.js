@@ -18,7 +18,7 @@ import Week from './Week';
 import Profile from './Profile';
 import Plan from './Plan';
 import { Context } from '../context/ContextComponent';
-import { COLORS } from "../../constants/theme";
+import { COLORS } from '../../styles/theme';
 const themeColor = document.querySelector('meta[name="theme-color"]');
 
 export const getStaticProps = async ({ params }) => {
@@ -27,20 +27,15 @@ export const getStaticProps = async ({ params }) => {
       id: params.id,
     },
   };
-}
+};
 
 export const getStaticPaths = async () => {
-  const paths = [
-    { params: { id: '1' } },
-    { params: { id: '2' } },
-    { params: { id: '3' } },
-  ];
+  const paths = [{ params: { id: '1' } }, { params: { id: '2' } }, { params: { id: '3' } }];
   return { paths, fallback: true };
-}
-
+};
 
 const Tabs = () => {
-  const router = useIonRouter()
+  const router = useIonRouter();
 
   useEffect(() => {
     if (

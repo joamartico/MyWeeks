@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Body, Card, InputNotes, Subtitle } from '../../constants/styledComponents';
+import { Body, Card, InputNotes, Subtitle } from '../components/styledComponents';
 import WeekHeader from '../components/WeekHeader';
 import { Temporal } from 'proposal-temporal';
 import { authentication, db } from '../../firebase';
@@ -166,7 +166,7 @@ const Plan = () => {
           </IonSegmentButton>
         </IonSegment>
       </WeekHeader>
-      <Body intoTabs >
+      <Body intoTabs>
         <MainCard
           notes={notes}
           setNotes={setNotes}

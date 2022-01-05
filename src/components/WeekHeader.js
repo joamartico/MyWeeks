@@ -1,7 +1,7 @@
 import React from 'react';
-import { COLORS } from '../../constants/theme';
+import { COLORS } from '../../styles/theme';
 import styled from 'styled-components';
-import { Title } from '../../constants/styledComponents';
+import { Title } from '../components/styledComponents';
 import { IonHeader, IonIcon } from '@ionic/react';
 
 const months = [
@@ -59,8 +59,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
 export default WeekHeader;
 
 const Header = styled(IonHeader)`
-
-  height: ${({withSegment}) => withSegment ? "146px" : "73px"};
+  height: ${({ withSegment }) => (withSegment ? '146px' : '73px')};
   border-bottom: 1px solid #6666;
   flex-direction: row;
   /* background-color: #fff; */

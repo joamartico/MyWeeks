@@ -10,14 +10,13 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { Body } from '../constants/styledComponents';
-import { COLORS } from '../constants/theme';
+import { COLORS } from '../styles/theme';
 import { authentication } from '../firebase';
 import Context from './context/ContextComponent';
-import Onboarding from './pages/Onboarding';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Tabs from './pages/Tabs';
+import Onboarding from './screens/Onboarding';
+import SignIn from './screens/SignIn';
+import SignUp from './screens/SignUp';
+import Tabs from './screens/Tabs';
 
 const App = () => {
   const router = useIonRouter();
@@ -33,8 +32,6 @@ const App = () => {
       }
     });
   }, []);
-
-  
 
   if (initialRoute === undefined) {
     return (
