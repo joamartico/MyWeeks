@@ -11,15 +11,65 @@ import MainCard from '../components/MainCard';
 import useNotes from '../hooks/useNotes';
 import useObjectives from '../hooks/useObjectives';
 
-const getDate = () => {
+function getActualDate() {
+  // if (selectedSegment === 'Ten Years' || selectedSegment === 'Five Years') return null;
   return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
-};
+}
+
+function isBetween(actualYear, lapse) {
+  const start = lapse.split('-')[0];
+  const end = lapse.split('-')[1];
+  if (actualYear >= start && actualYear <= end) {
+    return true;
+  }
+  return false;
+}
 
 const Plan = () => {
   const [selectedSegment, setSelectedSegment] = useState('Months');
-  const [date, setDate] = useState(getDate());
+  const [date, setDate] = useState(getActualDate());
   const { notes, setNotes } = useNotes(date, selectedSegment);
   useObjectives(date, selectedSegment);
+
+  function getAllDocs(selectedSegment) {
+    return db
+      .collection('users')
+      .doc(authentication.currentUser.uid)
+      .collection(selectedSegment)
+      .get()
+      .then(querySnapshot => {
+        return querySnapshot.docs.map(doc => {
+          var newDoc = doc.data();
+          newDoc.id = doc.id;
+          return newDoc;
+        });
+      });
+  }
+
+  async function setValidDate() {
+    const actualDate = getActualDate();
+    const actualYear = actualDate.year;
+    const allDocs = await getAllDocs(selectedSegment);
+    let foundDoc = false;
+    allDocs.map(doc => {
+      if (isBetween(actualYear, doc.id)) {
+        const fromYear = doc.id.split('-')[0];
+        setDate(Temporal.PlainDate.from({ year: fromYear, month: 1, day: 1 }));
+        foundDoc = true;
+      }
+    });
+    if (!foundDoc) {
+      setDate(actualDate);
+    }
+  }
+
+  useEffect(() => {
+    if (selectedSegment === 'Five Years' || selectedSegment === 'Ten Years') {
+      setValidDate();
+    } else {
+      setDate(getActualDate());
+    }
+  }, [selectedSegment]);
 
   const changeTime = (_selectedSegment, symbol) => {
     switch (_selectedSegment) {
@@ -66,11 +116,6 @@ const Plan = () => {
     }
   };
 
-
-  useEffect(() => {
-    setDate(getDate());
-  }, [selectedSegment]);
-
   return (
     <IonPage>
       <WeekHeader
@@ -108,13 +153,7 @@ const Plan = () => {
       </WeekHeader>
 
       <Body intoTabs>
-        <MainCard
-          notes={notes}
-          setNotes={setNotes}
-          date={date}
-          time={selectedSegment}
-          type=""
-        />
+        <MainCard notes={notes} setNotes={setNotes} date={date} time={selectedSegment} type="" />
       </Body>
     </IonPage>
   );
