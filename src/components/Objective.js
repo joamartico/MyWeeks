@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { InputObjective } from '../components/styledComponents';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';

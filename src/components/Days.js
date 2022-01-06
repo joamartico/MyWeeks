@@ -7,7 +7,7 @@ import Objective from './Objective';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const Days = ({ repeatedObjectives, date, nowDate, weekRef }) => {
+const Days = ({ repeatedObjectives, date, nowDate }) => {
   const { objectives, newDocId } = useContext(Context);
 
   const shouldDisplayObjective = (objective, day, dayDate) => {
@@ -47,7 +47,7 @@ const Days = ({ repeatedObjectives, date, nowDate, weekRef }) => {
 
           {objectives
             ?.filter(objective => objective.type === day)
-            .map((objective) => (
+            .map(objective => (
               <Objective
                 key={objective.id || newDocId}
                 n={objective.n}
@@ -86,7 +86,7 @@ const Days = ({ repeatedObjectives, date, nowDate, weekRef }) => {
               }
             })}
 
-          <AddButton weekRef={weekRef} type={day} />
+          <AddButton time="weeks" type={day} date={date}/>
         </Card>
       ))}
     </>

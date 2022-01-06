@@ -1,15 +1,16 @@
 import { IonList } from '@ionic/react';
-import React, { useContext, useRef } from 'react';
+import React from 'react';
 import { Card, InputNotes, Subtitle } from '../components/styledComponents';
-import { Context } from '../context/ContextComponent';
+import useGlobalState from "../hooks/useGlobalState";
+import useNotes from "../hooks/useNotes";
 import AddButton from './AddButton';
 import Objective from './Objective';
 
-const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, time }) => {
-  const { newDocId, objectives } = useContext(Context);
+const MainCard = ({ repeatedObjectives, date, type, time }) => {
+  const { newDocId, objectives } = useGlobalState();
+  const {notes, updateNotes} = useNotes(date, time);
 
-  console.log('aca: ', objectives);
-  {console.log('--------key---------')}
+  
 
   return (
     <Card>
@@ -48,23 +49,20 @@ const MainCard = ({ repeatedObjectives, notes, date, timeRef, setNotes, type, ti
               id={objective.id ? objective.id : newDocId}
               isDone={objective.done}
               weekDate={date}
-              time="weeks"
+              time="weeks" 
               type={objective.type}
               repeatValue={objective.repeatValue}
             />
           ))}
       </IonList>
 
-      <AddButton type={type} timeRef={timeRef} />
+      <AddButton type={type} time={time} date={date}/>
 
       <Subtitle>Notes</Subtitle>
 
       <InputNotes
         value={notes}
-        onIonInput={e => {
-          timeRef.set({ notes: e.target.value });
-          setNotes(e.target.value);
-        }}
+        onIonInput={updateNotes}
         multiline={true}
         rows={20}
         placeholder={`Write your achievements, mistakes, learnings and thoughts of the ${type}`}

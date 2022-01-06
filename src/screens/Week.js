@@ -10,9 +10,9 @@ import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 import Days from '../components/Days';
 import MainCard from '../components/MainCard';
-import useGlobalState from "../hooks/useGlobalState";
-import useNotes from "../hooks/useNotes";
-import useObjectives from "../hooks/useObjectives";
+import useGlobalState from '../hooks/useGlobalState';
+import useNotes from '../hooks/useNotes';
+import useObjectives from '../hooks/useObjectives';
 
 const nowDate = Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 
@@ -24,26 +24,13 @@ function getWeekDate() {
 
 const Week = () => {
   const [date, setDate] = useState(getWeekDate());
-  const {notes, setNotes} = useNotes(date, 'weeks');
- const {repeatedObjectives} = useObjectives(date, 'weeks');
+  const { repeatedObjectives } = useObjectives(date, 'weeks');
 
   const ref = useRef();
 
-  const weekRef =
-    authentication.currentUser &&
-    db
-      .collection('users')
-      .doc(authentication.currentUser.uid)
-      .collection('weeks')
-      .doc(date.toString());
-
-
-  
-
-    // setTimeout(() => {
-    //   ref.current.scrollToPoint(0, 100, 500);
-    // }, 1000);
-
+  // setTimeout(() => {
+  //   ref.current.scrollToPoint(0, 100, 500);
+  // }, 1000);
 
   const onChangeDate = symbol => {
     if (symbol === '+') {
@@ -55,8 +42,6 @@ const Week = () => {
       setDate(newDate);
     }
   };
-
-
 
   return (
     <>
@@ -70,20 +55,12 @@ const Week = () => {
         <Body intoTabs ref={ref}>
           <MainCard
             repeatedObjectives={repeatedObjectives}
-            notes={notes}
-            setNotes={setNotes}
             date={date}
-            timeRef={weekRef}
             type="week"
             time="weeks"
           />
 
-          <Days
-            repeatedObjectives={repeatedObjectives}
-            date={date}
-            nowDate={nowDate}
-            weekRef={weekRef}
-          />
+          <Days repeatedObjectives={repeatedObjectives} date={date} nowDate={nowDate} />
         </Body>
       </IonPage>
     </>

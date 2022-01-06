@@ -10,12 +10,13 @@ function getDocName(date, time) {
   if (time == 'Ten Years') return `${date.year}-${date.year + 10}`;
 }
 
-const useNotes = ( date, time ) => {
+const useNotes = (date, time) => {
   const [notes, setNotes] = useState([]);
   const { removed } = useGlobalState();
 
   const timeRef =
-    time && date &&
+    time &&
+    date &&
     authentication.currentUser &&
     db
       .collection('users')
@@ -32,7 +33,16 @@ const useNotes = ( date, time ) => {
       .catch(err => console.log(err));
   }, [date, removed]);
 
-  return { notes, setNotes };
+  function updateNotes(e) {
+    timeRef
+      .set({
+        notes: e.target.value,
+      })
+      .catch(err => console.log(err));
+    setNotes(e.target.value);
+  }
+
+  return { notes, setNotes, updateNotes };
 };
 
 export default useNotes;

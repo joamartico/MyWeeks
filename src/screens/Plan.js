@@ -66,21 +66,6 @@ const Plan = () => {
     }
   };
 
-  function getDocName(_selectedSegment) {
-    if (_selectedSegment == 'Months') return `${date.year}-${date.month}`;
-    if (_selectedSegment == 'Years') return date.year.toString();
-    if (_selectedSegment == 'Five Years') return `${date.year}-${date.year + 5}`;
-    if (_selectedSegment == 'Ten Years') return `${date.year}-${date.year + 10}`;
-  }
-
-  var timeRef =
-    selectedSegment &&
-    authentication.currentUser &&
-    db
-      .collection('users')
-      .doc(authentication.currentUser.uid)
-      .collection(selectedSegment)
-      .doc(getDocName(selectedSegment));
 
   useEffect(() => {
     setDate(getDate());
@@ -127,7 +112,6 @@ const Plan = () => {
           notes={notes}
           setNotes={setNotes}
           date={date}
-          timeRef={timeRef}
           time={selectedSegment}
           type=""
         />
