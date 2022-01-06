@@ -11,9 +11,6 @@ function getDocName(date, time) {
 }
 
 const useNotes = ( date, time ) => {
-
-    console.log("date: ", date);
-
   const [notes, setNotes] = useState([]);
   const { removed } = useGlobalState();
 
@@ -25,14 +22,6 @@ const useNotes = ( date, time ) => {
       .doc(authentication.currentUser.uid)
       .collection(time)
       .doc(getDocName(date, time));
-
-  // const weekRef =
-  //   authentication.currentUser && date &&
-  //   db
-  //     .collection('users')
-  //     .doc(authentication.currentUser.uid)
-  //     .collection('weeks')
-  //     .doc(date.toString());
 
   useEffect(() => {
     timeRef

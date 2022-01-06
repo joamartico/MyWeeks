@@ -12,6 +12,7 @@ import Days from '../components/Days';
 import MainCard from '../components/MainCard';
 import useGlobalState from "../hooks/useGlobalState";
 import useNotes from "../hooks/useNotes";
+import useObjectives from "../hooks/useObjectives";
 
 const nowDate = Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 
@@ -22,13 +23,9 @@ function getWeekDate() {
 }
 
 const Week = () => {
-  const router = useIonRouter();
-  const { removed, newDocId, setNewDocId, objectives, setObjectives } = useGlobalState();
   const [date, setDate] = useState(getWeekDate());
-  // const [notes, setNotes] = useState('');
   const {notes, setNotes} = useNotes(date, 'weeks');
-  console.log("DATE: ", date);
-  const [repeatedObjectives, setRepeatedObjectives] = useState([]);
+ const {repeatedObjectives} = useObjectives(date, 'weeks');
 
   const ref = useRef();
 
@@ -40,66 +37,13 @@ const Week = () => {
       .collection('weeks')
       .doc(date.toString());
 
-  const repObjRef =
-    authentication.currentUser &&
-    db.collection('users').doc(authentication.currentUser.uid).collection('repeatedObjectives');
 
-  useEffect(() => {
-    if (router.routeInfo.pathname == '/tabs/week') {
-      console.log("aca fetch week")
-      // weekRef
-      //   ?.get()
-      //   .then(doc => {
-      //     doc.data() ? setNotes(doc.data().notes) : setNotes('');
-      //   })
-      //   .catch(err => console.log(err));
+  
 
-      weekRef
-        ?.collection('objectives')
-        .orderBy('order', 'asc')
-        .get()
-        .then(snapshot => {
-          setObjectives(
-            snapshot.docs
-              .filter(doc => doc.data().text != '')
-              .map((doc, index) => {
-                var newDoc = doc.data();
-                console.log('aca doc: ', doc.data());
-                newDoc.id = doc.id;
-                newDoc.n = index;
-                return newDoc;
-              })
-          );
-        });
-    }
-
-
-    weekRef
-      ?.collection('objectives')
-      .where('text', '==', '')
-      .get()
-      .then(snapshot => {
-        snapshot.docs.map(doc => {
-          doc.ref.delete();
-        });
-      });
-  }, [ date, removed, router.routeInfo ]);
-
-  useEffect(() => {
-    repObjRef.onSnapshot(snapshot => {
-      setRepeatedObjectives(
-        snapshot.docs.map((doc, index) => {
-          var newDoc = doc.data();
-          newDoc.id = doc.id;
-          newDoc.n = index;
-          return newDoc;
-        })
-      );
-    });
     // setTimeout(() => {
     //   ref.current.scrollToPoint(0, 100, 500);
     // }, 1000);
-  }, [removed]);
+
 
   const onChangeDate = symbol => {
     if (symbol === '+') {

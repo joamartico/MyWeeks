@@ -8,21 +8,18 @@ import Objective from '../components/Objective';
 import AddButton from '../components/AddButton';
 import { IonLabel, IonPage, IonSegment, IonSegmentButton, useIonRouter } from '@ionic/react';
 import MainCard from '../components/MainCard';
-import useNotes from "../hooks/useNotes";
-
+import useNotes from '../hooks/useNotes';
+import useObjectives from '../hooks/useObjectives';
 
 const getDate = () => {
   return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 };
 
 const Plan = () => {
-  const router = useIonRouter();
-
-  const { objectives, setObjectives, removed, newDocId, setNewDocId } = useContext(Context);
-
   const [selectedSegment, setSelectedSegment] = useState('Months');
   const [date, setDate] = useState(getDate());
   const { notes, setNotes } = useNotes(date, selectedSegment);
+  useObjectives(date, selectedSegment);
 
   const changeTime = (_selectedSegment, symbol) => {
     switch (_selectedSegment) {
@@ -86,53 +83,11 @@ const Plan = () => {
       .doc(getDocName(selectedSegment));
 
   useEffect(() => {
-    if (router.routeInfo.pathname == '/tabs/plan') {
-      console.log("aca fetch plan")
-      // timeRef
-      //   ?.get()
-      //   .then(doc => {
-      //     doc.data() ? setNotes(doc.data().notes) : setNotes('');
-      //   })
-      //   .catch(err => console.log(err));
-
-      timeRef
-        ?.collection('objectives')
-        .orderBy('order', 'asc')
-        .get()
-        .then(snapshot => {
-          setObjectives(
-            snapshot.docs
-              .filter(doc => doc.data().text != '')
-              .map((doc, index) => {
-                var newDoc = doc.data();
-                newDoc.id = doc.id;
-                newDoc.n = index;
-                return newDoc;
-              })
-          );
-        });
-    }
-    setNewDocId();
-  }, [date, selectedSegment, router.routeInfo, removed]);
-
-  useEffect(() => {
     setDate(getDate());
   }, [selectedSegment]);
 
   return (
     <IonPage>
-      {/* <SegmentedControl
-				style={{ zIndex: 999999999, marginTop: insets.top + 15, maxWidth: 700, justifyContent: "center" }}
-				values={segmentValues}
-				selectedIndex={selectedIndex}
-				onChange={(event) => {
-					setSelectedSegment(
-						segmentValues[event.nativeEvent.selectedSegmentIndex]
-					);
-					setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
-				}}
-			/> */}
-
       <WeekHeader
         date={date}
         time={selectedSegment}
@@ -144,10 +99,7 @@ const Plan = () => {
           style={{
             zIndex: 999999,
             maxWidth: 700,
-            // paddingLeft: "10%",paddingRight: "10%",
             width: '90%',
-            // justifyContent: 'center',
-            // background: "red"
           }}
           value={selectedSegment}
           onIonChange={e => {
@@ -169,6 +121,7 @@ const Plan = () => {
           </IonSegmentButton>
         </IonSegment>
       </WeekHeader>
+
       <Body intoTabs>
         <MainCard
           notes={notes}
@@ -178,45 +131,6 @@ const Plan = () => {
           time={selectedSegment}
           type=""
         />
-
-        {/* <Card
-          style={{ marginTop: '12vh' }}
-          // style={{marginTop: "50%", marginBottom: "50%"}}
-        >
-          <Subtitle>Objectives</Subtitle>
-
-          {objectives
-
-            .sort((a, b) => {
-              return a.n - b.n;
-            })
-            .map(objective => (
-              <Objective
-                key={objective.id}
-                n={objective.n}
-                text={objective.text}
-                id={objective.id ? objective.id : newDocId}
-                isDone={objective.done}
-                weekDate={date}
-                time={selectedSegment}
-              />
-            ))}
-
-          <AddButton timeRef={timeRef} />
-
-          <Subtitle>Notes</Subtitle>
-
-          <InputNotes
-            value={notes}
-            onIonInput={e => {
-              setNotes(e.target.value);
-              timeRef.set({ notes: e.target.value });
-            }}
-            autoGrow
-            rows={20}
-            placeholder="Write your achievements, mistakes, learnings and thoughts of the week"
-          />
-        </Card> */}
       </Body>
     </IonPage>
   );
