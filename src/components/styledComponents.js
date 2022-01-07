@@ -117,6 +117,7 @@ export const InputNotes = styled(IonTextarea).attrs(() => ({
   min-height: 20px;
   --padding-top: 5px;
   --padding-start: 0;
+  --padding-end: 0;
 `;
 
 export const InputObjective = styled(IonTextarea).attrs(props => ({

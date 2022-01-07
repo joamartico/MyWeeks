@@ -66,6 +66,8 @@ const MainCard = ({ repeatedObjectives, date, type, time }) => {
         multiline={true}
         rows={20}
         placeholder={`Write your achievements, mistakes, learnings and thoughts of the ${type}`}
+        // autoGrow={time == "weeks" ? false : true}
+        autoGrow
       />
     </Card>
   );
