@@ -1,7 +1,16 @@
-import { IonButton, IonContent, IonInput, IonTextarea } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonInput, IonTextarea } from '@ionic/react';
 import styled from 'styled-components';
 import { COLORS } from "../../styles/theme";
 
+
+export const Icon = styled(IonIcon)`
+  color: ${({ iconColor }) => (iconColor ? iconColor : COLORS.primary)};
+  font-size: ${({ size }) => size + 'px'} !important;
+  margin-right: ${({ marginRight }) => marginRight  || '5px'};
+  margin-left: ${({ marginLeft }) => marginLeft  || '5px'};
+  align-self: center;
+  --ionicon-stroke-width: ${({ weight }) => (weight ? weight + 'px' : '30px')} !important;
+`;
 
 
 
@@ -62,6 +71,7 @@ export const Title = styled.p`
   font-weight: bold;
   color: ${COLORS.primary};
   align-items: center;
+  /* width: 100%; // nuevo */
 `;
 
 export const Subtitle = styled.p`

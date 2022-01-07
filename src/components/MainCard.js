@@ -1,16 +1,14 @@
 import { IonList } from '@ionic/react';
 import React from 'react';
 import { Card, InputNotes, Subtitle } from '../components/styledComponents';
-import useGlobalState from "../hooks/useGlobalState";
-import useNotes from "../hooks/useNotes";
+import useGlobalState from '../hooks/useGlobalState';
+import useNotes from '../hooks/useNotes';
 import AddButton from './AddButton';
 import Objective from './Objective';
 
 const MainCard = ({ repeatedObjectives, date, type, time }) => {
   const { newDocId, objectives } = useGlobalState();
-  const {notes, updateNotes} = useNotes(date, time);
-
-  
+  const { notes, updateNotes } = useNotes(date, time);
 
   return (
     <Card>
@@ -22,7 +20,7 @@ const MainCard = ({ repeatedObjectives, date, type, time }) => {
           .sort((a, b) => {
             return a.n - b.n;
           })
-          .map((objective) => (
+          .map(objective => (
             <Objective
               key={objective.id || newDocId}
               n={objective.n}
@@ -34,7 +32,7 @@ const MainCard = ({ repeatedObjectives, date, type, time }) => {
               time={time}
               type={type}
               repeatValue={objective.repeatValue}
-            >{console.log("key: ", objective.id || newDocId, " n: ", objective.n, " order: ", objective.order, " text: ", objective.text )}</Objective>
+            />
           ))}
         {repeatedObjectives
           ?.filter(objective => objective.repeatTime === type && objective.repeatValue == type)
@@ -49,14 +47,14 @@ const MainCard = ({ repeatedObjectives, date, type, time }) => {
               id={objective.id ? objective.id : newDocId}
               isDone={objective.done}
               weekDate={date}
-              time="weeks" 
+              time="weeks"
               type={objective.type}
               repeatValue={objective.repeatValue}
             />
           ))}
       </IonList>
 
-      <AddButton type={type} time={time} date={date}/>
+      <AddButton type={type} time={time} date={date} />
 
       <Subtitle>Notes</Subtitle>
 

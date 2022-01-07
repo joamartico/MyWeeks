@@ -40,7 +40,6 @@ const useObjectives = (date, time) => {
   //   .doc(getDocName(date, time));
 
   useEffect(() => {
-    console.log('useobj date: ', date, 'time: ', time, 'path: ', router.routeInfo.pathname);
     if (router.routeInfo.pathname == '/tabs/week' && time != 'weeks') return null;
     if (router.routeInfo.pathname == '/tabs/plan' && time == 'weeks') return null;
     getObjectives();
