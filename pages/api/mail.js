@@ -30,7 +30,6 @@
 //
 //
 //      SENDGRID
-console.log('PROCES ENV SEnGRID: ', process.env.SENDGRID_API_KEY);
 
 
 const mail = require('@sendgrid/mail');

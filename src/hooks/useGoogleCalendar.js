@@ -2,6 +2,16 @@ import { useEffect, useState } from 'react';
 
 var gapi = window.gapi;
 
+function addOneHour(time){
+    const hour = time.split(':')[0];
+    const minute = time.split(':')[1];
+    if(hour >= 23 ) {
+        return "23:59";
+    }
+    const newHour = parseInt(hour) + 1;
+    return `${newHour}:${minute}`;
+}
+
 function toBase32(str) {
   return str
     .toLowerCase()
@@ -40,13 +50,13 @@ const useGoogleCalendar = () => {
       id: toBase32(id),
       summary: 'NUEVO',
       start: {
-        // dateTime: `${date.toString()}T07:00:00`,
-        dateTime: `${date.toString()}T00:00:00`,
+        dateTime: `${date.toString()}T08:00:00`,
+        // dateTime: `${date.toString()}T00:00:00`,
         timeZone,
       },
       end: {
-        // dateTime: `${date.toString()}T8:00:00`,
-        dateTime: `${date.add({ days: 1 }).toString()}T00:00:00`,
+        dateTime: `${date.toString()}T9:00:00`,
+        // dateTime: `${date.add({ days: 1 }).toString()}T00:00:00`,
         timeZone,
       },
       //   reminders: {
@@ -84,13 +94,17 @@ const useGoogleCalendar = () => {
     var event = {
       summary: text,
       start: {
-        dateTime: `${date.toString()}T${notifTime || '00:00'}:00`,
+          dateTime: `${date.toString()}T${notifTime || '08:00'}:00`,
+          // dateTime: `${date.toString()}T${notifTime || '00:00'}:00`,
         timeZone,
       },
       end: {
         dateTime: notifTime
-          ? `${date.toString()}T${notifTime}:01`
-          : `${date.add({ days: 1 }).toString()}T00:00:00`,
+          ? `${date.toString()}T${addOneHour(notifTime)}:00`
+          : `${date.toString()}T09:00:00`,
+        // dateTime: notifTime
+        //   ? `${date.toString()}T${notifTime}:01`
+        //   : `${date.add({ days: 1 }).toString()}T00:00:00`,
         timeZone,
       },
       recurrence:
@@ -149,9 +163,6 @@ const useGoogleCalendar = () => {
       //   const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
       //   console.log('access_token: ', access_token);
     });
-    console.log('gapi useeffect');
-    console.log('process.env.NEXT_PUBLIC_API_KEY: ', process.env.NEXT_PUBLIC_API_KEY);
-    console.log('process.env.NEXT_PUBLIC_CLIENT_ID: ', process.env.NEXT_PUBLIC_CLIENT_ID);
     // getEvents();
   }, []);
 
