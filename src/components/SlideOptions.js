@@ -25,7 +25,7 @@ const SlideOptions = ({
   repObjRef,
 }) => {
   const { setRemoved, removed } = useContext(Context);
-  const { updateEvent, isEnabled } = useGoogleCalendar();
+  const { updateEvent, isEnabled, deleteEvent } = useGoogleCalendar();
 
   function convertToUnix(month, day, year, time) {
     return (new Date(month + '/' + day + '/' + year + ' ' + time).getTime() / 1000).toFixed(0);
@@ -52,6 +52,8 @@ const SlideOptions = ({
       .doc(id);
 
   const onRemoveObjective = () => {
+    isEnabled() && deleteEvent(id);
+
     if (actualWeekDate == undefined) {
       objRef.delete();
     } else {
