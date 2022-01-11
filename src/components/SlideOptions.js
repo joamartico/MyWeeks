@@ -25,7 +25,7 @@ const SlideOptions = ({
   repObjRef,
 }) => {
   const { setRemoved, removed } = useContext(Context);
-  const { updateEvent } = useGoogleCalendar();
+  const { updateEvent, isEnabled } = useGoogleCalendar();
 
   function convertToUnix(month, day, year, time) {
     return (new Date(month + '/' + day + '/' + year + ' ' + time).getTime() / 1000).toFixed(0);
@@ -64,7 +64,7 @@ const SlideOptions = ({
 
   const onChangeRepeatTime = newRepeatValue => {
     var newRepeatTime = '';
-    updateEvent({
+    isEnabled() && updateEvent({
       id,
       date: dayDate,
       text,
@@ -121,7 +121,7 @@ const SlideOptions = ({
 
     console.log("newNotifTime: ", newNotifTime);
 
-    updateEvent({
+    isEnabled() && updateEvent({
       id,
       date: dayDate,
       text,

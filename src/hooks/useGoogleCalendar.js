@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
+import { authentication, db } from "../../firebase";
 
 var gapi = window.gapi;
+
+function isEnabled(){
+    db.collection('users').doc(authentication.currentUser.uid).get().then(doc => {
+        return doc.data().dailyNotif;
+    })
+}
 
 function addOneHour(time){
     const hour = time.split(':')[0];
@@ -166,7 +173,7 @@ const useGoogleCalendar = () => {
     // getEvents();
   }, []);
 
-  return { events, signOut, signIn, createEvent, updateEvent };
+  return { events, signOut, signIn, createEvent, updateEvent, isEnabled };
 };
 
 export default useGoogleCalendar;

@@ -22,7 +22,7 @@ const Objective = ({
   n,
 }) => {
   const { objectives, setObjectives } = useContext(Context);
-  const { updateEvent } = useGoogleCalendar();
+  const { updateEvent, isEnabled } = useGoogleCalendar();
 
   // NECESITO QUE LA PROP repeatValue NO RE RENDERIZE EL COMPONENTE CUANDO CAMBIA
 
@@ -55,7 +55,7 @@ const Objective = ({
       .doc(id);
 
   const onChangeObjective = text => {
-    updateEvent({
+    isEnabled() && updateEvent({
       id,
       date: dayDate,
       text,

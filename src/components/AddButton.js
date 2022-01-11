@@ -6,7 +6,7 @@ import useObjectives from "../hooks/useObjectives";
 
 const AddButton = ({ type, time, date, dayDate}) => {
 const {addObjective} = useObjectives(date, time)
-const {createEvent} = useGoogleCalendar()
+const {createEvent, isEnabled} = useGoogleCalendar()
 
 
   //   // setTimeout(() => {
@@ -17,7 +17,7 @@ const {createEvent} = useGoogleCalendar()
 
   async function onClick() {
     const newDocId = await addObjective(type)
-    time === "weeks" && createEvent(newDocId, dayDate)
+    time === "weeks" && isEnabled() && createEvent(newDocId, dayDate)
   }
   return (
     <IonIcon

@@ -6,6 +6,7 @@ const ContextComponent = props => {
   const [objectives, setObjectives] = useState([]);
   const [removed, setRemoved] = useState(0)
   const [newDocId, setNewDocId] = useState();
+  
 
 
   return (
