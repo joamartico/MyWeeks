@@ -106,7 +106,6 @@ const useObjectives = (date, time) => {
         done: false,
         n: prevObjectives.length,
         order: objectives.length,
-        // NO SE POR QUE CUANDO LO DESCOMENTO NO FUNCIONA
         type: type || '',
         repeatValue: type ? 'never' : '',
       },
@@ -123,6 +122,8 @@ const useObjectives = (date, time) => {
       type: type || '',
       repeatValue: type ? 'never' : '',
     });
+
+    return newDoc.id;
   }
 
   return { objectives, setObjectives, repeatedObjectives, setRepeatedObjectives, addObjective };

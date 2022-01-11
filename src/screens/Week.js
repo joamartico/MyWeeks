@@ -13,6 +13,7 @@ import MainCard from '../components/MainCard';
 import useGlobalState from '../hooks/useGlobalState';
 import useNotes from '../hooks/useNotes';
 import useObjectives from '../hooks/useObjectives';
+import useGoogleCalendar from "../hooks/useGoogleCalendar";
 
 const nowDate = Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 
@@ -25,6 +26,8 @@ function getWeekDate() {
 const Week = () => {
   const [date, setDate] = useState(getWeekDate());
   const { repeatedObjectives } = useObjectives(date, 'weeks');
+  const {events} = useGoogleCalendar()
+  console.log("events: ", events)
 
   const ref = useRef();
 
@@ -53,6 +56,7 @@ const Week = () => {
           time="weeks"
         />
         <Body intoTabs ref={ref}>
+
           <MainCard
             repeatedObjectives={repeatedObjectives}
             date={date}

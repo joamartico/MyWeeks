@@ -1,10 +1,12 @@
 import { IonIcon } from '@ionic/react';
 import { addCircle } from 'ionicons/icons';
 import React, { useContext } from 'react';
+import useGoogleCalendar from "../hooks/useGoogleCalendar";
 import useObjectives from "../hooks/useObjectives";
 
-const AddButton = ({ type, time, date}) => {
+const AddButton = ({ type, time, date, dayDate}) => {
 const {addObjective} = useObjectives(date, time)
+const {createEvent} = useGoogleCalendar()
 
 
   //   // setTimeout(() => {
@@ -12,9 +14,14 @@ const {addObjective} = useObjectives(date, time)
   //   //   console.log('REF: ', ref.current);
   //   // }, 3000);
   // };
+
+  async function onClick() {
+    const newDocId = await addObjective(type)
+    time === "weeks" && createEvent(newDocId, dayDate)
+  }
   return (
     <IonIcon
-      onClick={() => addObjective(type)}
+      onClick={onClick}
       icon={addCircle}
       style={{
         fontSize: 36,

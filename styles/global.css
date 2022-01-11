@@ -1,3 +1,12 @@
+ion-item{
+  /* height: 100% !important; */
+}
+
+
+ion-segment::-webkit-scrollbar {
+  display: none;
+}
+
 /* 
 #__next {
   height: 100vh;
@@ -63,6 +72,7 @@ ion-list {
   max-width: 700px;
   margin-left: auto !important;
   margin-right: auto !important;
+  overflow-y: scroll !important;/*  SIEMPRE VALIDO?  */
 }
 
 a,

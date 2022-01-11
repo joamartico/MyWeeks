@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyledButton, Title, Subtitle, FullCard, Body } from '../components/styledComponents';
 import { authentication } from '../../firebase';
 import {
@@ -18,6 +18,7 @@ import {
 } from '@ionic/react';
 import styled from 'styled-components';
 import useCheck from '../hooks/useCheck';
+import useGoogleCalendar from '../hooks/useGoogleCalendar';
 
 const Profile = () => {
   function scrolltoBottom() {
@@ -28,6 +29,7 @@ const Profile = () => {
   const [feedbacktext, setFeedbacktext] = useState('');
   const [presentToast, dismissToast] = useIonToast();
   const [checked, setChecked] = useCheck();
+  const { signOut, signIn } = useGoogleCalendar();
 
   const displayName = authentication?.currentUser && authentication?.currentUser?.displayName;
   const email = authentication?.currentUser && authentication?.currentUser?.email;
@@ -59,68 +61,87 @@ const Profile = () => {
       );
   };
 
+  async function onToggle(e) {
+    setChecked(!checked);
+    const newCheckedVal = !checked;
+
+    if (newCheckedVal === true) {
+      signIn();
+    }
+
+    if (newCheckedVal === false) {
+      signOut();
+    }
+  }
+
   return (
     <IonPage>
       <Body>
         <FullCard className="ion-padding" intoTabs>
-          <Title size="big">Profile</Title>
+          <IonList>
+            <Title size="big">Profile</Title>
 
-          <IonItem>
-            <IonLabel>Account</IonLabel>
-            <IonText color="medium">{displayName}</IonText>
-          </IonItem>
+            <IonItem>
+              <IonLabel>Account</IonLabel>
+              <IonText color="medium">{displayName}</IonText>
+            </IonItem>
 
-          <Separator />
+            <Separator />
 
-          <IonItem>
-            <IonLabel>Email</IonLabel>
-            <IonText color="medium">{email}</IonText>
-          </IonItem>
+            <IonItem>
+              <IonLabel>Email</IonLabel>
+              <IonText color="medium">{email}</IonText>
+            </IonItem>
 
-          <Separator />
+            <Separator />
 
-          <IonItem>
-            <IonLabel>Daily Notifications</IonLabel>
-            <IonToggle
-              color="success"
-              checked={checked}
-              onIonInput={e => setChecked(e.target.checked)}
-            />
-          </IonItem>
-          <Separator />
+            <IonItem>
+              <IonLabel>Google Calendar</IonLabel>
+              <IonToggle
+                color="success"
+                checked={checked}
+                // onIonChange={onToggle}
+                onClick={onToggle}
+              />
+            </IonItem>
+            <Separator />
 
-          <IonItem lines="none" style={{ marginBottom: '-2%' }}>
-            <IonLabel>Send us Feedback</IonLabel>
-          </IonItem>
+            <IonItem lines="none" style={{ marginBottom: '-2%' }}>
+              <IonLabel>Send us Feedback</IonLabel>
+            </IonItem>
 
-          <IonItem lines="none">
-            <TextArea
-              onIonInput={e => setFeedbacktext(e.target.value)}
-              rows="5"
-              autocapitalize
-              position="floating"
-              onIonFocus={scrolltoBottom}
-              // placeholder="Tell us your ideas to improve the app"
-            />
-          </IonItem>
+            <IonItem lines="none">
+              <TextArea
+                onIonInput={e => setFeedbacktext(e.target.value)}
+                rows="5"
+                autocapitalize
+                position="floating"
+                onIonFocus={scrolltoBottom}
+                // placeholder="Tell us your ideas to improve the app"
+              />
+            </IonItem>
 
-          <IonItem lines="none">
-            <IonButton size="default" style={{ marginLeft: 'auto' }} onClick={() => sendEmail()}>
-              Send
-            </IonButton>
-          </IonItem>
+            <IonItem lines="none">
+              <IonButton size="default" style={{ marginLeft: 'auto' }} onClick={() => sendEmail()}>
+                Send
+              </IonButton>
+            </IonItem>
 
-          <Separator />
+            <Separator />
 
-          <StyledButton
-            outlined
-            red
-            onClick={() =>
-              authentication?.signOut().then(() => router.push('/onboarding', 'forward', 'pop'))
-            }
-          >
-            Log Out
-          </StyledButton>
+            <StyledButton
+              outlined
+              red
+              onClick={async () => {
+                // await gapi.client.setToken({ access_token: '' });
+                await signOut();
+                await setChecked(false);
+                authentication?.signOut().then(() => router.push('/onboarding', 'forward', 'pop'));
+              }}
+            >
+              Log Out
+            </StyledButton>
+          </IonList>
         </FullCard>
       </Body>
     </IonPage>

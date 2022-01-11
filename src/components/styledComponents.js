@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonIcon, IonInput, IonTextarea } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonInput, IonList, IonTextarea } from '@ionic/react';
 import styled from 'styled-components';
 import { COLORS } from "../../styles/theme";
 
@@ -87,7 +87,7 @@ export const StyledButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 99%;
   height: 55px;
   border-radius: 10px;
   border: 1px solid ${({ red }) => (red ? 'red' : COLORS.primary)};
@@ -156,3 +156,4 @@ export const InputText = styled(IonInput)`
   --padding-start: 0px !important;
   margin-bottom: 40px;
 `;
+

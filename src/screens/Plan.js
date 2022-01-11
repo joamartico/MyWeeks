@@ -12,7 +12,6 @@ import useNotes from '../hooks/useNotes';
 import useObjectives from '../hooks/useObjectives';
 
 function getActualDate() {
-  // if (selectedSegment === 'Ten Years' || selectedSegment === 'Five Years') return null;
   return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
 }
 
@@ -30,6 +29,7 @@ const Plan = () => {
   const [date, setDate] = useState(getActualDate());
   const { notes, setNotes } = useNotes(date, selectedSegment);
   useObjectives(date, selectedSegment);
+
 
   function getAllDocs(selectedSegment) {
     return db

@@ -73,7 +73,6 @@ const Header = styled(IonHeader)`
   height: ${({ withSegment }) => (withSegment ? '146px' : '73px')};
   border-bottom: 1px solid #6666;
   flex-direction: row;
-  /* background-color: #fff; */
   background: #fffc;
   backdrop-filter: blur(16px);
   z-index: 1000;
@@ -93,27 +92,3 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
 `;
-
-// const styles = StyleSheet.create({
-// 	header: {
-// 		position: "absolute",
-// 		left: 0,
-// 		right: 0,
-// 		top: 0,
-// 		borderBottomColor: "#6666",
-// 		borderBottomWidth: 1,
-// 		flexDirection: "row",
-// 		backgroundColor: "#fff",
-// 		zIndex: 1000,
-// 		justifyContent: "space-evenly",
-// 		alignItems: "center",
-// 		width: "100%",
-// 	},
-
-// 	title: {
-// 		fontSize: 24,
-// 		fontWeight: "bold",
-// 		color: COLORS.primary,
-// 		alignItems: "center",
-// 	},
-// });

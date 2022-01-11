@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
+import useGoogleCalendar from '../hooks/useGoogleCalendar';
 
 const Objective = ({
   isDone,
@@ -21,13 +22,9 @@ const Objective = ({
   n,
 }) => {
   const { objectives, setObjectives } = useContext(Context);
-
-  // const [objRef, setObjRef] = useState()
-  // const [repObjRef, setrepObjRef] = useState()
+  const { updateEvent } = useGoogleCalendar();
 
   // NECESITO QUE LA PROP repeatValue NO RE RENDERIZE EL COMPONENTE CUANDO CAMBIA
-
-  // date y dayDate deben ser las fechas del Lunes de cada semana
 
   function getDocName() {
     if (time == 'weeks') return weekDate.toString();
@@ -58,6 +55,14 @@ const Objective = ({
       .doc(id);
 
   const onChangeObjective = text => {
+    updateEvent({
+      id,
+      date: dayDate,
+      text,
+      repeatTime: repeatValue,
+      notifTime
+    });
+
     if (id) {
       if (actualWeekDate == undefined) {
         objectives.sort((a, b) => a.n - b.n);

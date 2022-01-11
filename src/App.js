@@ -19,6 +19,8 @@ import SignUp from './screens/SignUp';
 import Tabs from './screens/Tabs';
 
 const App = () => {
+
+
   const router = useIonRouter();
   const [initialRoute, setInitialRoute] = useState(undefined);
 

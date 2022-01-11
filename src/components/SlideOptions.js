@@ -10,6 +10,7 @@ import { notifications, repeat, trash } from 'ionicons/icons';
 import { useContext, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
+import useGoogleCalendar from '../hooks/useGoogleCalendar';
 
 const SlideOptions = ({
   id,
@@ -24,6 +25,7 @@ const SlideOptions = ({
   repObjRef,
 }) => {
   const { setRemoved, removed } = useContext(Context);
+  const { updateEvent } = useGoogleCalendar();
 
   function convertToUnix(month, day, year, time) {
     return (new Date(month + '/' + day + '/' + year + ' ' + time).getTime() / 1000).toFixed(0);
@@ -62,6 +64,13 @@ const SlideOptions = ({
 
   const onChangeRepeatTime = newRepeatValue => {
     var newRepeatTime = '';
+    updateEvent({
+      id,
+      date: dayDate,
+      text,
+      repeatTime: newRepeatValue,
+      notifTime
+    });
 
     if (newRepeatValue == 'never') {
       objRef &&
@@ -109,6 +118,17 @@ const SlideOptions = ({
   };
 
   const onChangeNotifTime = async newNotifTime => {
+
+    console.log("newNotifTime: ", newNotifTime);
+
+    updateEvent({
+      id,
+      date: dayDate,
+      text,
+      notifTime: newNotifTime,
+      repeatTime: repeatValue,
+    });
+
     await objRef.update({
       notifTime: newNotifTime,
     });
@@ -127,8 +147,8 @@ const SlideOptions = ({
   };
 
   return (
-    <IonItemOptions side="end"  >
-      {  (type != 'week' && time == 'weeks') && (
+    <IonItemOptions side="end">
+      {type != 'week' && time == 'weeks' && (
         <>
           <IonItemOption color="warning">
             {/* NOTIFY */}
@@ -188,4 +208,3 @@ const SlideOptions = ({
 };
 
 export default SlideOptions;
-

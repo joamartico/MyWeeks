@@ -2,6 +2,7 @@ import { IonList } from '@ionic/react';
 import React from 'react';
 import { Card, InputNotes, Subtitle } from '../components/styledComponents';
 import useGlobalState from '../hooks/useGlobalState';
+import useGoogleCalendar from "../hooks/useGoogleCalendar";
 import useNotes from '../hooks/useNotes';
 import AddButton from './AddButton';
 import Objective from './Objective';
@@ -9,6 +10,7 @@ import Objective from './Objective';
 const MainCard = ({ repeatedObjectives, date, type, time }) => {
   const { newDocId, objectives } = useGlobalState();
   const { notes, updateNotes } = useNotes(date, time);
+
 
   return (
     <Card>

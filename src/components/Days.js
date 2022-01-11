@@ -86,7 +86,7 @@ const Days = ({ repeatedObjectives, date, nowDate }) => {
               }
             })}
 
-          <AddButton time="weeks" type={day} date={date}/>
+          <AddButton time="weeks" type={day} date={date} dayDate={date.add({ days: index })} />
         </Card>
       ))}
     </>
