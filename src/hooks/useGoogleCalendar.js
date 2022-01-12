@@ -1,18 +1,8 @@
 import { useEffect, useState } from 'react';
 import { authentication, db } from '../../firebase';
+import useLocalStorage from './useLocalStorage';
 
 var gapi = window.gapi;
-
-async function isEnabled() {
-  const res = await db.collection('users').doc(authentication.currentUser.uid).get();
-  // .then(doc => {
-  //   return doc.data().dailyNotif;
-  // });
-
-  console.log('res: ', res.data().dailyNotif);
-
-  return res.data().dailyNotif;
-}
 
 function addOneHour(time) {
   const hour = time.split(':')[0];
@@ -40,18 +30,38 @@ function getTimeZone() {
 
 const useGoogleCalendar = () => {
   const [events, setEvents] = useState([]);
+  const [token, setToken] = useLocalStorage('access_token', null);
   //   const [access_token, setAccess_token] = useState();
 
-  function signIn() {
-    gapi.auth2.getAuthInstance().signIn();
+  async function isEnabled() {
+    const res = await db.collection('users').doc(authentication.currentUser.uid).get();
+    // .then(doc => {
+    //   return doc.data().dailyNotif;
+    // });
+
+    console.log('res: ', res.data().dailyNotif);
+
+    return res.data().dailyNotif;
   }
 
-  function createEvent(id, date) {
+  async function signIn() {
+    await gapi.auth2.getAuthInstance().signIn();
+    const new_access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+
+    setToken(new_access_token);
+  }
+
+  function signOut() {
+    gapi.auth2.getAuthInstance().signOut();
+    setToken(null);
+  }
+
+  async function createEvent(id, date) {
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
       .access_token;
 
-    if (!access_token) {
-      signIn();
+    if (!token) {
+      await signIn();
     }
     var timeZone = getTimeZone();
 
@@ -91,14 +101,14 @@ const useGoogleCalendar = () => {
     });
   }
 
-  function updateEvent({ id, date, text, repeatTime, notifTime }) {
+  async function updateEvent({ id, date, text, repeatTime, notifTime }) {
     console.log('repeatTime: ', repeatTime);
 
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
       .access_token;
 
-    if (!access_token) {
-      signIn();
+    if (!token) {
+      await signIn();
     }
 
     var timeZone = getTimeZone();
@@ -143,12 +153,12 @@ const useGoogleCalendar = () => {
     });
   }
 
-  function deleteEvent(id) {
+  async function deleteEvent(id) {
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
       .access_token;
 
-    if (!access_token) {
-      signIn();
+    if (!token) {
+      await signIn();
     }
 
     var request = gapi.client.calendar.events.delete({
@@ -172,10 +182,6 @@ const useGoogleCalendar = () => {
     return _events.result.items;
   }
 
-  function signOut() {
-    gapi.auth2.getAuthInstance().signOut();
-  }
-
   useEffect(() => {
     // var user = gapi.auth2.getAuthInstance().currentUser.get();
     gapi.load('client:auth2', async () => {
@@ -189,7 +195,11 @@ const useGoogleCalendar = () => {
       await gapi.client.load('calendar', 'v3');
 
       //   const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
-      //   console.log('access_token: ', access_token);
+      console.log('token: ', token);
+
+      if (token) {
+        await gapi.auth.setToken(token);
+      }
     });
     // getEvents();
   }, []);
