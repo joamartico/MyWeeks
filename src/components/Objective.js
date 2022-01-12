@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { InputObjective } from '../components/styledComponents';
 import { authentication, db } from '../../firebase';
-import { Context } from '../context/ContextComponent';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
 import useGoogleCalendar from '../hooks/useGoogleCalendar';
+import useGlobalState from "../hooks/useGlobalState";
 
 const Objective = ({
   isDone,
@@ -21,7 +21,7 @@ const Objective = ({
   notifTime,
   n,
 }) => {
-  const { objectives, setObjectives } = useContext(Context);
+  const { objectives, setObjectives } = useGlobalState();
   const { updateEvent, isEnabled } = useGoogleCalendar();
 
   // NECESITO QUE LA PROP repeatValue NO RE RENDERIZE EL COMPONENTE CUANDO CAMBIA
@@ -55,6 +55,7 @@ const Objective = ({
       .doc(id);
 
   const onChangeObjective = text => {
+    console.log("onChangeObjective notifTime: ", notifTime)
     isEnabled() && updateEvent({
       id,
       date: dayDate,
@@ -117,6 +118,7 @@ const Objective = ({
         actualWeekDate={actualWeekDate}
         notifTime={notifTime}
         repObjRef={repObjRef}
+        n={n}
       />
     </IonItemSliding>
   );

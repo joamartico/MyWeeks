@@ -120,6 +120,9 @@ export const StyledButton = styled.div`
 
 export const InputNotes = styled(IonTextarea).attrs(() => ({
   autocapitalize: true,
+  rows: 20,
+  autoGrow: true,
+  autoGrowing: true,
   // onIonFocus: scrollUp,
 }))`
   width: 100%;

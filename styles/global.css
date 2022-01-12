@@ -1,6 +1,5 @@
 
 
-
 ion-segment::-webkit-scrollbar {
   display: none;
 }
@@ -20,11 +19,23 @@ ion-item {
   background-color: var(--item-background-color) !important;
 }
 
+/* ion-item-option {
+  border: 1px solid green !important;
+  display: flex;
+
+} */
+
 ion-item-option ion-datetime,
 ion-item-option ion-select {
   position: absolute !important;
   color: transparent !important;
 }
+
+ion-item-option ion-select {
+  max-width: 30px !important;
+}
+
+
 
 ion-content > ion-header {
   background: none !important;
@@ -45,8 +56,6 @@ ion-page {
   --background: var(--background-color);
   color: var(--ion-text-color);
 }
-
-
 
 ion-spinner {
   display: flex !important;
@@ -70,7 +79,7 @@ ion-list {
   max-width: 700px;
   margin-left: auto !important;
   margin-right: auto !important;
-  overflow-y: scroll !important;/*  SIEMPRE VALIDO?  */
+  overflow-y: scroll !important; /*  SIEMPRE VALIDO?  */
 }
 
 a,

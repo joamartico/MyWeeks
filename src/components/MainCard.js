@@ -64,10 +64,10 @@ const MainCard = ({ repeatedObjectives, date, type, time }) => {
         value={notes}
         onIonInput={updateNotes}
         multiline={true}
-        rows={20}
+        // rows={20}
         placeholder={`Write your achievements, mistakes, learnings and thoughts of the ${type}`}
         // autoGrow={time == "weeks" ? false : true}
-        autoGrow
+        // autoGrow
       />
     </Card>
   );
