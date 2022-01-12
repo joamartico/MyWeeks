@@ -135,7 +135,7 @@ const Profile = () => {
               onClick={async () => {
                 // await gapi.client.setToken({ access_token: '' });
                 await signOut();
-                await setChecked(false);
+                // await setChecked(false);
                 authentication?.signOut().then(() => router.push('/onboarding', 'forward', 'pop'));
               }}
             >
