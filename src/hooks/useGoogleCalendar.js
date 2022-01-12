@@ -31,23 +31,19 @@ function getTimeZone() {
 const useGoogleCalendar = () => {
   const [events, setEvents] = useState([]);
   const [token, setToken] = useLocalStorage('access_token', null);
-  //   const [access_token, setAccess_token] = useState();
 
   async function isEnabled() {
     const res = await db.collection('users').doc(authentication.currentUser.uid).get();
-    // .then(doc => {
-    //   return doc.data().dailyNotif;
-    // });
 
-    console.log('res: ', res.data().dailyNotif);
+    const data = await res.data().dailyNotif;
 
-    return res.data().dailyNotif;
+    return data;
   }
 
   async function signIn() {
     await gapi.auth2.getAuthInstance().signIn();
     const new_access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
-
+    console.log('new_access_token', new_access_token);
     setToken(new_access_token);
   }
 
@@ -102,7 +98,7 @@ const useGoogleCalendar = () => {
   }
 
   async function updateEvent({ id, date, text, repeatTime, notifTime }) {
-    console.log('repeatTime: ', repeatTime);
+    console.log('token en updateEvent: ', token);
 
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
       .access_token;
@@ -182,27 +178,27 @@ const useGoogleCalendar = () => {
     return _events.result.items;
   }
 
-  useEffect(() => {
-    // var user = gapi.auth2.getAuthInstance().currentUser.get();
-    gapi.load('client:auth2', async () => {
-      await gapi.client.init({
-        apiKey: process.env.NEXT_PUBLIC_API_KEY,
-        clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-        scope: 'https://www.googleapis.com/auth/calendar.events',
-      });
+//   useEffect(() => {
+//     if (token) {
+//       gapi.auth?.setToken(token);
+//     }
 
-      await gapi.client.load('calendar', 'v3');
+//     // var user = gapi.auth2.getAuthInstance().currentUser.get();
+//     gapi.load('client:auth2', async () => {
+//       await gapi.client.init({
+//         apiKey: process.env.NEXT_PUBLIC_API_KEY,
+//         clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+//         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+//         scope: 'https://www.googleapis.com/auth/calendar.events',
+//       });
 
-      //   const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
-      console.log('token: ', token);
+//       gapi.client.load('calendar', 'v3');
 
-      if (token) {
-        await gapi.auth.setToken(token);
-      }
-    });
-    // getEvents();
-  }, []);
+//       //   const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+//       console.log('token: ', token);
+//     });
+//     // getEvents();
+//   }, [token]);
 
   return { events, signOut, signIn, createEvent, updateEvent, deleteEvent, isEnabled };
 };

@@ -6,7 +6,7 @@ import { COLORS } from '../../styles/theme';
 import { IonCheckbox, IonItem, IonItemSliding } from '@ionic/react';
 import SlideOptions from './SlideOptions';
 import useGoogleCalendar from '../hooks/useGoogleCalendar';
-import useGlobalState from "../hooks/useGlobalState";
+import useGlobalState from '../hooks/useGlobalState';
 
 const Objective = ({
   isDone,
@@ -55,14 +55,17 @@ const Objective = ({
       .doc(id);
 
   const onChangeObjective = text => {
-    console.log("onChangeObjective notifTime: ", notifTime)
-    isEnabled() && updateEvent({
-      id,
-      date: dayDate,
-      text,
-      repeatTime: repeatValue,
-      notifTime
-    });
+   
+    console.log("IS ENABLED", isEnabled().then( res => res ))
+
+    isEnabled().then( res => res && 
+      updateEvent({
+        id,
+        date: dayDate,
+        text,
+        repeatTime: repeatValue,
+        notifTime,
+      }))
 
     if (id) {
       if (actualWeekDate == undefined) {

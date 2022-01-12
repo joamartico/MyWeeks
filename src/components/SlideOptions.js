@@ -10,7 +10,7 @@ import { notifications, repeat, trash } from 'ionicons/icons';
 import { useContext, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
-import useGlobalState from "../hooks/useGlobalState";
+import useGlobalState from '../hooks/useGlobalState';
 import useGoogleCalendar from '../hooks/useGoogleCalendar';
 
 const SlideOptions = ({
@@ -24,11 +24,10 @@ const SlideOptions = ({
   repeatValue,
   notifTime,
   repObjRef,
-  n
+  n,
 }) => {
   const { updateEvent, isEnabled, deleteEvent } = useGoogleCalendar();
   const { objectives, setObjectives, setRemoved, removed } = useGlobalState();
-
 
   function convertToUnix(month, day, year, time) {
     return (new Date(month + '/' + day + '/' + year + ' ' + time).getTime() / 1000).toFixed(0);
@@ -55,7 +54,7 @@ const SlideOptions = ({
       .doc(id);
 
   const onRemoveObjective = () => {
-    isEnabled() && deleteEvent(id);
+    isEnabled().then( res => res && deleteEvent(id))
 
     if (actualWeekDate == undefined) {
       objRef.delete();
@@ -65,18 +64,18 @@ const SlideOptions = ({
       });
     }
     setRemoved(prevRemoved => prevRemoved + 1);
-
   };
 
   const onChangeRepeatTime = newRepeatValue => {
     var newRepeatTime = '';
-    isEnabled() && updateEvent({
-      id,
-      date: dayDate,
-      text,
-      repeatTime: newRepeatValue,
-      notifTime
-    });
+    isEnabled().then( res => res && 
+      updateEvent({
+        id,
+        date: dayDate,
+        text,
+        repeatTime: newRepeatValue,
+        notifTime,
+      }))
 
     if (newRepeatValue == 'never') {
       objRef &&
@@ -89,10 +88,9 @@ const SlideOptions = ({
       // setRemoved(removed + 1);
       setObjectives(prevObjectives => {
         const newObjectives = [...prevObjectives];
-        newObjectives[n].repeatValue = newRepeatValue;;
+        newObjectives[n].repeatValue = newRepeatValue;
         return newObjectives;
-      })
-
+      });
     } else {
       if (newRepeatValue == 'week') {
         newRepeatTime = type;
@@ -127,24 +125,24 @@ const SlideOptions = ({
         // setRemoved(prevRemoved => prevRemoved + 1);
         setObjectives(prevObjectives => {
           const newObjectives = [...prevObjectives];
-          newObjectives[n].repeatValue = newRepeatValue;;
+          newObjectives[n].repeatValue = newRepeatValue;
           return newObjectives;
-        })
+        });
       }
     }
   };
 
   const onChangeNotifTime = async newNotifTime => {
+    console.log('newNotifTime: ', newNotifTime);
 
-    console.log("newNotifTime: ", newNotifTime);
-
-    isEnabled() && updateEvent({
-      id,
-      date: dayDate,
-      text,
-      notifTime: newNotifTime,
-      repeatTime: repeatValue,
-    });
+    isEnabled().then( res => res &&
+      updateEvent({
+        id,
+        date: dayDate,
+        text,
+        notifTime: newNotifTime,
+        repeatTime: repeatValue,
+      }))
 
     await objRef.update({
       notifTime: newNotifTime,
@@ -152,14 +150,13 @@ const SlideOptions = ({
 
     // setRemoved(removed + 1);
     // actualizar el estado con el nuevo notifTime
-    console.log("objective n: ", n);
-    console.log("all objectives: ", objectives);
+    console.log('objective n: ', n);
+    console.log('all objectives: ', objectives);
     setObjectives(prevObjectives => {
       const newObjectives = [...prevObjectives];
       newObjectives[n].notifTime = newNotifTime;
       return newObjectives;
-    })
-
+    });
 
     const data = await {
       notifTime: convertToUnix(dayDate.month, dayDate.day, dayDate.year, newNotifTime),
@@ -172,8 +169,6 @@ const SlideOptions = ({
       method: 'POST',
       body: JSON.stringify(data),
     });
-    
-
   };
 
   return (

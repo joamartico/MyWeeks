@@ -17,9 +17,43 @@ import Onboarding from './screens/Onboarding';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import Tabs from './screens/Tabs';
+import useLocalStorage, { getLocalStorage } from './hooks/useLocalStorage';
+
+const gapi = window.gapi;
+
+// const new_token = getLocalStorage("access_token");
+
+// console.log("NEW_TOKEN: ", new_token);
+
+// if (new_token) {
+//   gapi?.auth?.setToken(new_token);
+// }
+
+console.log('app.js');
 
 const App = () => {
+  const [token] = useLocalStorage('access_token');
 
+  console.log('token en app: ', token);
+
+  useEffect(() => {
+    console.log('token: ', token);
+
+    if (token) {
+      gapi.auth?.setToken(token);
+    }
+
+    gapi.load('client:auth2', async () => {
+      await gapi.client.init({
+        apiKey: process.env.NEXT_PUBLIC_API_KEY,
+        clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+        scope: 'https://www.googleapis.com/auth/calendar.events',
+      });
+
+      gapi.client.load('calendar', 'v3');
+    });
+  }, []);
 
   const router = useIonRouter();
   const [initialRoute, setInitialRoute] = useState(undefined);
