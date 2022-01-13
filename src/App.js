@@ -34,9 +34,10 @@ console.log('app.js');
 const App = () => {
   const [token] = useLocalStorage('access_token');
 
-  console.log('token en app: ', token);
-
+  
   useEffect(() => {
+    alert('token en app: ' + token.access_token);
+
     console.log('token: ', token);
 
     if (token) {
