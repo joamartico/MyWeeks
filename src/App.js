@@ -34,31 +34,28 @@ console.log('app.js');
 const App = () => {
   const [token] = useLocalStorage('access_token');
 
-  
   useEffect(() => {
+    setTimeout(() => {
+      console.log('App.js');
 
+      gapi.load('client', async () => {
+        await gapi.client.init({
+          apiKey: process.env.NEXT_PUBLIC_API_KEY,
+          clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+          scope: 'https://www.googleapis.com/auth/calendar',
+        });
 
-    console.log('token: ', token);
-    alert("App.js")
+        await gapi.client.load('calendar', 'v3');
 
-    
-    gapi.load('client', async () => {
-      await gapi.client.init({
-        apiKey: process.env.NEXT_PUBLIC_API_KEY,
-        clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-        scope: 'https://www.googleapis.com/auth/calendar',
+        console.log('loaded');
+
+        // if (token) {
+        //   console.log("set token ", token);
+        //   gapi.auth.setToken(token);
+        // }
       });
-
-      await gapi.client.load('calendar', 'v3');
-
-      console.log("loaded");
-      
-      // if (token) {
-      //   console.log("set token ", token);
-      //   gapi.auth.setToken(token);
-      // }
-    });
+    }, 2000);
   }, [gapi]);
 
   const router = useIonRouter();
