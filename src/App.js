@@ -36,23 +36,25 @@ const App = () => {
 
   
   useEffect(() => {
-    alert('token en app: ' + token.access_token);
+
 
     console.log('token: ', token);
 
-    if (token) {
-      gapi.auth?.setToken(token);
-    }
-
-    gapi.load('client:auth2', async () => {
+    
+    gapi.load('client', async () => {
       await gapi.client.init({
         apiKey: process.env.NEXT_PUBLIC_API_KEY,
         clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-        scope: 'https://www.googleapis.com/auth/calendar.events',
+        scope: 'https://www.googleapis.com/auth/calendar',
       });
 
-      gapi.client.load('calendar', 'v3');
+      await gapi.client.load('calendar', 'v3');
+      
+      // if (token) {
+      //   console.log("set token ", token);
+      //   gapi.auth.setToken(token);
+      // }
     });
   }, []);
 
