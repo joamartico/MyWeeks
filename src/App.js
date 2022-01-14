@@ -19,7 +19,7 @@ import SignUp from './screens/SignUp';
 import Tabs from './screens/Tabs';
 import useLocalStorage, { getLocalStorage } from './hooks/useLocalStorage';
 
-const gapi = window.gapi;
+// const gapi = window.gapi;
 
 // const new_token = getLocalStorage("access_token");
 

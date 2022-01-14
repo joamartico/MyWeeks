@@ -20,6 +20,8 @@
     "capacitor-dark-mode": "^1.0.5",
     "firebase": "^7.9.0",
     "firebaseui": "^5.0.0",
+    "gapi": "0.0.3",
+    "gapi-script": "^1.2.0",
     "next": "^10.0.3",
     "next-compose-plugins": "^2.2.1",
     "next-offline": "^5.0.5",

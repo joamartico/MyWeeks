@@ -1,8 +1,11 @@
+
+import { gapi } from "gapi-script";
 import { useEffect, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import useLocalStorage from './useLocalStorage';
 
-var gapi = window.gapi;
+// var gapi = window.gapi;
+
 
 function addOneHour(time) {
   const hour = time.split(':')[0];
