@@ -39,6 +39,7 @@ const App = () => {
 
 
     console.log('token: ', token);
+    alert("App.js")
 
     
     gapi.load('client', async () => {
@@ -50,13 +51,15 @@ const App = () => {
       });
 
       await gapi.client.load('calendar', 'v3');
+
+      console.log("loaded");
       
       // if (token) {
       //   console.log("set token ", token);
       //   gapi.auth.setToken(token);
       // }
     });
-  }, []);
+  }, [gapi]);
 
   const router = useIonRouter();
   const [initialRoute, setInitialRoute] = useState(undefined);
