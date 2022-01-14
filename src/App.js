@@ -55,7 +55,7 @@ const App = () => {
         //   gapi.auth.setToken(token);
         // }
       });
-    }, 2000);
+    }, 5000);
   }, [gapi]);
 
   const router = useIonRouter();
