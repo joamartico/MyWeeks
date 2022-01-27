@@ -1,11 +1,9 @@
-
-import { gapi } from "gapi-script";
+import { gapi } from 'gapi-script';
 import { useEffect, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import useLocalStorage from './useLocalStorage';
 
 // var gapi = window.gapi;
-
 
 function addOneHour(time) {
   const hour = time.split(':')[0];
@@ -45,7 +43,7 @@ const useGoogleCalendar = () => {
 
   async function signIn() {
     await gapi.auth2.getAuthInstance().signIn();
-    const new_access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
+    const new_access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
     console.log('new_access_token', new_access_token);
     setToken(new_access_token);
   }
@@ -56,16 +54,13 @@ const useGoogleCalendar = () => {
   }
 
   async function createEvent(id, date) {
-    const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
-      .access_token;
+    const access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+    console.log('access_token', access_token);
 
     if (!token) {
       await signIn();
     }
     var timeZone = getTimeZone();
-
-    console.log('id: ', id);
-    console.log('id to base32: ', toBase32(id));
 
     var event = {
       id: toBase32(id),
@@ -181,29 +176,29 @@ const useGoogleCalendar = () => {
     return _events.result.items;
   }
 
-//   useEffect(() => {
-//     if (token) {
-//       gapi.auth?.setToken(token);
-//     }
+  //   useEffect(() => {
+  //     if (token) {
+  //       gapi.auth?.setToken(token);
+  //     }
 
-//     // var user = gapi.auth2.getAuthInstance().currentUser.get();
-//     gapi.load('client:auth2', async () => {
-//       await gapi.client.init({
-//         apiKey: process.env.NEXT_PUBLIC_API_KEY,
-//         clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-//         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-//         scope: 'https://www.googleapis.com/auth/calendar.events',
-//       });
+  //     // var user = gapi.auth2.getAuthInstance().currentUser.get();
+  //     gapi.load('client:auth2', async () => {
+  //       await gapi.client.init({
+  //         apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  //         clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+  //         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+  //         scope: 'https://www.googleapis.com/auth/calendar.events',
+  //       });
 
-//       gapi.client.load('calendar', 'v3');
+  //       gapi.client.load('calendar', 'v3');
 
-//       //   const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
-//       console.log('token: ', token);
-//     });
-//     // getEvents();
-//   }, [token]);
+  //       //   const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+  //       console.log('token: ', token);
+  //     });
+  //     // getEvents();
+  //   }, [token]);
 
-useEffect(() => {
+  useEffect(() => {
     console.log('App.js');
 
     gapi.load('client', async () => {
@@ -223,7 +218,7 @@ useEffect(() => {
       //   gapi.auth.setToken(token);
       // }
     });
-}, [token]);
+  }, [token]);
 
   return { events, signOut, signIn, createEvent, updateEvent, deleteEvent, isEnabled };
 };
