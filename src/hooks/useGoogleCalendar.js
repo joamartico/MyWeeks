@@ -66,7 +66,7 @@ const useGoogleCalendar = () => {
 
     if (true) {
       // await gapi.auth2.setToken(access_token);
-      await gapi.auth.setToken({access_token: access_token.access_token});
+      await gapi.auth.setToken({access_token: token.access_token});
       // await gapi.client.setToken(access_token);
       // await gapi.auth.setToken({access_token: token });
       // await gapi.client.setToken({access_token: token});
