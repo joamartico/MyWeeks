@@ -43,7 +43,7 @@ const useGoogleCalendar = () => {
 
   async function signIn() {
     await gapi.auth2.getAuthInstance().signIn();
-    const new_access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+    const new_access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
     console.log('new_access_token', new_access_token);
     setToken(new_access_token);
   }
@@ -66,8 +66,8 @@ const useGoogleCalendar = () => {
       // await gapi.auth2.setToken(access_token);
       // await gapi.auth.setToken(access_token);
       // await gapi.client.setToken(access_token);
-      await gapi.auth.setToken({access_token: access_token });
-      await gapi.client.setToken({access_token: access_token});
+      await gapi.auth.setToken({access_token: token });
+      await gapi.client.setToken({access_token: token});
 
       const new_access_token = await gapi.auth2
         .getAuthInstance()
