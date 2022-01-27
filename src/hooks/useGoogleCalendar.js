@@ -56,6 +56,7 @@ const useGoogleCalendar = () => {
   async function createEvent(id, date) {
     const access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
     console.log('access_token', access_token);
+    console.log('token', token);
 
     if (!token) {
       await signIn();
