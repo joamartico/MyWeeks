@@ -54,7 +54,7 @@ const useGoogleCalendar = () => {
   }
 
   async function createEvent(id, date) {
-    const access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+    const access_token = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
     console.log('access_token', access_token);
     console.log('token', token);
 
@@ -63,10 +63,12 @@ const useGoogleCalendar = () => {
     }
 
     if (true) {
-      await gapi.auth.setToken(access_token);
       // await gapi.auth2.setToken(access_token);
-      await gapi.client.setToken(access_token);
-      
+      // await gapi.auth.setToken(access_token);
+      // await gapi.client.setToken(access_token);
+      await gapi.auth.setToken({access_token: access_token });
+      await gapi.client.setToken({access_token: access_token});
+
       const new_access_token = await gapi.auth2
         .getAuthInstance()
         .currentUser.get()
@@ -212,7 +214,6 @@ const useGoogleCalendar = () => {
   //   }, [token]);
 
   useEffect(() => {
-    console.log('App.js');
 
     gapi.load('client', async () => {
       await gapi.client.init({
@@ -231,7 +232,7 @@ const useGoogleCalendar = () => {
       //   gapi.auth.setToken(token);
       // }
     });
-  }, [token]);
+  }, []);
 
   return { events, signOut, signIn, createEvent, updateEvent, deleteEvent, isEnabled };
 };

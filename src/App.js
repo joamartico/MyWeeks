@@ -29,10 +29,10 @@ import useLocalStorage, { getLocalStorage } from './hooks/useLocalStorage';
 //   gapi?.auth?.setToken(new_token);
 // }
 
-console.log('app.js');
+
 
 const App = () => {
-  const [token] = useLocalStorage('access_token');
+  // const [token] = useLocalStorage('access_token');
 
   // useEffect(() => {
   //   setTimeout(() => {
