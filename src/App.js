@@ -29,9 +29,34 @@ import useLocalStorage, { getLocalStorage } from './hooks/useLocalStorage';
 //   gapi?.auth?.setToken(new_token);
 // }
 
-
-
 const App = () => {
+  const [token, setToken] = useLocalStorage('access_token', null);
+
+  useEffect(() => {
+    gapi.load('client', async () => {
+      await gapi.client.init({
+        apiKey: process.env.NEXT_PUBLIC_API_KEY,
+        clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+        scope: 'https://www.googleapis.com/auth/calendar',
+      });
+
+      await gapi.client.load('calendar', 'v3');
+
+      console.log('loaded');
+
+      const access_token = await gapi.auth.getToken();
+
+      if (!access_token && token) {
+        gapi.auth.setToken(token);
+      }
+
+      // if (token) {
+      //   console.log("set token ", token);
+      //   gapi.auth.setToken(token);
+      // }
+    });
+  }, []);
   // const [token] = useLocalStorage('access_token');
 
   // useEffect(() => {
