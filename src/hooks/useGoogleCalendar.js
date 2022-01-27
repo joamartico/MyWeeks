@@ -76,6 +76,8 @@ const useGoogleCalendar = () => {
         .currentUser.get()
         .getAuthResponse();
       console.log('new_access_token', new_access_token);
+      const new_gapi_token = await gapi.auth.getToken();
+      console.log('new_gapi_token', new_gapi_token);
     }
     var timeZone = getTimeZone();
 
