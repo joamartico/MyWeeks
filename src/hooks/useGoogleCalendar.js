@@ -55,9 +55,9 @@ const useGoogleCalendar = () => {
 
   async function createEvent(id, date) {
 
-    if (!token) {
-      await signIn();
-    }
+    // if (!token) {
+    //   await signIn();
+    // }
 
     var timeZone = getTimeZone();
 
