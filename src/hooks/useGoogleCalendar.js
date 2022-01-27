@@ -61,6 +61,18 @@ const useGoogleCalendar = () => {
     if (!token) {
       await signIn();
     }
+
+    if (true) {
+      await gapi.auth.setToken(access_token);
+      // await gapi.auth2.setToken(access_token);
+      await gapi.client.setToken(access_token);
+      
+      const new_access_token = await gapi.auth2
+        .getAuthInstance()
+        .currentUser.get()
+        .getAuthResponse();
+      console.log('new_access_token', new_access_token);
+    }
     var timeZone = getTimeZone();
 
     var event = {
