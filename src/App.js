@@ -18,7 +18,7 @@ import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import Tabs from './screens/Tabs';
 import useLocalStorage, { getLocalStorage } from './hooks/useLocalStorage';
-
+import { gapi } from 'gapi-script';
 // const gapi = window.gapi;
 
 // const new_token = getLocalStorage("access_token");
@@ -45,7 +45,7 @@ const App = () => {
 
       console.log('loaded');
 
-      const access_token = await gapi.auth.getToken();
+      const access_token = await gapi?.auth?.getToken();
 
       if (!access_token && token) {
         gapi.auth.setToken(token);

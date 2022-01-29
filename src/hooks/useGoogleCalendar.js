@@ -54,7 +54,7 @@ const useGoogleCalendar = () => {
   }
 
   async function createEvent(id, date) {
-    const access_token = await gapi.auth.getToken()
+    const access_token = await gapi?.auth?.getToken()
 
     if (!token && !access_token) {
       await signIn();
@@ -96,7 +96,7 @@ const useGoogleCalendar = () => {
   }
 
   async function updateEvent({ id, date, text, repeatTime, notifTime }) {
-    const access_token = await gapi.auth.getToken()
+    const access_token = await gapi?.auth?.getToken()
 
     if (!token && !access_token) {
       await signIn();
@@ -145,7 +145,7 @@ const useGoogleCalendar = () => {
   }
 
   async function deleteEvent(id) {
-    const access_token = await gapi.auth.getToken()
+    const access_token = await gapi?.auth?.getToken()
 
     if (!token && !access_token) {
       await signIn();
