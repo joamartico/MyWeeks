@@ -50,7 +50,7 @@ const App = () => {
       if (!access_token && token) {
         setTimeout(() => {
           gapi.auth.setToken(token);
-          console.log('token setted');
+          console.log('token setted: ', token);
         }, 2000);
       }
 
