@@ -180,6 +180,7 @@ function MyApp({ Component, pageProps }) {
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
         />
         {/* <script src="https://apis.google.com/js/api.js" type="text/javascript"></script> */}
+        <script src="https://apis.google.com/js/client.js"></script>
       </Head>
       <Component {...pageProps} />
     </>

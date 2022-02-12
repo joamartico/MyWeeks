@@ -18,8 +18,8 @@ import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import Tabs from './screens/Tabs';
 import useLocalStorage, { getLocalStorage } from './hooks/useLocalStorage';
-import { gapi } from 'gapi-script';
-// const gapi = window.gapi;
+// import { gapi } from 'gapi-script';
+const gapi = window.gapi;
 
 // const new_token = getLocalStorage("access_token");
 

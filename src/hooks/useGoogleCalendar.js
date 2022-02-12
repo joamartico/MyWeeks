@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import useLocalStorage from './useLocalStorage';
-import { gapi } from 'gapi-script';
-// var gapi = window.gapi;
+// import { gapi } from 'gapi-script';
+var gapi = window.gapi;
+// import { gapi, loadAuth2, loadAuth2WithProps } from 'gapi-script';
+// const gapi =  loadGapiInsideDOM();
 
 function addOneHour(time) {
   const hour = time.split(':')[0];
@@ -41,10 +43,26 @@ const useGoogleCalendar = () => {
   }
 
   async function signIn() {
-    await gapi.auth2.getAuthInstance().signIn();
-    const new_access_token = await gapi.auth.getToken();
-    console.log('new_access_token', new_access_token);
-    setToken(new_access_token);
+    try {
+      console.log('signing in');
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(() => {
+          const new_access_token = gapi.auth.getToken();
+          console.log('new_access_token', new_access_token);
+          setToken(new_access_token);
+        });
+      // let auth2 = await loadAuth2WithProps(gapi, {
+      //   apiKey: process.env.NEXT_PUBLIC_API_KEY,
+      //   clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+      //   discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+      //   scope: 'https://www.googleapis.com/auth/calendar.events',
+      // });
+      // await auth2.signIn();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function signOut() {
@@ -54,8 +72,8 @@ const useGoogleCalendar = () => {
 
   async function createEvent(id, date) {
     const access_token = await gapi?.auth?.getToken();
-    console.log("access_token", access_token);
-    console.log("l.s. token ", token);
+    console.log('access_token', access_token);
+    console.log('l.s. token ', token);
 
     if (!token && !access_token) {
       await signIn();
