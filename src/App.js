@@ -48,7 +48,10 @@ const App = () => {
       const access_token = await gapi?.auth?.getToken();
 
       if (!access_token && token) {
-        gapi.auth.setToken(token);
+        setTimeout(() => {
+          gapi.auth.setToken(token);
+          console.log('token setted');
+        }, 2000);
       }
 
       // if (token) {
