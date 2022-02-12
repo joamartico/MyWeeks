@@ -1,8 +1,7 @@
-import { gapi } from 'gapi-script';
 import { useEffect, useState } from 'react';
 import { authentication, db } from '../../firebase';
 import useLocalStorage from './useLocalStorage';
-
+import { gapi } from 'gapi-script';
 // var gapi = window.gapi;
 
 function addOneHour(time) {
@@ -54,7 +53,7 @@ const useGoogleCalendar = () => {
   }
 
   async function createEvent(id, date) {
-    const access_token = await gapi?.auth?.getToken()
+    const access_token = await gapi?.auth?.getToken();
 
     if (!token && !access_token) {
       await signIn();
@@ -66,14 +65,10 @@ const useGoogleCalendar = () => {
       id: toBase32(id),
       summary: 'NUEVO',
       start: {
-        dateTime: `${date.toString()}T08:00:00`,
-        // dateTime: `${date.toString()}T00:00:00`,
-        timeZone,
+        date: date.toString(),
       },
       end: {
-        dateTime: `${date.toString()}T9:00:00`,
-        // dateTime: `${date.add({ days: 1 }).toString()}T00:00:00`,
-        timeZone,
+        date: date.add({ days: 1 }).toString(),
       },
       //   reminders: {
       //     useDefault: false,
@@ -96,7 +91,7 @@ const useGoogleCalendar = () => {
   }
 
   async function updateEvent({ id, date, text, repeatTime, notifTime }) {
-    const access_token = await gapi?.auth?.getToken()
+    const access_token = await gapi?.auth?.getToken();
 
     if (!token && !access_token) {
       await signIn();
@@ -106,20 +101,22 @@ const useGoogleCalendar = () => {
 
     var event = {
       summary: text,
-      start: {
-        dateTime: `${date.toString()}T${notifTime || '08:00'}:00`,
-        // dateTime: `${date.toString()}T${notifTime || '00:00'}:00`,
-        timeZone,
-      },
-      end: {
-        dateTime: notifTime
-          ? `${date.toString()}T${addOneHour(notifTime)}:00`
-          : `${date.toString()}T09:00:00`,
-        // dateTime: notifTime
-        //   ? `${date.toString()}T${notifTime}:01`
-        //   : `${date.add({ days: 1 }).toString()}T00:00:00`,
-        timeZone,
-      },
+      start: notifTime
+        ? {
+            dateTime: `${date.toString()}T${notifTime}:00`,
+            timeZone,
+          }
+        : {
+            date: date.toString(),
+          },
+      end: notifTime
+        ? {
+            dateTime: `${date.toString()}T${addOneHour(notifTime)}:00`,
+            timeZone,
+          }
+        : {
+            date: date.add({ days: 1 }).toString(),
+          },
       recurrence: repeatTime &&
         repeatTime !== 'never' && [
           repeatTime == '5 year'
@@ -145,7 +142,7 @@ const useGoogleCalendar = () => {
   }
 
   async function deleteEvent(id) {
-    const access_token = await gapi?.auth?.getToken()
+    const access_token = await gapi?.auth?.getToken();
 
     if (!token && !access_token) {
       await signIn();
@@ -193,8 +190,6 @@ const useGoogleCalendar = () => {
   //     });
   //     // getEvents();
   //   }, [token]);
-
-  
 
   return { events, signOut, signIn, createEvent, updateEvent, deleteEvent, isEnabled };
 };
