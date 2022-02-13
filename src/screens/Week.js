@@ -5,7 +5,7 @@ import WeekHeader from '../components/WeekHeader';
 
 import { Body } from '../components/styledComponents';
 
-import { Temporal } from 'proposal-temporal';
+import { Temporal  } from 'proposal-temporal';
 import { authentication, db } from '../../firebase';
 import { Context } from '../context/ContextComponent';
 import Days from '../components/Days';
@@ -15,15 +15,16 @@ import useNotes from '../hooks/useNotes';
 import useObjectives from '../hooks/useObjectives';
 import useGoogleCalendar from "../hooks/useGoogleCalendar";
 
-const nowDate = Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
-
-function getWeekDate() {
-  const daysAfterMonday = nowDate.dayOfWeek - 1;
-  const weekDate = nowDate.add({ days: -daysAfterMonday });
-  return weekDate;
-}
 
 const Week = () => {
+  const DATE = new Date()
+  const nowDate = new Temporal.PlainDate(DATE.getFullYear(), DATE.getMonth() + 1, DATE.getDate());
+  
+  function getWeekDate() {
+    const daysAfterMonday = nowDate.dayOfWeek - 1;
+    const weekDate = nowDate.add({ days: -daysAfterMonday });
+    return weekDate;
+  }
   const [date, setDate] = useState(getWeekDate());
   const { repeatedObjectives } = useObjectives(date, 'weeks');
   const {events} = useGoogleCalendar()
