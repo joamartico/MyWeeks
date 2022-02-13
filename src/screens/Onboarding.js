@@ -10,6 +10,7 @@ import {
 import PWAPrompt from 'react-ios-pwa-prompt';
 import { COLORS } from '../../styles/theme';
 import { IonPage, useIonRouter } from '@ionic/react';
+import styled from "styled-components";
 
 const Onboarding = () => {
   const router = useIonRouter();
@@ -44,11 +45,11 @@ const Onboarding = () => {
                 // background: "#f001"
               }}
             >
-              <Title size="giant">Welcome to {''} MyWeeks!</Title>
+              <MainTitle>Welcome to {''} MyWeeks !</MainTitle>
 
-              <Subtitle style={{ marginTop: '3vh', maxWidth: '500px' }}>
+              <MainSubtitle>
                 Your weekly schedule app to manage your time and achive your goals
-              </Subtitle>
+              </MainSubtitle>
             </div>
             {/* <div> */}
             {IsSafari() && (
@@ -89,3 +90,21 @@ const Onboarding = () => {
 };
 
 export default Onboarding;
+
+const MainTitle = styled.h1`
+  font-size:  7vh;
+  font-weight: bold;
+  color: ${COLORS.primary};
+  align-items: center;
+`;
+
+const MainSubtitle = styled.h2`
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  color: ${COLORS.primary};
+  margin-bottom: 5px;
+  margin-top: 3vh;
+  max-width: 500px;
+  font-weight: 500;
+`;

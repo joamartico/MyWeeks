@@ -62,7 +62,7 @@ export const FullCard = styled.div`
       : 'calc(100% - env(safe-area-inset-bottom))'};
 `;
 
-export const Title = styled.p`
+export const Title = styled.h2`
   font-size: ${({ size }) => {
     if (size === 'giant') return '7vh';
     if (size === 'big') return '5vh';
