@@ -12,7 +12,9 @@ import useNotes from '../hooks/useNotes';
 import useObjectives from '../hooks/useObjectives';
 
 function getActualDate() {
-  return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
+  // return Temporal.PlainDate.from(Temporal.now.zonedDateTimeISO());
+  const DATE = new Date()
+  return new Temporal.PlainDate(DATE.getFullYear(), DATE.getMonth() + 1, DATE.getDate());
 }
 
 function isBetween(actualYear, lapse) {
@@ -23,6 +25,8 @@ function isBetween(actualYear, lapse) {
   }
   return false;
 }
+
+
 
 const Plan = () => {
   const [selectedSegment, setSelectedSegment] = useState('Months');
