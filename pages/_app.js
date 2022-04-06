@@ -16,9 +16,12 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-
         {/* SEO  */}
         <title>MyWeeks App</title>
+        <meta
+          name="google-site-verification"
+          content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU"
+        />
         <meta
           name="google-site-verification"
           content="mP13VuAeytF9U8fdSUU_5nX6hpPMHQw2ftd_QvoXtok"
@@ -36,20 +39,17 @@ function MyApp({ Component, pageProps }) {
           name="keywords"
           content="myweeks,week,weeks,schedule,weekly schedule,app,calendario,calendario semanal,semana,semanas,goals,time,objetivos"
         />
-
         {/*  PWA  */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no"
         />
-
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="manifest" href="/manifest.json" />
         {/* <meta name="theme-color" content="#e0f6f6"></meta>  */}
         <meta name="theme-color" content="#66CFD5"></meta>
-
         {/* ICONS */}
         <link rel="icon" href="/rounded.png" />
         <link rel="apple-touch-icon" href="/full.png" />
