@@ -22,14 +22,14 @@ function MyApp({ Component, pageProps }) {
           name="google-site-verification"
           content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU"
         />
-        <meta
+        {/* <meta
           name="google-site-verification"
           content="mP13VuAeytF9U8fdSUU_5nX6hpPMHQw2ftd_QvoXtok"
-        />
+        /> GA */}
         {/* <meta
           name="google-site-verification"
           content="N3C7DKIHE3IvAQAtqutVImaYVoRCNceR8-ATxV30unQ"
-        /> */}
+        /> ML */} 
         <meta
           name="description"
           content="MyWeeks is a weekly schedule web app to manage your time and achieve your
