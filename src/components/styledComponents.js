@@ -1,18 +1,15 @@
 import { IonButton, IonContent, IonIcon, IonInput, IonList, IonTextarea } from '@ionic/react';
 import styled from 'styled-components';
-import { COLORS } from "../../styles/theme";
-
+import { COLORS } from '../../styles/theme';
 
 export const Icon = styled(IonIcon)`
   color: ${({ iconColor }) => (iconColor ? iconColor : COLORS.primary)};
   font-size: ${({ size }) => size + 'px'} !important;
-  margin-right: ${({ marginRight }) => marginRight  || '5px'};
-  margin-left: ${({ marginLeft }) => marginLeft  || '5px'};
+  margin-right: ${({ marginRight }) => marginRight || '5px'};
+  margin-left: ${({ marginLeft }) => marginLeft || '5px'};
   align-self: center;
   --ionicon-stroke-width: ${({ weight }) => (weight ? weight + 'px' : '30px')} !important;
 `;
-
-
 
 export const Body = styled(IonContent).attrs(props => ({
   fullscreen: true,
@@ -33,10 +30,12 @@ export const Padding = styled.div`
 
 export const Card = styled.div`
   background-color: #fff;
+  padding: 1px;
   padding-left: 4%;
   padding-right: 4%;
-  padding-top: 0.1%;
-  padding-bottom: 4%;
+  /* padding-top: 0.1%;
+  padding-bottom: 4%; */
+
   width: 92%;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -44,6 +43,10 @@ export const Card = styled.div`
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  height: ${({ height }) => height && height };
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 `;
 
 export const FullCard = styled.div`
@@ -159,4 +162,3 @@ export const InputText = styled(IonInput)`
   --padding-start: 0px !important;
   margin-bottom: 40px;
 `;
-

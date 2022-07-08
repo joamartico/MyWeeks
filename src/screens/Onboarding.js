@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Body,
   Title,
@@ -10,101 +10,221 @@ import {
 import PWAPrompt from 'react-ios-pwa-prompt';
 import { COLORS } from '../../styles/theme';
 import { IonPage, useIonRouter } from '@ionic/react';
-import styled from "styled-components";
+import styled from 'styled-components';
+import { useObserver } from '../hooks/useObserver';
+import OnboardingCard from '../components/OnboardingCard';
 
 const Onboarding = () => {
-  const router = useIonRouter();
   const [showPWAPrompt, setShowPWAPrompt] = useState(false);
 
-  function IsSafari() {
-    let userAgentString = navigator.userAgent;
+  const welcomeCardRef = useRef();
+  const weekCardRef = useRef();
+  const repeatCardRef = useRef();
+  const yearCardRef = useRef();
+  const finalCardRef = useRef();
 
-    // Detect Chrome
-    let chromeAgent = userAgentString.indexOf('Chrome') > -1;
-
-    // Detect Safari
-    let safariAgent = userAgentString.indexOf('Safari') > -1;
-
-    // Discard Safari since it also matches Chrome
-    if (chromeAgent && safariAgent) safariAgent = false;
-
-    return safariAgent;
-  }
+  const isInWelcomeCard = useObserver(welcomeCardRef);
+  const isInWeekCard = useObserver(weekCardRef);
+  const isInRepeatCard = useObserver(repeatCardRef);
+  const isInYearCard = useObserver(yearCardRef);
+  const isInFinalCard = useObserver(finalCardRef);
 
   return (
     <IonPage>
-      <Body>
-        <FullCard>
-          <Padding>
-            <div
-              style={{
-                // height: '80%',
-                // marginTop:"20%",
-                margin: 'auto',
-                // maxWidth: '550px',
-                // background: "#f001"
-              }}
-            >
-              <MainTitle>Welcome to {''} MyWeeks !</MainTitle>
+      {/* <Body> */}
+      <ScrollContainer>
+        <OnboardingCard
+          area={'welcome'}
+          reference={welcomeCardRef}
+          title={'Welcome to MyWeeks!'}
+          subtitle={'Your weekly schedule app to manage your time and achive your goals'}
+        />
 
-              <MainSubtitle>
-                Your weekly schedule app to manage your time and achive your goals
-              </MainSubtitle>
-            </div>
-            {/* <div> */}
-            {IsSafari() && (
-              <StyledButton
-                style={{
-                  marginTop: 'auto',
-                }}
-                outlined
-                onClick={() => setShowPWAPrompt(true)}
-              >
-                Install App
-              </StyledButton>
-            )}
-            <StyledButton
-              style={{ marginTop: '10px', marginBottom: '10px' }}
-              onClick={() => router.push('/signin', 'forward', 'push')}
-            >
-              Get Started!
-            </StyledButton>
-            {/* </div> */}
-          </Padding>
-        </FullCard>
+        <OnboardingCard
+          area={'week'}
+          reference={weekCardRef}
+          img="/onboarding-1.png"
+          description="Set weekly tasks and notes"
+        />
 
-        {showPWAPrompt && (
-          <PWAPrompt
-            debug={true}
-            delay={5}
-            onClose={() =>
-              setTimeout(function () {
-                setShowPWAPrompt(false);
-              }, 300)
-            }
+        <OnboardingCard
+          area={'repeat'}
+          reference={repeatCardRef}
+          img="/onboarding-2.png"
+          description={'Create a day event and repeat it weekly, monthly or yearly'}
+        />
+
+        <OnboardingCard
+          area={'year'}
+          reference={yearCardRef}
+          img="/onboarding-3.png"
+          description={'Set goals for the coming months, years, and decades'}
+        />
+        <OnboardingCard
+          area={'final'}
+          reference={finalCardRef}
+          title={'Ready to get started?'}
+          subtitle="Start today to manage your time to achieve productive weeks and reach your goals
+          "
+          buttons={true}
+          setShowPWAPrompt={setShowPWAPrompt}
+        />
+      </ScrollContainer>
+
+      {showPWAPrompt && (
+        <PWAPrompt
+          debug={true}
+          delay={5}
+          onClose={() =>
+            setTimeout(function () {
+              setShowPWAPrompt(false);
+            }, 300)
+          }
+        />
+      )}
+      {/* </Body> */}
+
+      <BottomRow>
+        <Dots>
+          <Dot
+            active={isInWelcomeCard}
+            onClick={() => {
+              welcomeCardRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }}
           />
+          <Dot
+            active={isInWeekCard}
+            onClick={() => {
+              weekCardRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }}
+          />
+          <Dot
+            active={isInRepeatCard}
+            onClick={() => {
+              repeatCardRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }}
+          />
+          <Dot
+            active={isInYearCard}
+            onClick={() => {
+              yearCardRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }}
+          />
+          <Dot
+            active={isInFinalCard}
+            onClick={() => {
+              finalCardRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }}
+          />
+        </Dots>
+
+        {!isInFinalCard && (
+          <Button
+            onClick={() => {
+              if (isInWelcomeCard) {
+                weekCardRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                });
+              } else if (isInWeekCard) {
+                repeatCardRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                });
+              } else if (isInRepeatCard) {
+                yearCardRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                });
+              } else if (isInYearCard) {
+                finalCardRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                });
+              }
+            }}
+          >
+            NEXT
+          </Button>
         )}
-      </Body>
+      </BottomRow>
     </IonPage>
   );
 };
 
 export default Onboarding;
 
-const MainTitle = styled.h1`
-  font-size:  7vh;
-  font-weight: bold;
-  color: ${COLORS.primary};
+const ScrollContainer = styled.div`
+  overflow-y: hidden;
+  overflow-x: auto;
+  height: 100%;
+  width: 100vw;
+  /* border-radius: 12px; */
+  scroll-snap-type: x mandatory;
+  display: grid;
+  grid-template-areas: 'welcome week repeat year final';
+  grid-template-columns: 100vw 100vw;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const BottomRow = styled.div`
+  width: 92vw;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 3vh;
+  max-width: 700px;
+  margin: auto;
+  align-self: center;
   align-items: center;
 `;
 
-const MainSubtitle = styled.h2`
-  font-size: 20px;
+const Button = styled.div`
+  right: 0;
+  width: 80px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  cursor: pointer;
+`;
+
+const Dots = styled.div`
+  justify-content: center;
   display: flex;
   align-items: center;
-  color: ${COLORS.primary};
-  margin-bottom: 5px;
-  margin-top: 3vh;
-  max-width: 500px;
-  font-weight: 500;
+`;
+
+const Dot = styled.div`
+  border-radius: 50%;
+  background: ${({ active }) => (active ? '#00a8ff' : '#d5d5d5')};
+  height: ${({ active }) => (active ? 20 : 14)}px;
+  width: ${({ active }) => (active ? 20 : 14)}px;
+  margin: ${({ active }) => (active ? '0px 5px' : '0px 7px')};
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+  &:hover {
+    background: #00a8ff;
+  }
 `;
