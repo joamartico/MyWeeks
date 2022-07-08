@@ -5,7 +5,6 @@ import { Icon, Title } from '../components/styledComponents';
 import { IonHeader, IonIcon } from '@ionic/react';
 import { chevronBack, chevronForward } from 'ionicons/icons';
 
-
 const months = [
   'January',
   'February',
@@ -36,7 +35,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
 
       <Wrapper>
         <LinkDiv onClick={onClickPrevious}>
-          <Icon icon={chevronBack} size={35} iconColor={COLORS.bg}  />
+          <Icon icon={chevronBack} size={35} iconColor={COLORS.bg} />
         </LinkDiv>
 
         <Title>
@@ -51,7 +50,7 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
         </Title>
 
         <LinkDiv onClick={onClickNext}>
-          <Icon icon={chevronForward} size={35} iconColor={COLORS.bg}  />
+          <Icon icon={chevronForward} size={35} iconColor={COLORS.bg} />
         </LinkDiv>
       </Wrapper>
     </Header>
@@ -61,12 +60,12 @@ const WeekHeader = ({ children, date, onClickNext, onClickPrevious, time, withSe
 export default WeekHeader;
 
 const LinkDiv = styled.div`
-    /* background: red; */
-    height: 100%;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
+  /* background: red; */
+  height: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Header = styled(IonHeader)`
@@ -86,7 +85,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   height: 70px;
   width: 100%;
-  max-width: 700px;
+  max-width: 560px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

@@ -35,16 +35,8 @@ const OnboardingCard = ({
   return (
     <ScrollArea area={area}>
       <Card ref={reference}>
-        <Padding>
-          <div
-            style={{
-              // height: '80%',
-              // marginTop:"20%",
-              margin: 'auto',
-              // maxWidth: '550px',
-              // background: "#f001"
-            }}
-          >
+        <Container>
+          <div style={{margin: "auto"}}>
             {title && <MainTitle>{title}</MainTitle>}
             {subtitle && <MainSubtitle> {subtitle}</MainSubtitle>}
 
@@ -73,7 +65,7 @@ const OnboardingCard = ({
               </StyledButton>
             </>
           )}
-        </Padding>
+        </Container>
       </Card>
     </ScrollArea>
   );
@@ -83,9 +75,20 @@ export default OnboardingCard;
 
 const ScrollArea = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   scroll-snap-align: start;
   grid-area: ${({ area }) => area};
+`;
+
+const Container = styled.div`
+    width: 85%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 `;
 
 const Card = styled.div`
@@ -93,14 +96,14 @@ const Card = styled.div`
   border-radius: 15px;
   margin: auto;
   width: 94vw;
-  max-width: 700px;
+  max-width: 560px;
   box-shadow: 0 7px 5px ${() => '#0004'};
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: space-around;
-  height: 80vh;
-  margin-top: 2vh;
+  height: 82%;
+  margin-top: 2%;
 `;
 
 const MainTitle = styled.h1`
@@ -110,7 +113,7 @@ const MainTitle = styled.h1`
   align-items: center;
 `;
 
-const MainSubtitle = styled.p`
+const MainSubtitle = styled.h2`
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -123,7 +126,7 @@ const MainSubtitle = styled.p`
   line-height: 1.6;
 `;
 
-const Description = styled.p`
+const Description = styled.h2`
   font-size: 20px;
   display: flex;
   align-items: center;

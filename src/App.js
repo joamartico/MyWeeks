@@ -33,7 +33,7 @@ const App = () => {
   const [token, setToken] = useLocalStorage('access_token', null);
 
   useEffect(() => {
-    gapi.load('client', async () => {
+    gapi?.load('client', async () => {
       await gapi.client.init({
         apiKey: process.env.NEXT_PUBLIC_API_KEY,
         clientId: process.env.NEXT_PUBLIC_CLIENT_ID,

@@ -35,15 +35,15 @@ export const Card = styled.div`
   padding-right: 4%;
   /* padding-top: 0.1%;
   padding-bottom: 4%; */
-
+  min-height: 9.5vw;
   width: 92%;
   border-radius: 15px;
   margin-bottom: 20px;
   box-shadow: 0 7px 5px ${() => '#0004'};
-  max-width: 700px;
+  max-width: 560px;
   margin-left: auto;
   margin-right: auto;
-  height: ${({ height }) => height && height };
+  height: ${({ height }) => height && height};
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -53,7 +53,7 @@ export const FullCard = styled.div`
   background-color: #fff;
   border-radius: 15px;
   margin: auto;
-  max-width: 700px;
+  max-width: 560px;
   box-shadow: 0 7px 5px ${() => '#0004'};
   display: flex;
   flex: 1;

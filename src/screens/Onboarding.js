@@ -36,7 +36,7 @@ const Onboarding = () => {
         <OnboardingCard
           area={'welcome'}
           reference={welcomeCardRef}
-          title={'Welcome to MyWeeks!'}
+          title={'Welcome to MyWeeks !'}
           subtitle={'Your weekly schedule app to manage your time and achive your goals'}
         />
 
@@ -172,7 +172,7 @@ export default Onboarding;
 const ScrollContainer = styled.div`
   overflow-y: hidden;
   overflow-x: auto;
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   /* border-radius: 12px; */
   scroll-snap-type: x mandatory;
@@ -192,8 +192,8 @@ const BottomRow = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 3vh;
-  max-width: 700px;
+  bottom: 5%;
+  max-width: 560px;
   margin: auto;
   align-self: center;
   align-items: center;
